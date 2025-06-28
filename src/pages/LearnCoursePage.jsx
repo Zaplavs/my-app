@@ -14,7 +14,7 @@ export default function LearnCoursePage() {
       <div className="bg-black text-white min-h-screen flex items-center justify-center p-6">
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">Курс не найден</h2>
-          <Link to="/courses" className="text-yellow-400 underline">← Вернуться к списку курсов</Link>
+          <Link to="/" className="text-yellow-400 underline">← Вернуться к списку курсов</Link>
         </div>
       </div>
     );
@@ -23,7 +23,7 @@ export default function LearnCoursePage() {
   return (
     <div className="bg-black text-white min-h-screen py-8 px-4">
       <div className="container mx-auto max-w-3xl">
-        <Link to="/courses" className="text-yellow-400 text-sm mb-4 inline-block">← К списку курсов</Link>
+        <Link to="/" className="text-yellow-400 text-sm mb-4 inline-block">← К списку курсов</Link>
         <h1 className="text-3xl font-bold mb-6 text-yellow-400">{course.title}</h1>
 
         <p className="mb-8 text-gray-300">{course.description}</p>
@@ -45,7 +45,7 @@ export default function LearnCoursePage() {
 
         <div className="mt-8 text-center">
           <Link
-            to="/courses"
+            to="/"
             className="inline-block bg-red-700 hover:bg-red-600 text-white px-6 py-2 rounded uppercase font-semibold transition"
           >
             Завершить курс
