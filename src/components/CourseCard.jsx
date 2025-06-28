@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export default function CourseCard({ title, description, level, slug }) {
   return (
     <Link
-      to={`/course/${slug}`}
+      to={`/course/${slug}/learn`}
       className="block bg-gray-800 border border-red-700 rounded overflow-hidden shadow-md hover:shadow-xl transition-shadow"
     >
       <img src="https://placehold.co/400x200?text=Курс" alt={title} className="w-full h-40 object-cover" />
