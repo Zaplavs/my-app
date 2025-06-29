@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { courseLessons } from '../data/courses/index'; // Обновленный путь к courseLessons
+import { courseLessons } from '../data/courses/index';
+
 
 export default function LessonPage() {
   const { slug, lessonId } = useParams();
@@ -11,10 +12,8 @@ export default function LessonPage() {
   useEffect(() => {
     async function loadLesson() {
       try {
-        const lessonLoader = courseLessons[slug]?.[lessonId]; // Теперь используем courseLessons вместо coursesData
-        if (!lessonLoader) {
-          throw new Error('Урок не найден');
-        }
+        const lessonLoader = courseLessons[slug]?.[lessonId];
+        if (!lessonLoader) throw new Error('Урок не найден');
 
         const module = await lessonLoader();
         setLesson(module.default);
@@ -45,7 +44,26 @@ export default function LessonPage() {
         <h1 className="text-3xl font-bold mb-6 text-yellow-400">{lesson.title}</h1>
 
         <div className="bg-gray-800 border border-red-700 rounded p-6 shadow-md mb-6">
-          <div dangerouslySetInnerHTML={{ __html: lesson.content }} />
+          {lesson.contentBlocks.map((block, index) => {
+            if (block.type === 'text') {
+              return (
+                <div
+                  key={index}
+                  dangerouslySetInnerHTML={{ __html: block.text }}
+                />
+              );
+            }
+
+            if (block.type === 'code') {
+              return (
+                <pre key={index} className="bg-gray-900 p-3 rounded text-sm text-yellow-300 mb-4 overflow-x-auto">
+                  <code>{block.code}</code>
+                </pre>
+              );
+            }
+
+            return null;
+          })}
         </div>
 
         <div className="bg-gray-800 border border-red-700 rounded p-6 shadow-md mb-6">
@@ -75,7 +93,6 @@ export default function LessonPage() {
               ← Предыдущий
             </a>
           )}
-          {/* Динамическое ограничение на количество уроков в курсе */}
           {parseInt(lessonId) < Object.keys(courseLessons[slug]).length && (
             <a
               href={`/course/${slug}/learn/${parseInt(lessonId) + 1}`}
