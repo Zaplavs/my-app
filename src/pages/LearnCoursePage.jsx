@@ -7,8 +7,7 @@ import { coursesData } from '../data/courses'; // Импорт данных о �
 export default function LearnCoursePage() {
   const { slug } = useParams();
   const course = coursesData[slug]; // Получаем данные для текущего курса по slug
-  console.info(slug)
-  console.info(course)
+
   if (!course) {
     return (
       <div className="bg-black text-white min-h-screen flex items-center justify-center p-6">
@@ -34,7 +33,7 @@ export default function LearnCoursePage() {
               <h2 className="text-xl font-bold mb-1">{lesson.title}</h2>
               <p className="mb-4 text-gray-300">{lesson.content}</p>
               <Link
-                to={`/lesson/${lesson.id}`}
+                to={`/course/${slug}/learn/${lesson.id}`} // ✅ обновлённая ссылка
                 className="inline-block bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded transition"
               >
                 Открыть урок
