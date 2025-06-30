@@ -24,6 +24,21 @@ export const courseLessons = {
   css: {
     1: () => import('./css/lesson1.js'),
     2: () => import('./css/lesson2.js'),
-    3: () => import('./css/lesson3.js')
+    3: () => import('./css/lesson3.js'),
+    4: () => import('./css/lesson4.js'),
+    5: () => import('./css/lesson5.js'),
+    6: () => import('./css/lesson6.js'),
+    7: () => import('./css/lesson7.js'),
+    8: () => import('./css/lesson8.js'),
+    9: () => import('./css/lesson9.js'),
+    10: () => import('./css/lesson10.js'),
+    11: () => import('./css/lesson11.js'),
+    12: () => import('./css/lesson12.js'),
+    13: () => import('./css/lesson13.js'),
+    14: () => import('./css/lesson14.js'),
+    15: () => import('./css/lesson15.js'),
+    16: () => import('./css/lesson16.js'),
+    17: () => import('./css/lesson17.js'),
+    18: () => import('./css/lesson18.js'),
   }
 };
