@@ -5,6 +5,7 @@ export default function CoursesSection() {
     { id: 1, title: "HTML", description: "Основы создания сайтов для пролетариата.", level: "Начальный", slug: "html" },
     { id: 2, title: "CSS", description: "Изучи язык для динамических интерфейсов.", level: "Средний", slug: "css" },
     { id: 3, title: "GITHUB", description: "Фронтенд-революция начинается здесь.", level: "Продвинутый", slug: "github" },
+    { id: 4, title: "MARKDOWN", description: "Научиь делать красивые README.md", level: "Продвинутый", slug: "markdown" },
   ];
 
   return (
