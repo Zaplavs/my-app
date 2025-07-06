@@ -39,6 +39,13 @@ export default function LessonPage() {
   return (
     <div className="bg-black text-white min-h-screen py-10 px-6">
       <div className="container mx-auto max-w-3xl">
+        {/* Ссылка на помощь в верхней части */}
+        <div className="mb-8 text-right">
+          <a href="/help" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:underline text-sm">
+            Нужна помощь?
+          </a>
+        </div>
+
         <a href={`/course/${slug}/learn`} className="text-yellow-400 text-base mb-6 inline-block">← К плану курса</a>
         <h1 className="text-4xl font-bold mb-8 text-yellow-400">{lesson.title}</h1>
 
@@ -101,6 +108,16 @@ export default function LessonPage() {
               Следующий →
             </a>
           )}
+        </div>
+
+        {/* Альтернативная кнопка помощи внизу */}
+        <div className="mt-12 text-center">
+          <a
+            href="/help"
+            className="inline-block bg-red-800 hover:bg-red-700 text-white px-6 py-3 rounded text-lg transition"
+          >
+            Требуется помощь?
+          </a>
         </div>
       </div>
     </div>

@@ -7,7 +7,8 @@ import App from './App';
 import LearnCoursePage from './pages/LearnCoursePage';
 import LessonPage from './pages/LessonPage';
 import CourseCollectionPage from './pages/CourseCollectionPage';
-import './index.css'
+import HelpPage from './pages/HelpPage'; // Новая страница помощи
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,7 +18,8 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="/course/:slug/learn" element={<LearnCoursePage />} />
         <Route path="/course/:slug/learn/:lessonId" element={<LessonPage />} />
-         <Route path="/courses/:id" element={<CourseCollectionPage />} />
+        <Route path="/courses/:id" element={<CourseCollectionPage />} />
+        <Route path="/help" element={<HelpPage />} /> {/* Страница помощи */}
       </Routes>
     </Router>
   </React.StrictMode>
