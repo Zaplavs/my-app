@@ -8,22 +8,22 @@ const courseData = {
     title: 'Python',
     courses: [
       {
-        name: 'Automate the Boring Stuff',
-        link: 'https://automatetheboringstuff.com/ ',
-        description: 'Научитесь автоматизировать повседневные задачи с помощью Python.',
-        image: 'https://automatetheboringstuff.com/images/cover-automate3.webp '
+        name: '"Поколение Python": курс для начинающих',
+        link: 'https://stepik.org/course/58852/syllabus ',
+        description: '"Поколение Python: курс для начинающих" знакомит с основными типами данных, конструкциями и принципами структурного программирования языка Python.',
+        image: 'https://cdn.stepik.net/media/cache/images/courses/58852/cover_ZP5DuRM/4951fdb332a542d0a2fe70692976e557.png'
       },
       {
-        name: 'RealPython Tutorials',
-        link: 'https://realpython.com/ ',
-        description: 'Практические уроки и статьи для всех уровней программистов на Python.',
-        image: 'https://res.cloudinary.com/real-python/image/upload/f_auto/q_auto/v1704986920/practical-python-projects-2nd-edition/RP_closeup_Logo_vertical '
+        name: '"Поколение Python": курс для продвинутых',
+        link: 'https://stepik.org/course/68343/promo',
+        description: 'Курс знакомит с такими возможностями языка Python, как двумерные массивы, кортежи, множества, словари и многое другое.',
+        image: 'https://cdn.stepik.net/media/cache/images/courses/68343/cover_xAgB0QZ/e1ec4a8a7903731d611952d63b4b782f.png'
       },
       {
-        name: 'Python для начинающих',
-        link: 'https://example.com/python-beginner ',
-        description: 'Базовый курс по Python для тех, кто только начинает свой путь.',
-        image: 'https://placehold.co/300x200?text=Python+Beginner'
+        name: 'Инди-курс программирования на Python',
+        link: 'https://stepik.org/course/63085/syllabus',
+        description: 'Добро пожаловать на «Инди-курс программирования на Python» — курс, который стал выбором тысяч учеников и продолжает развиваться вместе с миром python!',
+        image: 'https://cdn.stepik.net/media/cache/images/courses/63085/cover_eig1Jqm/1e06c59e71b23ef2294f0bfea1a6e118.jpg'
       }
     ]
   },
@@ -31,22 +31,22 @@ const courseData = {
     title: 'SQL',
     courses: [
       {
-        name: 'SQLZoo',
-        link: ' https://sqlzoo.net/ ',
-        description: 'Интерактивное обучение SQL с практическими примерами и заданиями.',
-        image: 'https://sqlzoo.net/logo.gif '
+        name: 'Интерактивный тренажёр по SQL',
+        link: 'https://stepik.org/course/63054/info',
+        description: 'В курсе большинство шагов — это практические задания на создание SQL-запросов.',
+        image: 'https://cdn.stepik.net/media/cache/images/courses/63054/cover_foIuz1t/6bc976a3abd69e9e3e5163a5973a8ccf.jpg'
       },
       {
-        name: 'Mode SQL Tutorial',
-        link: 'https://mode.com/sql-tutorial/ ',
-        description: 'Обучение SQL через реальные данные и аналитические задачи.',
-        image: 'https://placehold.co/300x200?text=Mode+SQL'
+        name: 'SQLtest.online',
+        link: 'https://sqltest.online/',
+        description: 'Бесплатный онлайн-тренажёр для практики SQL-запросов прямо в браузере. ',
+        image: 'https://habrastorage.org/r/w780/getpro/habr/upload_files/6a5/2f3/b75/6a52f3b7557ce14f79c4ba784406dbc8.png'
       },
       {
-        name: 'Khan Academy - Intro to SQL',
-        link: ' https://www.khanacademy.org/computing/computer-programming/sql ',
-        description: 'Введение в SQL от Khan Academy. Отлично подходит для новичков.',
-        image: 'https://placehold.co/300x200?text=Khan+SQL'
+        name: 'SQL Tutorial, SQLZoo',
+        link: 'https://sqlzoo.net/wiki/SQL_Tutorial',
+        description: 'Бесплатный ресурс с интерактивными уроками и практическими задачами. ',
+        image: 'https://sqlzoo.net/static/malones.svg'
       }
     ]
   },
@@ -61,7 +61,7 @@ const courseData = {
       },
       {
         name: 'freeCodeCamp JavaScript',
-        link: 'https://www.freecodecamp.org/javascript-algorithms-and-data-structures ',
+        link: 'https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/',
         description: 'Бесплатные курсы и практика алгоритмов на JavaScript.',
         image: 'https://placehold.co/300x200?text=fcc+JS'
       },
@@ -84,14 +84,14 @@ const courseData = {
       },
       {
         name: 'freeCodeCamp React',
-        link: 'https://www.freecodecamp.org/news/learn-react-js-in-1-hour-cmd-school/ ',
+        link: 'https://www.freecodecamp.org/learn/front-end-development-libraries/#sass:~:text=9%20challenges%20completed-,React,-React%20is%20a',
         description: 'Курс за час: всё самое важное о React для начинающих.',
         image: 'https://placehold.co/300x200?text=fcc+React'
       },
       {
-        name: 'React for Beginners by Wes Bos',
-        link: ' https://reactforbeginners.com/ ',
-        description: 'Видео-курс для начинающих разработчиков на React.',
+        name: 'React Tutorial w3schools',
+        link: 'https://www.w3schools.com/REACT/DEFAULT.ASP',
+        description: 'курс для начинающих разработчиков на React.',
         image: 'https://placehold.co/300x200?text=Wes+Bos'
       }
     ]
@@ -106,16 +106,16 @@ const courseData = {
         image: 'https://storage.googleapis.com/kaggle-datasite/images/Kaggle_Logo_2022.png '
       },
       {
-        name: 'Coursera Data Science Specialization',
-        link: 'https://www.coursera.org/specializations/jhu-data-science ',
-        description: 'Специализация от Университета Джона Хопкинса.',
-        image: 'https://placehold.co/300x200?text=Coursera+DS'
+        name: 'Введение в Data Science и машинное обучение',
+        link: 'https://stepik.org/course/4852/info',
+        description: 'Познакомимся с такими методами машинного обучения как деревья решений и нейронные сети.',
+        image: 'https://cdn.stepik.net/media/cache/images/courses/4852/cover_R0OtNuB/e51489363d079b8830367935563887e8.jpg'
       },
       {
-        name: 'Towards Data Science',
-        link: ' https://towardsdatascience.com/ ',
-        description: 'Статьи, туториалы и исследования от сообщества дата-сайентистов.',
-        image: 'https://miro.medium.com/max/640/1 *KHjWkqffFjZIsGWiEScv3w.png'
+        name: 'Нейронные сети',
+        link: 'https://stepik.org/course/401/promo',
+        description: 'В рамках данного курса слушатели познакомятся с теоретическими и практическими основами искусственных нейронных сетей.',
+        image: ''
       }
     ]
   },
@@ -123,22 +123,16 @@ const courseData = {
     title: 'DevOps',
     courses: [
       {
-        name: 'AWS DevOps Engineer Path',
-        link: 'https://aws.amazon.com/training/path-devops-engineer/ ',
-        description: 'Путь обучения для инженера DevOps на платформе AWS.',
-        image: 'https://placehold.co/300x200?text=AWS+DevOps'
+        name: 'курс от канала «Из сисадмина в DevOps»',
+        link: 'https://www.youtube.com/playlist?list=PLQoP6S9f51EZM0-WqAWAAkwAB28gnWkTb',
+        description: 'Изучение основного стека',
+        image: ''
       },
       {
-        name: 'The DevOps Handbook',
-        link: ' https://itrevolution.com/book/the-devops-handbook/ ',
-        description: 'Классическая книга по принципам и практикам DevOps.',
-        image: 'https://itrevolution.com/wp-content/uploads/2020/05/dh-cover.png '
-      },
-      {
-        name: 'freeCodeCamp CI/CD with GitHub Actions',
-        link: 'https://www.freecodecamp.org/news/ci-cd-pipeline-github-actions/ ',
-        description: 'Руководство по созданию pipeline с использованием GitHub Actions.',
-        image: 'https://placehold.co/300x200?text=fcc+CI_CD'
+        name: 'курсы от канала «Cisco Ne Slabo / Sedicomm TV»',
+        link: 'https://www.youtube.com/playlist?list=PLMiVLClzZDbSQTrwRHSeGR6H7vcsv7WuS',
+        description: 'Изучение основного стека',
+        image: ''
       }
     ]
   }
