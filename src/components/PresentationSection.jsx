@@ -1,3 +1,5 @@
+import presentationVideo from '../../public/videos/Hello_1_V.mp4';
+
 export default function PresentationSection() {
   return (
     <section className="bg-black text-red-600 py-16 px-4">
@@ -7,14 +9,15 @@ export default function PresentationSection() {
           Бесплатные знания для пролетариата.
         </p>
 
-        <div className="aspect-w-16 aspect-h-9 max-w-4xl mx-auto bg-gray-900 rounded-lg overflow-hidden shadow-2xl border-4 border-red-700">
-          {/* Замените VIDEO_ID на ваш ID видео из ВК */}
-          <iframe
-            className="w-full h-[500px] border-none"
-            src="https://vk.com/video_ext.php?oid=VIDEIO_ID&id=VIDEO_ID&hash=HASH&hd=2"
-            title="Презентация платформы"
-            allowFullScreen
-          ></iframe>
+        <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg shadow-2xl border-4 border-red-700 max-w-4xl mx-auto">
+          <video
+            className="absolute top-0 left-0 w-full h-full object-cover bg-black"
+            controls
+            // poster={require('../assets/preview.jpg')} // опционально
+          >
+            <source src={presentationVideo} type="video/mp4" />
+            Ваш браузер не поддерживает воспроизведение видео.
+          </video>
         </div>
 
         <p className="mt-10 italic text-red-500 text-lg">
