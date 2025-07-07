@@ -1,4 +1,4 @@
-import presentationVideo from '../../public/videos/Hello_1_V.mp4';
+import presentationVideo from '/videos/Hello_1_V.mp4';
 
 export default function PresentationSection() {
   return (
