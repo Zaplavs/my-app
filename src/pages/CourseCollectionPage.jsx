@@ -1,5 +1,3 @@
-// src/pages/CourseCollectionPage.jsx
-
 import { useParams } from 'react-router-dom';
 import React from 'react';
 
@@ -11,19 +9,19 @@ const courseData = {
         name: '"Поколение Python": курс для начинающих',
         link: 'https://stepik.org/course/58852/syllabus ',
         description: '"Поколение Python: курс для начинающих" знакомит с основными типами данных, конструкциями и принципами структурного программирования языка Python.',
-        image: 'https://cdn.stepik.net/media/cache/images/courses/58852/cover_ZP5DuRM/4951fdb332a542d0a2fe70692976e557.png'
+        image: 'https://cdn.stepik.net/media/cache/images/courses/58852/cover_ZP5DuRM/4951fdb332a542d0a2fe70692976e557.png '
       },
       {
         name: '"Поколение Python": курс для продвинутых',
-        link: 'https://stepik.org/course/68343/promo',
+        link: 'https://stepik.org/course/68343/promo ',
         description: 'Курс знакомит с такими возможностями языка Python, как двумерные массивы, кортежи, множества, словари и многое другое.',
-        image: 'https://cdn.stepik.net/media/cache/images/courses/68343/cover_xAgB0QZ/e1ec4a8a7903731d611952d63b4b782f.png'
+        image: 'https://cdn.stepik.net/media/cache/images/courses/68343/cover_xAgB0QZ/e1ec4a8a7903731d611952d63b4b782f.png '
       },
       {
         name: 'Инди-курс программирования на Python',
-        link: 'https://stepik.org/course/63085/syllabus',
+        link: 'https://stepik.org/course/63085/syllabus ',
         description: 'Добро пожаловать на «Инди-курс программирования на Python» — курс, который стал выбором тысяч учеников и продолжает развиваться вместе с миром python!',
-        image: 'https://cdn.stepik.net/media/cache/images/courses/63085/cover_eig1Jqm/1e06c59e71b23ef2294f0bfea1a6e118.jpg'
+        image: 'https://cdn.stepik.net/media/cache/images/courses/63085/cover_eig1Jqm/1e06c59e71b23ef2294f0bfea1a6e118.jpg '
       }
     ]
   },
@@ -32,21 +30,21 @@ const courseData = {
     courses: [
       {
         name: 'Интерактивный тренажёр по SQL',
-        link: 'https://stepik.org/course/63054/info',
+        link: 'https://stepik.org/course/63054/info ',
         description: 'В курсе большинство шагов — это практические задания на создание SQL-запросов.',
-        image: 'https://cdn.stepik.net/media/cache/images/courses/63054/cover_foIuz1t/6bc976a3abd69e9e3e5163a5973a8ccf.jpg'
+        image: 'https://cdn.stepik.net/media/cache/images/courses/63054/cover_foIuz1t/6bc976a3abd69e9e3e5163a5973a8ccf.jpg '
       },
       {
         name: 'SQLtest.online',
-        link: 'https://sqltest.online/',
-        description: 'Бесплатный онлайн-тренажёр для практики SQL-запросов прямо в браузере. ',
-        image: 'https://habrastorage.org/r/w780/getpro/habr/upload_files/6a5/2f3/b75/6a52f3b7557ce14f79c4ba784406dbc8.png'
+        link: 'https://sqltest.online/ ',
+        description: 'Бесплатный онлайн-тренажёр для практики SQL-запросов прямо в браузере.',
+        image: 'https://habrastorage.org/r/w780/getpro/habr/upload_files/6a5/2f3/b75/6a52f3b7557ce14f79c4ba784406dbc8.png '
       },
       {
         name: 'SQL Tutorial, SQLZoo',
-        link: 'https://sqlzoo.net/wiki/SQL_Tutorial',
-        description: 'Бесплатный ресурс с интерактивными уроками и практическими задачами. ',
-        image: 'https://sqlzoo.net/static/malones.svg'
+        link: 'https://sqlzoo.net/wiki/SQL_Tutorial ',
+        description: 'Бесплатный ресурс с интерактивными уроками и практическими задачами.',
+        image: 'https://sqlzoo.net/static/malones.svg '
       }
     ]
   },
@@ -55,13 +53,13 @@ const courseData = {
     courses: [
       {
         name: 'JavaScript.info',
-        link: ' https://javascript.info/ ',
+        link: 'https://javascript.info/ ',
         description: 'Современный учебник по JavaScript от основ до продвинутых тем.',
         image: 'https://javascript.info/img/site-logo.svg '
       },
       {
         name: 'freeCodeCamp JavaScript',
-        link: 'https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/',
+        link: 'https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/ ',
         description: 'Бесплатные курсы и практика алгоритмов на JavaScript.',
         image: 'https://placehold.co/300x200?text=fcc+JS'
       },
@@ -86,11 +84,11 @@ const courseData = {
         name: 'freeCodeCamp React',
         link: 'https://www.freecodecamp.org/learn/front-end-development-libraries/#sass:~:text=9%20challenges%20completed-,React,-React%20is%20a',
         description: 'Курс за час: всё самое важное о React для начинающих.',
-        image: 'https://placehold.co/300x200?text=fcc+React'
+        image: ' https://placehold.co/300x200?text=fcc+React'
       },
       {
         name: 'React Tutorial w3schools',
-        link: 'https://www.w3schools.com/REACT/DEFAULT.ASP',
+        link: ' https://www.w3schools.com/REACT/DEFAULT.ASP ',
         description: 'курс для начинающих разработчиков на React.',
         image: 'https://placehold.co/300x200?text=Wes+Bos'
       }
@@ -107,13 +105,13 @@ const courseData = {
       },
       {
         name: 'Введение в Data Science и машинное обучение',
-        link: 'https://stepik.org/course/4852/info',
+        link: 'https://stepik.org/course/4852/info ',
         description: 'Познакомимся с такими методами машинного обучения как деревья решений и нейронные сети.',
-        image: 'https://cdn.stepik.net/media/cache/images/courses/4852/cover_R0OtNuB/e51489363d079b8830367935563887e8.jpg'
+        image: 'https://cdn.stepik.net/media/cache/images/courses/4852/cover_R0OtNuB/e51489363d079b8830367935563887e8.jpg '
       },
       {
         name: 'Нейронные сети',
-        link: 'https://stepik.org/course/401/promo',
+        link: 'https://stepik.org/course/401/promo ',
         description: 'В рамках данного курса слушатели познакомятся с теоретическими и практическими основами искусственных нейронных сетей.',
         image: ''
       }
@@ -130,7 +128,7 @@ const courseData = {
       },
       {
         name: 'курсы от канала «Cisco Ne Slabo / Sedicomm TV»',
-        link: 'https://www.youtube.com/playlist?list=PLMiVLClzZDbSQTrwRHSeGR6H7vcsv7WuS',
+        link: ' https://www.youtube.com/playlist?list=PLMiVLClzZDbSQTrwRHSeGR6H7vcsv7WuS',
         description: 'Изучение основного стека',
         image: ''
       }
@@ -187,6 +185,22 @@ export default function CourseCollectionPage() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Рекламный блок Яндекс.РТБ */}
+        <div className="my-12">
+          {/* Yandex.RTB R-A-16179039-1 */}
+          <div id="yandex_rtb_R-A-16179039-1"></div>
+          <script>
+            {`
+              window.yaContextCb.push(() => {
+                Ya.Context.AdvManager.render({
+                  "blockId": "R-A-16179039-1",
+                  "renderTo": "yandex_rtb_R-A-16179039-1"
+                })
+              })
+            `}
+          </script>
         </div>
 
         <div className="mt-12 text-center">
