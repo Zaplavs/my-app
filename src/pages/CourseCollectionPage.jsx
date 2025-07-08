@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const courseData = {
   1: {
@@ -15,16 +15,6 @@ const courseData = {
         name: '"Поколение Python": курс для продвинутых',
         link: 'https://stepik.org/course/68343/promo ',
         description: 'Курс знакомит с такими возможностями языка Python, как двумерные массивы, кортежи, множества, словари и многое другое.',
-        extendedDescription: `
-          Курс адресован начинающим программистам, знающим базовые алгоритмические конструкции. Является логическим продолжением курса "Поколение Python: курс для начинающих".
-          Целевая аудитория – школьники, студенты и взрослые люди, заинтересованные в изучении программирования; педагоги школ, вузов и кружков, преподающие программирование на языке Python.
-          Курс содержит теорию в формате текстовых конспектов, а также более 700 задач. В конце каждого модуля приводится дополнительный материал для самостоятельного изучения: литература, ссылки на полезные статьи и документацию языка Python, ссылки на исходный код и многое другое.
-          Курс "Поколение Python: курс для продвинутых" уже завоевал доверие начинающих и опытных программистов:
-          Средняя оценка курса составляет 5.0 на основании более 5 тысяч отзывов.
-          Курс используют преподаватели программирования школ и вузов, в том числе ВШЭ, СПбГУ, МАИ, МИРЭА, Алферовский университет.
-          Наш курс проходят студенты по всему миру: от Северной Америки до Австралии.
-          Присоединяйтесь к официальному телеграм-каналу "Поколение Python". Там публикуются задачи, полезные материалы по языку Python, а также проводятся конкурсы и розыгрыши для программистов.
-        `,
         image: 'https://cdn.stepik.net/media/cache/images/courses/68343/cover_xAgB0QZ/e1ec4a8a7903731d611952d63b4b782f.png '
       },
       {
@@ -99,7 +89,7 @@ const courseData = {
       {
         name: 'React Tutorial w3schools',
         link: ' https://www.w3schools.com/REACT/DEFAULT.ASP ',
-        description: 'Курс для начинающих разработчиков на React.',
+        description: 'курс для начинающих разработчиков на React.',
         image: 'https://placehold.co/300x200?text=Wes+Bos'
       }
     ]
@@ -150,46 +140,6 @@ export default function CourseCollectionPage() {
   const { id } = useParams();
   const collection = courseData[id];
 
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [expandedIndex, setExpandedIndex] = useState(null);
-
-  useEffect(() => {
-    if (!collection) return;
-
-    const images = collection.courses
-      .filter(course => course.image)
-      .map(course => course.image);
-
-    if (images.length === 0) {
-      setImagesLoaded(true);
-      return;
-    }
-
-    let loadedCount = 0;
-
-    const handleImageLoad = () => {
-      loadedCount += 1;
-      if (loadedCount === images.length) {
-        setImagesLoaded(true);
-      }
-    };
-
-    const imageElements = images.map(src => {
-      const img = new Image();
-      img.src = src;
-      img.onload = handleImageLoad;
-      img.onerror = handleImageLoad;
-      return img;
-    });
-
-    return () => {
-      imageElements.forEach(img => {
-        img.onload = null;
-        img.onerror = null;
-      });
-    };
-  }, [collection]);
-
   if (!collection) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black text-white p-6">
@@ -199,17 +149,6 @@ export default function CourseCollectionPage() {
           <a href="/#collections" className="mt-4 inline-block text-red-400 hover:text-red-300 underline">
             Назад к подборкам
           </a>
-        </div>
-      </div>
-    );
-  }
-
-  if (!imagesLoaded) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-white">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-red-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-          <p className="mt-4">Загрузка курсов...</p>
         </div>
       </div>
     );
@@ -226,31 +165,14 @@ export default function CourseCollectionPage() {
               key={index}
               className="bg-red-950 border border-red-800 rounded-lg overflow-hidden shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
             >
-              {course.image && (
-                <img
-                  src={course.image}
-                  alt={course.name}
-                  className="w-full h-40 object-cover"
-                />
-              )}
+              <img
+                src={course.image}
+                alt={course.name}
+                className="w-full h-40 object-cover"
+              />
               <div className="p-6 bg-black">
                 <h3 className="text-xl font-bold mb-2">{course.name}</h3>
                 <p className="text-gray-300 mb-4 text-sm">{course.description}</p>
-
-                {/* Расширенное описание только для продвинутого курса Python */}
-                {course.extendedDescription && (
-                  <details
-                    className="text-gray-400 text-xs mb-4 cursor-pointer"
-                    open={expandedIndex === index}
-                    onClick={() =>
-                      setExpandedIndex(expandedIndex === index ? null : index)
-                    }
-                  >
-                    <summary>Подробнее</summary>
-                    <p className="mt-2 whitespace-pre-line">{course.extendedDescription.trim()}</p>
-                  </details>
-                )}
-
                 <a
                   href={course.link}
                   target="_blank"
@@ -267,6 +189,7 @@ export default function CourseCollectionPage() {
 
         {/* Рекламный блок Яндекс.РТБ */}
         <div className="my-12">
+          {/* Yandex.RTB R-A-16179039-1 */}
           <div id="yandex_rtb_R-A-16179039-1"></div>
           <script>
             {`
