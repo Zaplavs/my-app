@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const courseData = {
   1: {
@@ -154,6 +154,30 @@ export default function CourseCollectionPage() {
     );
   }
 
+  // Используем useEffect для корректной инициализации рекламного блока
+  useEffect(() => {
+    // Создаем глобальный контейнер, если его нет
+    window.yaContextCb = window.yaContextCb || [];
+
+    // Добавляем обработчик в очередь
+    window.yaContextCb.push(() => {
+      if (typeof Ya === 'undefined' || !Ya.Context || !Ya.Context.AdvManager) {
+        console.warn('Яндекс.РТБ не загружен');
+        return;
+      }
+
+      Ya.Context.AdvManager.render({
+        blockId: "R-A-16179039-1",
+        renderTo: "yandex_rtb_R-A-16179039-1"
+      });
+    });
+
+    // Очистка при размонтировании
+    return () => {
+      window.yaContextCb = [];
+    };
+  }, []);
+
   return (
     <section className="min-h-screen bg-black text-white py-12 px-4">
       <div className="max-w-7xl mx-auto">
@@ -189,18 +213,7 @@ export default function CourseCollectionPage() {
 
         {/* Рекламный блок Яндекс.РТБ */}
         <div className="my-12">
-          {/* Yandex.RTB R-A-16179039-1 */}
           <div id="yandex_rtb_R-A-16179039-1"></div>
-          <script>
-            {`
-              window.yaContextCb.push(() => {
-                Ya.Context.AdvManager.render({
-                  "blockId": "R-A-16179039-1",
-                  "renderTo": "yandex_rtb_R-A-16179039-1"
-                })
-              })
-            `}
-          </script>
         </div>
 
         <div className="mt-12 text-center">
