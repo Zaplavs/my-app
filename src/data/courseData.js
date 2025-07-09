@@ -21,7 +21,13 @@ const courseData = {
         link: 'https://stepik.org/course/63085/syllabus ',
         description: 'Добро пожаловать на «Инди-курс программирования на Python» — курс, который стал выбором тысяч учеников и продолжает развиваться вместе с миром python!',
         image: 'https://cdn.stepik.net/media/cache/images/courses/63085/cover_eig1Jqm/1e06c59e71b23ef2294f0bfea1a6e118.jpg '
-      }
+      },
+      {
+        name: 'Добрый, добрый Python',
+        link: 'https://stepik.org/course/100707/promo?search=7321262565',
+        description: 'Этот курс позволит вам изучить основы программирования на языке Python, начиная с самых азов и заканчивая довольно серьезными конструкциями',
+        image: 'https://cdn.stepik.net/media/cache/images/courses/100707/cover_K4JOB7c/6c361261be53b501e6ba814dcc659222.png'
+      },
     ]
   },
   2: {
