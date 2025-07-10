@@ -6,7 +6,8 @@ import LearnCoursePage from './pages/LearnCoursePage';
 import LessonPage from './pages/LessonPage';
 import CourseCollectionPage from './pages/CourseCollectionPage';
 import HelpPage from './pages/HelpPage';
-import InterviewQuestionsPage from './pages/InterviewQuestionsPage'; // Единая страница вопросов
+import InterviewQuestionsPage from './pages/InterviewQuestionsPage';
+import QuizPage from './pages/QuizPage'; // Импорт нового компонента
 
 import './index.css';
 
@@ -16,13 +17,18 @@ root.render(
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
+
+        {/* Курсы */}
         <Route path="/course/:slug/learn" element={<LearnCoursePage />} />
         <Route path="/course/:slug/learn/:lessonId" element={<LessonPage />} />
         <Route path="/courses/:id" element={<CourseCollectionPage />} />
-        <Route path="/help" element={<HelpPage />} />
 
-        {/* Динамическая страница собеседований */}
+        {/* Помощь и собеседования */}
+        <Route path="/help" element={<HelpPage />} />
         <Route path="/interview/:language" element={<InterviewQuestionsPage />} />
+
+        {/* Викторина */}
+        <Route path="/quiz/:language" element={<QuizPage />} />
       </Routes>
     </Router>
   </React.StrictMode>
