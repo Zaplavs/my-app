@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Header() {
@@ -9,7 +10,8 @@ export default function Header() {
         <nav className="space-x-6 hidden md:flex text-sm uppercase tracking-widest">
           <a href="#features" className="hover:text-gray-300 transition">Особенности</a>
           <a href="#courses" className="hover:text-gray-300 transition">Курсы</a>
-          <a href="#collections" className="hover:text-gray-300 transition">Бесплатные курсы</a> {/* Новая ссылка */}
+          <a href="#collections" className="hover:text-gray-300 transition">Бесплатные курсы</a>
+          <a href="#interview" className="hover:text-gray-300 transition">Вопросы с собеседований</a>
           <a href="#testimonials" className="hover:text-gray-300 transition">Отзывы</a>
         </nav>
 
