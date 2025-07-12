@@ -7,7 +7,8 @@ import LessonPage from './pages/LessonPage';
 import CourseCollectionPage from './pages/CourseCollectionPage';
 import HelpPage from './pages/HelpPage';
 import InterviewQuestionsPage from './pages/InterviewQuestionsPage';
-import QuizPage from './pages/QuizPage'; // Импорт нового компонента
+import QuizPage from './pages/QuizPage'; // Уже есть
+import CodeChallengePage from './pages/CodeChallengePage'; // Новая страница
 
 import './index.css';
 
@@ -29,6 +30,9 @@ root.render(
 
         {/* Викторина */}
         <Route path="/quiz/:language" element={<QuizPage />} />
+
+        {/* Code Challenge */}
+        <Route path="/code-challenge/:language" element={<CodeChallengePage />} />
       </Routes>
     </Router>
   </React.StrictMode>

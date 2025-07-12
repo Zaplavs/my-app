@@ -9,7 +9,8 @@ import CoursesSection from './components/CoursesSection';
 import CourseCollectionsSection from './components/CourseCollectionsSection';
 import TestimonialsSection from './components/TestimonialsSection';
 import InterviewQuestionsSection from './components/InterviewQuestionsSection';
-import QuizSection from './components/QuizSection'; // Новая секция
+import QuizSection from './components/QuizSection';
+import CodeChallengeSection from './components/CodeChallengeSection'; // Новая секция
 import Footer from './components/Footer';
 
 export default function App() {
@@ -22,7 +23,8 @@ export default function App() {
       <CoursesSection />
       <CourseCollectionsSection />
       <InterviewQuestionsSection />
-      <QuizSection /> {/* Викторина */}
+      <QuizSection />
+      <CodeChallengeSection /> {/* Новая секция */}
       <TestimonialsSection />
       <Footer />
     </>

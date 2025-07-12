@@ -13,6 +13,7 @@ export default function Header() {
           <a href="#collections" className="hover:text-gray-300 transition">Бесплатные курсы</a>
           <a href="#interview" className="hover:text-gray-300 transition">Вопросы с собеседований</a>
           <a href="#quiz" className="hover:text-gray-300 transition">Викторина</a>
+          <a href="#code-challenge" className="hover:text-gray-300 transition">Code Challenge</a>
           <a href="#testimonials" className="hover:text-gray-300 transition">Отзывы</a>
         </nav>
 
