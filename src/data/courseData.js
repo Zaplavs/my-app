@@ -149,6 +149,18 @@ const courseData = {
         image: ''
       },
     ]
+  },
+  
+  8: {
+    title: 'C++',
+    courses: [
+      {
+        name: 'Основы программирования на C++',
+        link: 'https://stepik.org/course/182643/promo',
+        description: 'Этот курс - ваш идеальный старт в программировании и/или освоении языка C++. Вы изучите основы алгоритмов, работу с массивами, текстом, функциям и файлами.',
+        image: 'https://cdn.stepik.net/media/cache/images/courses/182643/cover_JJ2OSCE/d89acd14c32f6cbeb300def319c088da.png'
+      },
+    ]
   }
 };
 

@@ -47,6 +47,12 @@ export default function CourseCollectionsSection() {
       description: 'Сайты с полезной информацией в сфере IT',
       image: ' https://placehold.co/600x400?text=ДРУГОЕ',
     },
+    {
+      id: 8,
+      title: 'С++',
+      description: 'Подборка бесплатных курсов и материалов по C++',
+      image: ' https://placehold.co/600x400?text=С++',
+    },
   ];
 
   return (
