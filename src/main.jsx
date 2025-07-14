@@ -26,7 +26,7 @@ root.render(
 
         {/* Помощь и собеседования */}
         <Route path="/help" element={<HelpPage />} />
-        <Route path="/interview/:language" element={<InterviewQuestionsPage />} />
+        <Route path="/interview/:language/:level?" element={<InterviewQuestionsPage />} />
 
         {/* Викторина */}
         <Route path="/quiz/:language" element={<QuizPage />} />
