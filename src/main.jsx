@@ -10,6 +10,8 @@ import InterviewQuestionsPage from './pages/InterviewQuestionsPage';
 import QuizPage from './pages/QuizPage'; // Уже есть
 import CodeChallengePage from './pages/CodeChallengePage'; // Новая страница
 
+import MainLayout from './components/MainLayout'; // Импортируем ваш макет
+
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,22 +19,22 @@ root.render(
   <React.StrictMode>
     <Router>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<MainLayout><App /></MainLayout>} />
 
         {/* Курсы */}
-        <Route path="/course/:slug/learn" element={<LearnCoursePage />} />
-        <Route path="/course/:slug/learn/:lessonId" element={<LessonPage />} />
-        <Route path="/courses/:id" element={<CourseCollectionPage />} />
+        <Route path="/course/:slug/learn" element={<MainLayout><LearnCoursePage /></MainLayout>} />
+        <Route path="/course/:slug/learn/:lessonId" element={<MainLayout><LessonPage /></MainLayout>} />
+        <Route path="/courses/:id" element={<MainLayout><CourseCollectionPage /></MainLayout>} />
 
         {/* Помощь и собеседования */}
-        <Route path="/help" element={<HelpPage />} />
-        <Route path="/interview/:language/:level?" element={<InterviewQuestionsPage />} />
+        <Route path="/help" element={<MainLayout><HelpPage /></MainLayout>} />
+        <Route path="/interview/:language/:level?" element={<MainLayout><InterviewQuestionsPage /></MainLayout>} />
 
         {/* Викторина */}
-        <Route path="/quiz/:language" element={<QuizPage />} />
+        <Route path="/quiz/:language" element={<MainLayout><QuizPage /></MainLayout>} />
 
         {/* Code Challenge */}
-        <Route path="/code-challenge/:language" element={<CodeChallengePage />} />
+        <Route path="/code-challenge/:language" element={<MainLayout><CodeChallengePage /></MainLayout>} />
       </Routes>
     </Router>
   </React.StrictMode>
