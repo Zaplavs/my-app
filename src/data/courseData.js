@@ -148,6 +148,12 @@ const courseData = {
         description: 'Собрана вся нужная документация по языкам, библиотекам и фреймворкам в одном месте.',
         image: ''
       },
+      {
+        name: 'Более 70 алгоритмов на Java, C++ и JavaScript c визуализацией',
+        link: 'https://algorithm-visualizer.org/',
+        description: ' Более 70 алгоритмов на Java, C++ и JavaScript c визуализацией',
+        image: 'https://raw.githubusercontent.com/algorithm-visualizer/algorithm-visualizer/master/branding/screenshot.png'
+      },
     ]
   },
   
