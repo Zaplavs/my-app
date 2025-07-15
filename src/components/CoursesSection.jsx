@@ -54,6 +54,22 @@ export default function CoursesSection() {
         </svg>
       )
     }
+    ,
+    {
+      id: 5,
+      title: "Python",
+      description: "Научись основам Python",
+      level: "Начинающий ур 1",
+      slug: "python",
+      icon: (
+        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12 4C7.58 4 4 7.58 4 12s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M12 8v8M8 12h8" strokeLinecap="round" strokeLinejoin="round"/>
+          <circle cx="16" cy="8" r="1" fill="currentColor"/>
+          <circle cx="8" cy="16" r="1" fill="currentColor"/>
+    </svg>
+      )
+    }
   ];
 
   return (

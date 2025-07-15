@@ -84,5 +84,19 @@ export const courseLessons = {
     18: () => import('./markdown/lesson18.js'),
     19: () => import('./markdown/lesson19.js'),
     20: () => import('./markdown/lesson20.js'),
+  },
+  python: {
+    1: () => import('./python/lesson1.js'),
+    2: () => import('./python/lesson2.js'),
+    3: () => import('./python/lesson3.js'),
+    4: () => import('./python/lesson4.js'),
+    5: () => import('./python/lesson5.js'),
+    6: () => import('./python/lesson6.js'),
+    7: () => import('./python/lesson7.js'),
+    8: () => import('./python/lesson8.js'),
+    9: () => import('./python/lesson9.js'),
+    10: () => import('./python/lesson10.js'),
+    11: () => import('./python/lesson11.js'),
+    12: () => import('./python/lesson12.js'),
   }
 };
