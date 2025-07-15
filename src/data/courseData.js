@@ -73,7 +73,13 @@ const courseData = {
         link: ' https://www.w3schools.com/js/ ',
         description: 'Классический справочник и руководство по JavaScript.',
         image: 'https://placehold.co/300x200?text=W3Schools+JS'
-      }
+      },
+      {
+        name: 'JSRobot',
+        link: ' https://tantemalkah.at/jsrobot/ ',
+        description: 'ебольшая игра, в которой вам предстоит управлять роботом с помощью Javascript для преодоления препятствий и решения головоломок.',
+        image: 'https://tantemalkah.at/jsrobot/images/robotbig.png'
+      },
     ]
   },
   4: {
@@ -153,6 +159,12 @@ const courseData = {
         link: 'https://algorithm-visualizer.org/',
         description: ' Более 70 алгоритмов на Java, C++ и JavaScript c визуализацией',
         image: 'https://raw.githubusercontent.com/algorithm-visualizer/algorithm-visualizer/master/branding/screenshot.png'
+      },
+      {
+        name: 'Quick Reference',
+        link: 'https://quickref.me/',
+        description: ' это компактная и понятная шпаргалка по самым популярным языкам и технологиям. Только чёткие примеры для быстрого освежения знаний и экономии времени.',
+        image: ''
       },
     ]
   },
