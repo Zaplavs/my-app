@@ -28,6 +28,18 @@ const courseData = {
         description: 'Этот курс позволит вам изучить основы программирования на языке Python, начиная с самых азов и заканчивая довольно серьезными конструкциями',
         image: 'https://cdn.stepik.net/media/cache/images/courses/100707/cover_K4JOB7c/6c361261be53b501e6ba814dcc659222.png'
       },
+      {
+        name: 'HackInScience',
+        link: 'https://www.hackinscience.org/',
+        description: 'Это бесплатная и открытая платформа для практики программирования на Python.',
+        image: ''
+      },
+      {
+        name: 'Python Cheatsheet',
+        link: 'https://www.pythoncheatsheet.org/',
+        description: 'Здесь собраны ключевые конструкции языка, приёмы работы с коллекциями, генераторы, контекстные менеджеры, async/await, f-строки и многое другое — без воды и с реальными примерами.',
+        image: 'https://raw.githubusercontent.com/wilfredinni/python-cheatsheet/refs/heads/master/public/logo-light.svg'
+      },
     ]
   },
   2: {
