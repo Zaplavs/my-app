@@ -9,9 +9,11 @@ export default function QuizPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
+  const [difficulty, setDifficulty] = useState('junior');
 
-  // Получаем вопросы для текущего языка
-  const questions = quizQuestions[language.toLowerCase()] || [];
+  // Получаем вопросы для текущего языка и сложности
+  const languageQuestions = quizQuestions[language.toLowerCase()] || {};
+  const questions = languageQuestions[difficulty] || [];
 
   // Перемешиваем вопросы при загрузке
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
@@ -49,12 +51,15 @@ export default function QuizPage() {
 
     const shuffled = [...questions].sort(() => Math.random() - 0.5);
     setShuffledQuestions(shuffled);
-  }, [language, navigate, questions]);
+    setCurrentQuestionIndex(0);
+    setSelectedAnswer(null);
+    setIsCorrect(null);
+  }, [language, navigate, questions, difficulty]);
 
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
 
   const handleAnswerClick = (option) => {
-    if (selectedAnswer) return;
+    if (selectedAnswer !== null) return;
 
     const correct = option === currentQuestion.answer;
     setIsCorrect(correct);
@@ -68,7 +73,7 @@ export default function QuizPage() {
     setIsCorrect(null);
   };
 
-  if (!shuffledQuestions.length) {
+  if (!questions.length || !shuffledQuestions.length) {
     return (
       <section className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white flex items-center justify-center">
         <div className="text-center">
@@ -79,15 +84,53 @@ export default function QuizPage() {
     );
   }
 
+  if (!currentQuestion) {
+    return (
+      <section className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-400">Не удалось загрузить вопрос</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white py-12 px-4">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-extrabold text-center mb-10 bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-pink-600">
+        <h2 className="text-4xl font-extrabold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-pink-600">
           Викторина: {language.toUpperCase()}
         </h2>
 
+        {/* Переключатель сложности */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-gray-800 p-1 rounded-lg inline-flex">
+            {['junior', 'middle', 'senior'].map((level) => (
+              <button
+                key={level}
+                onClick={() => setDifficulty(level)}
+                className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 capitalize
+                  ${difficulty === level 
+                    ? 'bg-gradient-to-r from-red-600 to-pink-600 text-white shadow-lg' 
+                    : 'text-gray-300 hover:text-white hover:bg-gray-700'
+                  }`}
+              >
+                {level}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="bg-gray-800 p-6 md:p-8 rounded-xl shadow-2xl border border-gray-700 hover:scale-[1.01] duration-300 transition-transform">
-          <h3 className="text-2xl font-semibold mb-6">{currentQuestion.question}</h3>
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-2xl font-semibold">{currentQuestion.question}</h3>
+            <span className={`px-3 py-1 rounded-full text-xs font-semibold capitalize
+              ${difficulty === 'junior' ? 'bg-green-900 text-green-200' :
+                difficulty === 'middle' ? 'bg-yellow-900 text-yellow-200' :
+                'bg-red-900 text-red-200'}`}
+            >
+              {difficulty}
+            </span>
+          </div>
 
           <ul className="space-y-4 mb-8">
             {currentQuestion.options.map((option, idx) => (
@@ -110,7 +153,7 @@ export default function QuizPage() {
           </ul>
 
           {/* Ответ и объяснение */}
-          {selectedAnswer && (
+          {selectedAnswer !== null && (
             <div
               className={`mb-8 p-5 rounded-lg border-l-4 transition-all duration-300 ${
                 isCorrect ? 'border-green-500 bg-green-900/20' : 'border-red-500 bg-red-900/20'
@@ -145,11 +188,11 @@ export default function QuizPage() {
           <div className="flex justify-end mt-6">
             <button
               onClick={handleNextQuestion}
-              disabled={!selectedAnswer}
+              disabled={selectedAnswer === null}
               className={`px-5 py-2 rounded-lg transition-all ${
-                selectedAnswer
+                selectedAnswer !== null
                   ? 'bg-gradient-to-r from-red-700 to-pink-700 hover:from-red-800 hover:to-pink-800'
-                  : 'bg-gray-800 cursor-not-allowed'
+                  : 'bg-gray-800 cursor-not-allowed opacity-50'
               }`}
             >
               Следующий вопрос
