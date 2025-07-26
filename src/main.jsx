@@ -9,7 +9,7 @@ import HelpPage from './pages/HelpPage';
 import InterviewQuestionsPage from './pages/InterviewQuestionsPage';
 import QuizPage from './pages/QuizPage'; // Уже есть
 import CodeChallengePage from './pages/CodeChallengePage'; // Новая страница
-
+import GamePage from './pages/GamePage';
 import MainLayout from './components/MainLayout'; // Импортируем ваш макет
 
 import './index.css';
@@ -35,6 +35,8 @@ root.render(
 
         {/* Code Challenge */}
         <Route path="/code-challenge/:language" element={<MainLayout><CodeChallengePage /></MainLayout>} />
+        {/* Игра */}
+        <Route path="/game" element={<MainLayout><GamePage /></MainLayout>} />
       </Routes>
     </Router>
   </React.StrictMode>

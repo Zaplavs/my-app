@@ -14,6 +14,7 @@ import QuizSection from './components/QuizSection';
 import CodeChallengeSection from './components/CodeChallengeSection';
 import Footer from './components/Footer';
 import HelpButton from './components/HelpButton'; // Импортируем кнопку
+import GameSection from './components/GameSection';
 
 export default function App() {
   return (
@@ -28,7 +29,7 @@ export default function App() {
       <InterviewQuestionsSection />
       <QuizSection />
       <CodeChallengeSection />
-      <TestimonialsSection />
+      <GameSection />
       <Footer />
     </>
   );

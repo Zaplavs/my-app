@@ -24,7 +24,7 @@ export default function Header() {
             { name: "Вопросы с собеседований", id: "interview" },
             { name: "Викторина", id: "quiz" },
             { name: "Code Challenge", id: "code-challenge" },
-            { name: "Отзывы", id: "testimonials" },
+            { name: "Игры", id: "game" },
           ].map((item) => (
             <a
               key={item.id}
@@ -83,7 +83,7 @@ export default function Header() {
             { name: "Вопросы с собеседований", id: "interview" },
             { name: "Викторина", id: "quiz" },
             { name: "Code Challenge", id: "code-challenge" },
-            { name: "Отзывы", id: "testimonials" },
+            { name: "Игры", id: "game" },
           ].map((item) => (
             <a
               key={item.id}
