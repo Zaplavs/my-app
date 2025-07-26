@@ -8,7 +8,6 @@ import PresentationSection from './components/PresentationSection';
 import FeaturesSection from './components/FeaturesSection';
 import CoursesSection from './components/CoursesSection';
 import CourseCollectionsSection from './components/CourseCollectionsSection';
-import TestimonialsSection from './components/TestimonialsSection';
 import InterviewQuestionsSection from './components/InterviewQuestionsSection';
 import QuizSection from './components/QuizSection';
 import CodeChallengeSection from './components/CodeChallengeSection';
