@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ChevronRight, Code, MousePointer2, Cpu, Coffee, Zap } from 'lucide-react';
 
 // SVG иконки для языков
 const Icons = {
@@ -36,66 +37,138 @@ export default function InterviewQuestionsSection() {
     {
       title: "Python",
       link: "/interview/python",
-      color: "bg-red-700 hover:bg-red-800 text-white",
+      color: "from-blue-600 to-cyan-600",
+      hoverColor: "hover:from-blue-700 hover:to-cyan-700",
       icon: <Icons.Python />,
+      questions: "150+ вопросов",
+      level: "Все уровни"
     },
     {
       title: "JavaScript",
       link: "/interview/javascript",
-      color: "bg-yellow-500 hover:bg-yellow-600 text-black",
+      color: "from-yellow-500 to-orange-500",
+      hoverColor: "hover:from-yellow-600 hover:to-orange-600",
       icon: <Icons.JavaScript />,
+      questions: "200+ вопросов",
+      level: "Все уровни"
     },
     {
       title: "C#",
       link: "/interview/csharp",
-      color: "bg-blue-700 hover:bg-blue-800 text-white",
+      color: "from-purple-600 to-indigo-600",
+      hoverColor: "hover:from-purple-700 hover:to-indigo-700",
       icon: <Icons.CSharp />,
+      questions: "120+ вопросов",
+      level: "Все уровни"
     },
     {
       title: "Java",
       link: "/interview/java",
-      color: "bg-orange-600 hover:bg-orange-700 text-white",
+      color: "from-red-600 to-pink-600",
+      hoverColor: "hover:from-red-700 hover:to-pink-700",
       icon: <Icons.Java />,
+      questions: "180+ вопросов",
+      level: "Все уровни"
     },
     {
       title: "C++",
       link: "/interview/cpp",
-      color: "bg-purple-700 hover:bg-purple-800 text-white",
+      color: "from-green-600 to-teal-600",
+      hoverColor: "hover:from-green-700 hover:to-teal-700",
       icon: <Icons.Cpp />,
+      questions: "140+ вопросов",
+      level: "Все уровни"
     },
   ];
 
   return (
-    <section id="interview" className="bg-red-950 text-white py-20 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section id="interview" className="bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white py-24 px-6 relative overflow-hidden">
+      {/* Анимированные фоновые элементы */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/20 via-transparent to-purple-500/20"></div>
+      </div>
+      
+      <div className="absolute top-1/4 right-10 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-1/4 left-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Заголовок секции */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-extrabold mb-4">Собеседования</h2>
-          <p className="text-lg opacity-80 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-900/30 to-purple-900/30 backdrop-blur-sm border border-blue-800/30 rounded-full px-6 py-2 mb-6">
+            <Coffee className="w-5 h-5 text-blue-400" />
+            <span className="text-blue-300 font-medium uppercase tracking-wider">Подготовка к собеседованиям</span>
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+            Вопросы для собеседований
+          </h2>
+          
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
             Выбери язык программирования и получи доступ к вопросам, которые задают на собеседованиях.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Сетка вопросов */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {questionBlocks.map((block, index) => (
-            <Link
+            <div 
               key={index}
-              to={block.link}
-              className={`group relative p-6 rounded-xl shadow-xl border border-opacity-20 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl ${block.color}`}
+              className="group relative"
+              style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="flex items-center space-x-4">
-                <div className="p-3 bg-black/20 rounded-full">{block.icon}</div>
-                <h3 className="text-2xl font-bold group-hover:text-gray-200 transition">{block.title}</h3>
-              </div>
-              <p className="mt-4 font-medium group-hover:text-gray-200 transition">
-                Посмотреть вопросы →
-              </p>
-
-              {/* Градиентный бордер по углам */}
-              <div className="absolute inset-0 w-full h-full pointer-events-none rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-red-600 via-black to-red-600 opacity-30 blur-md"></div>
-              </div>
-            </Link>
+              {/* Градиентный фон при наведении */}
+              <div className={`absolute -inset-1 bg-gradient-to-r ${block.color} rounded-2xl blur opacity-0 group-hover:opacity-20 transition-all duration-500`}></div>
+              
+              <Link
+                to={block.link}
+                className={`relative block p-6 rounded-2xl bg-gray-800/60 backdrop-blur-lg border border-gray-700/50 shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl ${block.hoverColor}`}
+              >
+                {/* Иконка */}
+                <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-r ${block.color} mb-5`}>
+                  {block.icon}
+                </div>
+                
+                {/* Заголовок */}
+                <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-gray-100 transition-colors duration-300">
+                  {block.title}
+                </h3>
+                
+                {/* Дополнительная информация */}
+                <div className="space-y-2 mb-5">
+                  <div className="flex items-center gap-2 text-sm text-gray-300">
+                    <Zap className="w-4 h-4" />
+                    <span>{block.questions}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-300">
+                    <MousePointer2 className="w-4 h-4" />
+                    <span>{block.level}</span>
+                  </div>
+                </div>
+                
+                {/* Кнопка действия */}
+                <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
+                  <span className="font-medium text-gray-200 group-hover:text-white transition-colors duration-300">
+                    Перейти
+                  </span>
+                  <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-white transition-all duration-300 group-hover:translate-x-1" />
+                </div>
+                
+                {/* Градиентная рамка */}
+                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${block.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 -z-10`}></div>
+              </Link>
+            </div>
           ))}
+        </div>
+
+        {/* Призыв к действию */}
+        <div className="text-center mt-16">
+          <div className="inline-flex items-center gap-3 bg-gray-800/60 backdrop-blur-sm border border-gray-700/50 rounded-full px-8 py-4">
+            <Cpu className="w-5 h-5 text-blue-400" />
+            <span className="text-gray-300">
+              <span className="font-bold text-white">{questionBlocks.reduce((acc, block) => acc + parseInt(block.questions), 0)}+</span> 
+              вопросов по всем языкам программирования
+            </span>
+          </div>
         </div>
       </div>
     </section>

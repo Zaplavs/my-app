@@ -1,119 +1,135 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Menu, X, Home, Zap, BookOpen, Users, HelpCircle, Trophy, Code, Gamepad2 } from 'lucide-react';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
+  const navItems = [
+    { name: "Особенности", id: "features", icon: <Zap className="w-4 h-4" /> },
+    { name: "Курсы", id: "courses", icon: <BookOpen className="w-4 h-4" /> },
+    { name: "Бесплатные курсы", id: "collections", icon: <BookOpen className="w-4 h-4" /> },
+    { name: "Собеседования", id: "interview", icon: <HelpCircle className="w-4 h-4" /> },
+    { name: "Викторина", id: "quiz", icon: <Trophy className="w-4 h-4" /> },
+    { name: "Code Challenge", id: "code-challenge", icon: <Code className="w-4 h-4" /> },
+    { name: "Игры", id: "game", icon: <Gamepad2 className="w-4 h-4" /> },
+  ];
+
   return (
-    <header className="bg-gradient-to-r from-red-700 to-red-800 text-white p-4 shadow-xl sticky top-0 z-50">
-      <div className="container mx-auto flex justify-between items-center">
-        {/* Логотип */}
-        <Link
-          to="/"
-          className="text-xl md:text-2xl font-extrabold tracking-wider uppercase transform hover:scale-105 transition-transform duration-300"
-        >
-          КРАСНЫЙ КОД
-        </Link>
+    <header className="bg-gradient-to-r from-gray-900 via-red-900 to-black text-white shadow-2xl sticky top-0 z-50 backdrop-blur-lg border-b border-red-800/30">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center h-16">
+          {/* Логотип */}
+          <Link
+            to="/"
+            className="flex items-center gap-2 text-xl md:text-2xl font-black tracking-wider uppercase transform hover:scale-105 transition-transform duration-300 group"
+          >
+            <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-orange-500 rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
+              <Code className="w-5 h-5 text-white" />
+            </div>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-orange-400">
+              КРАСНЫЙ КОД
+            </span>
+          </Link>
 
-        {/* Навигация (десктоп) */}
-        <nav className="hidden md:flex space-x-6 text-sm uppercase tracking-widest font-medium">
-          {[
-            { name: "Особенности", id: "features" },
-            { name: "Курсы", id: "courses" },
-            { name: "Бесплатные курсы", id: "collections" },
-            { name: "Вопросы с собеседований", id: "interview" },
-            { name: "Викторина", id: "quiz" },
-            { name: "Code Challenge", id: "code-challenge" },
-            { name: "Игры", id: "game" },
-          ].map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className="relative group hover:text-gray-200 transition-colors duration-300"
+          {/* Навигация (десктоп) */}
+          <nav className="hidden lg:flex items-center space-x-1">
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm uppercase tracking-wider font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-300 group"
+              >
+                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {item.icon}
+                </span>
+                {item.name}
+                <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-orange-500 group-hover:w-full transition-all duration-300"></span>
+              </a>
+            ))}
+          </nav>
+
+          {/* Кнопки аккаунта (временно скрыты) */}
+          <div className="hidden lg:flex items-center space-x-3">
+            <Link
+              to="/login"
+              className="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-300"
             >
-              {item.name}
-              <span className="absolute left-0 bottom-[-4px] w-0 h-[2px] bg-white group-hover:w-full transition-all duration-300"></span>
-            </a>
-          ))}
-        </nav>
+              Войти
+            </Link>
+            <Link
+              to="/register"
+              className="px-4 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white shadow-lg hover:shadow-red-500/20 transition-all duration-300"
+            >
+              Регистрация
+            </Link>
+          </div>
 
-        {/* Бургер-иконка */}
-        <button
-          className="md:hidden text-white focus:outline-none"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 transition-transform duration-300"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+          {/* Бургер-иконка */}
+          <button
+            className="lg:hidden text-white focus:outline-none p-2 rounded-lg hover:bg-white/10 transition-colors duration-200"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
           >
             {isMenuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
+              <X className="w-6 h-6 transition-transform duration-300" />
             ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+              <Menu className="w-6 h-6 transition-transform duration-300" />
             )}
-          </svg>
-        </button>
+          </button>
+        </div>
       </div>
 
-      {/* Мобильное меню */}
+      {/* Мобильное меню (полностью раскрывающееся) */}
       <div
         className={`${
-          isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        } overflow-hidden transition-all duration-300 ease-in-out`}
+          isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+        } overflow-hidden transition-all duration-300 ease-in-out lg:hidden absolute left-0 right-0 bg-red-900/95 backdrop-blur-lg shadow-2xl`}
+        style={{ top: '100%' }}
       >
-        <nav className="md:hidden bg-red-800 mt-2 rounded-lg shadow-inner p-4 space-y-3 text-sm uppercase tracking-widest font-medium">
-          {[
-            { name: "Особенности", id: "features" },
-            { name: "Курсы", id: "courses" },
-            { name: "Бесплатные курсы", id: "collections" },
-            { name: "Вопросы с собеседований", id: "interview" },
-            { name: "Викторина", id: "quiz" },
-            { name: "Code Challenge", id: "code-challenge" },
-            { name: "Игры", id: "game" },
-          ].map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className="block py-2 px-4 rounded-md hover:bg-red-700 transition-colors duration-200"
+        <div className="container mx-auto px-4 py-4">
+          <nav className="space-y-2">
+            <Link
+              to="/"
+              className="flex items-center gap-3 py-3 px-4 rounded-xl text-lg font-medium text-white hover:bg-white/10 transition-colors duration-200"
               onClick={() => setIsMenuOpen(false)}
             >
-              {item.name}
-            </a>
-          ))}
-        </nav>
+              <Home className="w-5 h-5" />
+              Главная
+            </Link>
+            
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className="flex items-center gap-3 py-3 px-4 rounded-xl text-lg font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors duration-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.icon}
+                {item.name}
+              </a>
+            ))}
+            
+            {/* Мобильные кнопки аккаунта */}
+            <div className="pt-4 mt-4 border-t border-red-700/50 space-y-3">
+              <Link
+                to="/login"
+                className="block w-full py-3 px-4 rounded-xl text-center font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-colors duration-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Войти
+              </Link>
+              <Link
+                to="/register"
+                className="block w-full py-3 px-4 rounded-xl text-center font-medium bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg hover:shadow-red-500/20 transition-all duration-300"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Регистрация
+              </Link>
+            </div>
+          </nav>
+        </div>
       </div>
-
-      {/* Кнопки регистрации и входа (временно закомментированы) */}
-      {/* 
-      <div className="container mx-auto mt-3 hidden md:flex justify-end space-x-4">
-        <Link
-          to="/register"
-          className="bg-black text-white px-5 py-2 rounded-full text-sm uppercase tracking-wider hover:bg-gray-800 transition"
-        >
-          Зарегистрироваться
-        </Link>
-        <Link
-          to="/login"
-          className="bg-gray-800 text-white px-5 py-2 rounded-full text-sm uppercase tracking-wider hover:bg-gray-700 transition"
-        >
-          Войти
-        </Link>
-      </div>
-      */}
     </header>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CourseCard from './CourseCard';
+import { Code, Palette, GitBranch, FileText, Terminal } from 'lucide-react';
 
 export default function CoursesSection() {
   const courses = [
@@ -10,12 +11,8 @@ export default function CoursesSection() {
       description: "Основы создания сайтов для пролетариата.",
       level: "Начальный",
       slug: "html",
-      icon: (
-        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M4 7V4m0 3h16M4 7l3 9h10l3-9" strokeLinecap="round" />
-          <path d="M5 17h14" />
-        </svg>
-      )
+      icon: <Code className="w-8 h-8" />,
+      color: "from-orange-500 to-red-600"
     },
     {
       id: 2,
@@ -23,12 +20,8 @@ export default function CoursesSection() {
       description: "Изучи язык для динамических интерфейсов.",
       level: "Средний",
       slug: "css",
-      icon: (
-        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="2" y="6" width="20" height="12" rx="2" />
-          <path d="M8 12h8" />
-        </svg>
-      )
+      icon: <Palette className="w-8 h-8" />,
+      color: "from-blue-500 to-purple-600"
     },
     {
       id: 3,
@@ -36,11 +29,8 @@ export default function CoursesSection() {
       description: "Фронтенд-революция начинается здесь.",
       level: "Продвинутый",
       slug: "github",
-      icon: (
-        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.795-.26.795-.577v-2.234c-3.338.724-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-.926-.63.07-.617.07-.617 1.03.07 1.582 1.054 1.582 1.054.906 1.552 2.36 1.105 2.93.845.09-.65.35-1.105.63-1.355-2.22-.253-4.555-1.113-4.555-4.943 0-1.09.39-1.983 1.03-2.683-.1-.253-.45-1.27.1-2.647 0 0 .84-.267 2.75 1.026A9.58 9.58 0 0112 6.82a9.53 9.53 0 012.547.337c1.91-1.293 2.75-1.027 2.75-1.027.55 1.377.2 2.393.1 2.646.64.7 1.03 1.593 1.03 2.683 0 3.84-2.34 4.69-4.56 4.937.36.31.69.93.69 1.875v2.8c0 .316.195.69.795.577C20.562 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
-        </svg>
-      )
+      icon: <GitBranch className="w-8 h-8" />,
+      color: "from-gray-700 to-gray-900"
     },
     {
       id: 4,
@@ -48,51 +38,62 @@ export default function CoursesSection() {
       description: "Научись делать красивые README.md.",
       level: "Продвинутый",
       slug: "markdown",
-      icon: (
-        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M4 7H20M4 12H20M4 17H20M8 20L12 16 16 20" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      )
-    }
-    ,
+      icon: <FileText className="w-8 h-8" />,
+      color: "from-gray-600 to-blue-600"
+    },
     {
       id: 5,
       title: "Python",
       description: "Научись основам Python",
       level: "Начинающий ур 1",
       slug: "python",
-      icon: (
-        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M12 4C7.58 4 4 7.58 4 12s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M12 8v8M8 12h8" strokeLinecap="round" strokeLinejoin="round"/>
-          <circle cx="16" cy="8" r="1" fill="currentColor"/>
-          <circle cx="8" cy="16" r="1" fill="currentColor"/>
-    </svg>
-      )
+      icon: <Terminal className="w-8 h-8" />,
+      color: "from-yellow-500 to-blue-600"
     }
   ];
 
   return (
-    <section id="courses" className="py-20 bg-red-950 text-white relative overflow-hidden">
-      {/* Фоновые эффекты */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black via-red-900 to-black"></div>
+    <section id="courses" className="py-20 bg-gradient-to-br from-gray-900 via-red-950 to-black text-white relative overflow-hidden">
+      {/* Анимированные фоновые элементы */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-red-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse animation-delay-2000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse animation-delay-4000"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
+        {/* Заголовок секции */}
         <div className="text-center mb-16">
-          <h3 className="text-4xl font-extrabold mb-4 uppercase tracking-wider">Наши курсы</h3>
-          <p className="text-lg opacity-80 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-2 bg-red-900/30 backdrop-blur-sm border border-red-800/50 rounded-full px-6 py-2 mb-6">
+            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+            <span className="text-red-300 font-medium">Обучение нового поколения</span>
+          </div>
+          
+          <h2 className="text-5xl md:text-6xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-red-400 to-orange-500">
+            Наши курсы
+          </h2>
+          
+          <p className="text-xl opacity-90 max-w-3xl mx-auto leading-relaxed">
             Бесплатные курсы для программистов нового мира. Обучайся без буржуазных заморочек.
           </p>
         </div>
 
-        <div className="flex justify-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {courses.map(course => (
-              <CourseCard key={course.id} {...course} />
-            ))}
-          </div>
+        {/* Сетка курсов */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          {courses.map((course, index) => (
+            <div 
+              key={course.id}
+              className="group relative"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-yellow-600/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+              
+              <CourseCard 
+                {...course} 
+                className="relative bg-gray-800/40 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-6 transition-all duration-300 hover:border-red-500/30 hover:bg-gray-800/60 hover:-translate-y-2 shadow-xl hover:shadow-2xl hover:shadow-red-500/20"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>
