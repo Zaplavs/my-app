@@ -15,6 +15,8 @@ import AdminLoginPage from './admin/pages/AdminLoginPage';
 import AdminDashboard from './admin/pages/AdminDashboard';
 import AdminProtectedRoute from './admin/pages/AdminProtectedRoute';
 import CoursesListPage from './admin/pages/CoursesListPage';
+import CourseCreatePage from './admin/pages/CourseCreatePage';
+import CourseEditPage from './admin/pages/CourseEditPage';
 
 import './index.css';
 
@@ -59,6 +61,8 @@ root.render(
             </AdminProtectedRoute>
           } 
         />
+        <Route path="/admin/courses/create" element={<AdminProtectedRoute><CourseCreatePage /></AdminProtectedRoute>} />
+        <Route path="/admin/courses/edit/:courseId" element={<AdminProtectedRoute><CourseEditPage /></AdminProtectedRoute>} />
       </Routes>
     </Router>
   </React.StrictMode>
