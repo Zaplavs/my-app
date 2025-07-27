@@ -1,5 +1,5 @@
 // src/services/auth.js
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = '/api'; // Используем относительный путь
 const ADMIN_TOKEN_KEY = 'admin_token';
 
 export const loginAdmin = async (email, password) => {
