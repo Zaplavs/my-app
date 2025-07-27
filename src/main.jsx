@@ -11,6 +11,10 @@ import QuizPage from './pages/QuizPage'; // Уже есть
 import CodeChallengePage from './pages/CodeChallengePage'; // Новая страница
 import GamePage from './pages/GamePage';
 import MainLayout from './components/MainLayout'; // Импортируем ваш макет
+import AdminLoginPage from './admin/pages/AdminLoginPage';
+import AdminDashboard from './admin/pages/AdminDashboard';
+import AdminProtectedRoute from './admin/pages/AdminProtectedRoute';
+import CoursesListPage from './admin/pages/CoursesListPage';
 
 import './index.css';
 
@@ -37,6 +41,24 @@ root.render(
         <Route path="/code-challenge/:language" element={<MainLayout><CodeChallengePage /></MainLayout>} />
         {/* Игра */}
         <Route path="/game" element={<MainLayout><GamePage /></MainLayout>} />
+        {/* Админка */}
+        <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route 
+          path="/admin/dashboard" 
+          element={
+            <AdminProtectedRoute>
+              <AdminDashboard />
+            </AdminProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/admin/courses" 
+          element={
+            <AdminProtectedRoute>
+              <CoursesListPage />
+            </AdminProtectedRoute>
+          } 
+        />
       </Routes>
     </Router>
   </React.StrictMode>
