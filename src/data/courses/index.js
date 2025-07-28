@@ -2,8 +2,8 @@
 
 export const courseLessons = {
   html: {
-    1: () => import('./html/lesson1.js'),
-    2: () => import('./html/lesson2.js'),
+    1: () => import('./html/lesson1.jsx'),
+    2: () => import('./html/lesson2.jsx'),
     3: () => import('./html/lesson3.js'),
     4: () => import('./html/lesson4.js'),
     5: () => import('./html/lesson5.js'),
