@@ -44,7 +44,7 @@ export default function Hero() {
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-3 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-black px-8 py-4 rounded-full text-lg font-bold uppercase tracking-wider transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-yellow-500/30 w-full sm:w-auto justify-center"
             >
-              <span>Вступайте в сообщество</span>
+              <span>Вступить в сообщество</span>
               <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
             
@@ -60,9 +60,17 @@ export default function Hero() {
               </svg>
             </a>
           </div>
+
+          {/* Уведомление о пожертвованиях (юридически важно) */}
+          <div className="mt-6 text-sm text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            <p className="italic">
+              Поддержка проекта — добровольная. Все материалы остаются бесплатными и доступны без ограничений. 
+              Пожертвования идут на оплату хостинга, домена и развитие контента.
+            </p>
+          </div>
           
           {/* Статистика */}
-          <div className="mt-16 flex flex-wrap items-center justify-center gap-8 text-gray-400">
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-gray-400">
             <div className="flex items-center gap-2">
               <Users className="w-5 h-5 text-yellow-500" />
               <span><span className="font-bold text-white">2,500+</span> участников</span>
