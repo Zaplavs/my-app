@@ -1,7 +1,7 @@
 # 🚀 Красный Код — Обучение программированию для всех! ✨
 
-![GitHub Stars](https://img.shields.io/github/stars/Zaplavs/learncode-platform?style=social)
-![GitHub Forks](https://img.shields.io/github/forks/Zaplavs/learncode-platform?style=social)
+![GitHub Stars](https://img.shields.io/github/stars/Zaplavs/my-app?style=social)
+![GitHub Forks](https://img.shields.io/github/forks/Zaplavs/my-app?style=social)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Built With: React](https://img.shields.io/badge/Built%20With-React-61DAFB?style=flat&logo=react&logoColor=white)
 ![Built With: TailwindCSS](https://img.shields.io/badge/Built%20With-TailwindCSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
