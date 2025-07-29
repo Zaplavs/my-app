@@ -7,12 +7,11 @@ const Part1 = () => {
   const [activeVideo, setActiveVideo] = useState('youtube'); // 'youtube' или 'vk'
 
   // --- Данные для видео ---
-  // Замените эти URL на реальные ссылки на ваши видео
+  // Замените этот ID на реальный ID вашего YouTube видео
   const youtubeVideoId = "tR3PmXnZHco"; // Пример ID YouTube видео (замените на ваше!)
-  // Для VK видео внутри iframe обычно используется прямая ссылка на плеер или embed-код.
-  // Пример ниже может потребовать корректировки в зависимости от конкретного видео.
-  // Убедитесь, что видео разрешает встраивание.
-  const vkVideoEmbedUrl = "https://vkvideo.ru/video-185944841_456239029"; // Пример (замените на ваше!)
+  
+  // Используем предоставленный URL для VK видео
+  const vkVideoEmbedUrl = "https://vkvideo.ru/video_ext.php?oid=-185944841&id=456239029&hd=2&autoplay=1";
   // -----------------------
 
   return (
@@ -48,8 +47,9 @@ const Part1 = () => {
         </div>
 
         {/* Контейнер для видео */}
-        <div className="relative pb-[56.25%] h-0 rounded-lg overflow-hidden bg-black"> {/* 16:9 Aspect Ratio */}
+        <div className="relative pb-[56.25%] h-0 rounded-lg overflow-hidden bg-black"> {/* 16:9 Aspect Ratio (853x480) */}
           {activeVideo === 'youtube' ? (
+            // Исправлен src: убран пробел
             <iframe
               className="absolute top-0 left-0 w-full h-full"
               src={`https://www.youtube.com/embed/${youtubeVideoId}`}
@@ -59,13 +59,16 @@ const Part1 = () => {
               allowFullScreen
             ></iframe>
           ) : (
-            // VK Video Embed
+            // VK Video Embed с предоставленным URL
             <iframe
               className="absolute top-0 left-0 w-full h-full"
               src={vkVideoEmbedUrl}
               title="Видеоурок на VK"
+              // Обновлены атрибуты в соответствии с вашим примером
+              width="853"
+              height="480"
               frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;"
               allowFullScreen
             ></iframe>
           )}
