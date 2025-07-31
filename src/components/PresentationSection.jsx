@@ -259,7 +259,6 @@ export default function PresentationSection() {
           <div className="mt-8 flex items-center justify-center gap-3">
             <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
             <span className="text-red-400 font-medium uppercase tracking-wider text-sm">
-              АЛЕКСАНДР ВИКТОРОВИЧ ЗАПЛАВНЫЙ
             </span>
             <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
           </div>
