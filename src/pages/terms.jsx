@@ -56,7 +56,7 @@ function Privacy() {
             <li>На отзыв согласия (если оно будет дано)</li>
           </ul>
           <p>
-            По любым вопросам обращайтесь: <a href="mailto:red@krasnii-kod.ru" className="text-red-400 hover:underline">red@krasnii-kod.ru</a>
+            По любым вопросам обращайтесь: <a href="Zaplavs@yandex.ru" className="text-red-400 hover:underline">Zaplavs@yandex.ru</a>
           </p>
 
           <h2 className="text-2xl font-semibold mt-8 mb-4 text-red-400">5. Изменения в политике</h2>
