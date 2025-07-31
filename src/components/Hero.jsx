@@ -36,7 +36,7 @@ export default function Hero() {
             Присоединяйся к сообществу программистов уже сегодня
           </p>
           
-          {/* Кнопки действий */}
+          {/* Кнопка действия (только вступить в сообщество) */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href="https://t.me/+zfZu_RsO_skwMTAy"
@@ -47,27 +47,9 @@ export default function Hero() {
               <span>Вступить в сообщество</span>
               <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
-            
-            <a
-              href="https://www.donationalerts.com/r/ruszaphack"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-600 hover:to-gray-800 text-white px-8 py-4 rounded-full text-lg font-bold uppercase tracking-wider transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-gray-500/30 w-full sm:w-auto justify-center border border-gray-600"
-            >
-              <span>Поддержать проект</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-              </svg>
-            </a>
           </div>
 
-          {/* Уведомление о пожертвованиях (юридически важно) */}
-          <div className="mt-6 text-sm text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            <p className="italic">
-              Поддержка проекта — добровольная. Все материалы остаются бесплатными и доступны без ограничений. 
-              Пожертвования идут на оплату хостинга, домена и развитие контента.
-            </p>
-          </div>
+          {/* Убрал блок с донатами и уведомление о пожертвованиях */}
           
           {/* Статистика */}
           <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-gray-400">
