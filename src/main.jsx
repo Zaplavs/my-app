@@ -14,8 +14,8 @@ import CodeChallengePage from './pages/CodeChallengePage';
 import GamePage from './pages/GamePage';
 
 // Политика и условия
-import Privacy from './pages/Privacy'; // ← Новая страница
-import Terms from './pages/Terms';     // ← Новая страница
+import Privacy from './pages/privacy'; // ← Новая страница
+import Terms from './pages/terms';     // ← Новая страница
 
 // Макет
 import MainLayout from './components/MainLayout';
