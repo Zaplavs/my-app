@@ -1,25 +1,23 @@
 // src/data/courses/python/lesson3/part1.jsx
 import React, { useState } from 'react';
-import { Youtube, Music } from 'lucide-react'; // Импортируем только нужные иконки
+import { Youtube, Music } from 'lucide-react';
 
 const Part1 = () => {
-  // Состояние для управления активной вкладкой видео
+  // Исправлено: деструктуризация обеих переменных
   const [activeVideo, setActiveVideo] = useState('youtube'); // 'youtube' или 'vk'
 
-  // --- Данные для видео ---
-  // TODO: Замените эти ID/URL на реальные данные для Урока 3
-  const youtubeVideoId = "VIDEO_ID_LESSON_3"; // <<<--- Замените VIDEO_ID_LESSON_3 на ID видео для урока 3 на YouTube
-  
-  // TODO: Замените этот URL на реальный URL для Урока 3 на VK
-  const vkVideoEmbedUrl = "https://vkvideo.ru/video_ext.php?oid=YOUR_OID&id=YOUR_ID&hd=2&autoplay=1"; // <<<--- Замените параметры oid и id
-  // -----------------------
+  // YouTube Video ID из ссылки: https://youtu.be/geuTKe00Vcs
+  const youtubeVideoId = "geuTKe00Vcs";
+
+  // Ссылка для встраивания видео с VK
+  const vkVideoEmbedUrl = "https://vkvideo.ru/video_ext.php?oid=-185944841&id=456239030&hd=2&autoplay=1";
 
   return (
     <div className="space-y-6">
       {/* Секция с видео */}
       <div className="bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 shadow-xl">
-        <h2 className="text-2xl font-bold text-white mb-4">Видеоурок: Переменные и типы данных</h2> {/* Обновлен заголовок */}
-        
+        <h2 className="text-2xl font-bold text-white mb-4">Видеоурок: Переменные и типы данных</h2>
+
         {/* Вкладки для переключения видео */}
         <div className="flex mb-4 border-b border-gray-700">
           <button
@@ -46,30 +44,29 @@ const Part1 = () => {
           </button>
         </div>
 
-        {/* Контейнер для видео */}
-        <div className="relative pb-[56.25%] h-0 rounded-lg overflow-hidden bg-black"> {/* 16:9 Aspect Ratio */}
+        {/* Контейнер для видео (16:9) */}
+        <div className="relative pb-[56.25%] h-0 rounded-lg overflow-hidden bg-black">
           {activeVideo === 'youtube' ? (
-            // Исправлен src: убраны лишние пробелы
             <iframe
               className="absolute top-0 left-0 w-full h-full"
-              src={`https://www.youtube.com/embed/${youtubeVideoId}`} // Убраны пробелы вокруг ${youtubeVideoId}
+              src={`https://www.youtube.com/embed/${youtubeVideoId}`}
               title="Видеоурок на YouTube"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
           ) : (
-            // VK Video Embed с обновленным URL
             <iframe
               className="absolute top-0 left-0 w-full h-full"
-              src={vkVideoEmbedUrl} // Используется URL для урока 3
+              src={vkVideoEmbedUrl}
               title="Видеоурок на VK"
               frameBorder="0"
-              allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;"
+              allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock"
               allowFullScreen
             ></iframe>
           )}
         </div>
+
         <p className="mt-3 text-sm text-gray-400">
           Если одно видео не загружается, попробуйте переключиться на другую вкладку.
         </p>
