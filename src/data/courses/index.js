@@ -88,7 +88,7 @@ export const courseLessons = {
   python: {
     1: () => import('./python/lesson1.js'),
     2: () => import('./python/lesson2.jsx'),
-    3: () => import('./python/lesson3.js'),
+    3: () => import('./python/lesson3.jsx'),
     4: () => import('./python/lesson4.js'),
     5: () => import('./python/lesson5.js'),
     6: () => import('./python/lesson6.js'),
