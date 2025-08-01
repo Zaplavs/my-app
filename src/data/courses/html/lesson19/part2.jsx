@@ -1,64 +1,69 @@
-// src/data/courses/html/lesson1/part2.jsx
+// src/data/courses/html/lesson19/part2.jsx
 import React, { useState } from 'react';
-import { CheckCircle, XCircle, RotateCcw, Award, Globe, Server, Monitor } from 'lucide-react';
+import { CheckCircle, XCircle, RotateCcw, Award, Database, Tag, Code, Settings } from 'lucide-react';
 
 const Part2 = () => {
-  // Данные викторины по теме урока
+  // Данные викторины по теме урока 19
   const quizData = [
     {
       id: 1,
-      question: "Что такое Всемирная паутина (Веб)?",
+      question: "Какой префикс должен иметь пользовательский атрибут HTML для хранения данных?",
       options: [
-        "Программа для просмотра веб-страниц",
-        "Система взаимосвязанных документов и ресурсов, доступных через Интернет",
-        "Язык программирования для создания сайтов",
-        "Специальный сервер, хранящий все веб-страницы"
+        "user-",
+        "custom-",
+        "data-",
+        "attr-"
       ],
-      correctAnswer: 1 // Система взаимосвязанных документов и ресурсов, доступных через Интернет
+      correctAnswer: 2, // data-
+      icon: <Tag className="w-5 h-5 text-purple-400" />
     },
     {
       id: 2,
-      question: "Кто отправляет HTTP-запрос в процессе открытия веб-страницы?",
+      question: "Какой JavaScript API предоставляет удобный доступ ко всем data-атрибутам элемента?",
       options: [
-        "Веб-сервер",
-        "Интернет-провайдер",
-        "Браузер (клиент)",
-        "Операционная система"
+        "element.data",
+        "element.attributes",
+        "element.dataset",
+        "element.customData"
       ],
-      correctAnswer: 2 // Браузер (клиент)
+      correctAnswer: 2, // element.dataset
+      icon: <Code className="w-5 h-5 text-green-400" />
     },
     {
       id: 3,
-      question: "Какая технология отвечает за внешний вид веб-страницы (цвета, шрифты, расположение элементов)?",
+      question: "Как будет называться свойство в dataset для атрибута data-user-name?",
       options: [
-        "HTML",
-        "HTTP",
-        "JavaScript",
-        "CSS"
+        "userName",
+        "user-name",
+        "userdataName",
+        "USERNAME"
       ],
-      correctAnswer: 3 // CSS
+      correctAnswer: 0, // userName
+      icon: <Settings className="w-5 h-5 text-orange-400" />
     },
     {
       id: 4,
-      question: "Что происходит первым при вводе адреса сайта в адресную строку браузера?",
+      question: "Какой метод JavaScript можно использовать для получения значения data-атрибута?",
       options: [
-        "Браузер отображает страницу",
-        "Сервер отправляет HTML-код",
-        "Браузер отправляет HTTP-запрос на сервер",
-        "Сервер обрабатывает JavaScript"
+        "element.getData()",
+        "element.getAttribute()",
+        "element.fetchData()",
+        "element.value()"
       ],
-      correctAnswer: 2 // Браузер отправляет HTTP-запрос на сервер
+      correctAnswer: 1, // element.getAttribute()
+      icon: <Code className="w-5 h-5 text-cyan-400" />
     },
     {
       id: 5,
-      question: "Какая из этих технологий отвечает за структуру веб-страницы (заголовки, абзацы, списки)?",
+      question: "Какой тип данных хранят data-атрибуты в HTML?",
       options: [
-        "CSS",
-        "JavaScript",
-        "HTML",
-        "SQL"
+        "Только числа",
+        "Только строки",
+        "Любой тип данных",
+        "Только булевы значения"
       ],
-      correctAnswer: 2 // HTML
+      correctAnswer: 1, // Только строки
+      icon: <Database className="w-5 h-5 text-blue-400" />
     }
   ];
 
@@ -99,21 +104,23 @@ const Part2 = () => {
 
   return (
     <div className="space-y-6">
+      {/* Вступление */}
       <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 backdrop-blur-sm border border-blue-700/30 rounded-2xl p-6 shadow-lg">
         <div className="flex items-start gap-4">
           <div className="bg-blue-500/20 p-3 rounded-lg">
-            <Globe className="w-6 h-6 text-blue-400" />
+            <Database className="w-6 h-6 text-blue-400" />
           </div>
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">🧠 Викторина: Основы Веба и Интернета</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">🧠 Викторина: Пользовательские данные (data-* атрибуты)</h1>
             <p className="text-gray-300">
-              Проверьте свои знания по теме <span className="font-medium text-yellow-400">устройства Всемирной паутины</span>.
+              Проверьте свои знания по теме <span className="font-medium text-yellow-400">пользовательских data-атрибутов</span> в HTML и их использовании в <span className="font-medium text-green-400">JavaScript</span>.
             </p>
             <p className="text-gray-400 text-sm mt-2">Выберите один правильный ответ для каждого вопроса.</p>
           </div>
         </div>
       </div>
 
+      {/* Викторина */}
       <div className="bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 shadow-xl">
         {quizData.map((q, questionIndex) => {
           const isSelected = userAnswers[questionIndex] !== null;
@@ -130,13 +137,20 @@ const Part2 = () => {
                     : 'bg-gray-900/50'
               }`}
             >
+              {/* Заголовок вопроса с иконкой */}
               <h3 className="font-medium text-white mb-3 flex items-start gap-2">
-                <span className="flex-shrink-0">{questionIndex + 1}.</span>
-                <span>{q.question}</span>
+                <span className="flex-shrink-0 mt-0.5">{q.icon}</span>
+                <span>
+                  <span className="mr-2">{questionIndex + 1}.</span>
+                  {q.question}
+                </span>
               </h3>
+              
+              {/* Варианты ответов */}
               <div className="space-y-2">
                 {q.options.map((option, optionIndex) => {
                   let optionStyle = "block w-full text-left p-3 rounded-lg transition-colors duration-200 ";
+                  
                   if (submitted) {
                     if (optionIndex === q.correctAnswer) {
                       optionStyle += "bg-green-700 text-white"; // Правильный ответ
@@ -153,7 +167,7 @@ const Part2 = () => {
                       optionStyle += "bg-gray-800 hover:bg-gray-700 text-gray-300"; // Не выбранный
                     }
                   }
-
+                  
                   return (
                     <button
                       key={optionIndex}
@@ -178,6 +192,7 @@ const Part2 = () => {
                   );
                 })}
               </div>
+              
               {/* Сообщение о правильности ответа после отправки */}
               {submitted && isSelected && (
                 <div className={`mt-3 text-sm p-2 rounded flex items-start gap-2 ${isCorrect ? 'bg-green-900/30 text-green-300' : 'bg-red-900/30 text-red-300'}`}>
@@ -197,7 +212,7 @@ const Part2 = () => {
             </div>
           );
         })}
-
+        
         {/* Кнопки управления */}
         <div className="flex flex-wrap items-center justify-between gap-4 pt-4 mt-6 border-t border-gray-700">
           {!submitted ? (

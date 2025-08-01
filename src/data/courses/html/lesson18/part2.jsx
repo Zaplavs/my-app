@@ -1,64 +1,69 @@
-// src/data/courses/html/lesson1/part2.jsx
+// src/data/courses/html/lesson18/part2.jsx
 import React, { useState } from 'react';
-import { CheckCircle, XCircle, RotateCcw, Award, Globe, Server, Monitor } from 'lucide-react';
+import { CheckCircle, XCircle, RotateCcw, Award, Accessibility, Eye, Ear, User, Brain } from 'lucide-react';
 
 const Part2 = () => {
-  // Данные викторины по теме урока
+  // Данные викторины по теме урока 18
   const quizData = [
     {
       id: 1,
-      question: "Что такое Всемирная паутина (Веб)?",
+      question: "Что означает аббревиатура a11y?",
       options: [
-        "Программа для просмотра веб-страниц",
-        "Система взаимосвязанных документов и ресурсов, доступных через Интернет",
-        "Язык программирования для создания сайтов",
-        "Специальный сервер, хранящий все веб-страницы"
+        "Адаптивный дизайн",
+        "Анимация",
+        "Accessibility (доступность)",
+        "Администрирование"
       ],
-      correctAnswer: 1 // Система взаимосвязанных документов и ресурсов, доступных через Интернет
+      correctAnswer: 2, // Accessibility (доступность)
+      icon: <Accessibility className="w-5 h-5 text-purple-400" />
     },
     {
       id: 2,
-      question: "Кто отправляет HTTP-запрос в процессе открытия веб-страницы?",
+      question: "Для чего主要用于 атрибут alt у тега <img>?",
       options: [
-        "Веб-сервер",
-        "Интернет-провайдер",
-        "Браузер (клиент)",
-        "Операционная система"
+        "Для указания размеров изображения",
+        "Для предоставления альтернативного текста, если изображение не может быть загружено",
+        "Для указания названия файла изображения",
+        "Для создания ссылки на изображение"
       ],
-      correctAnswer: 2 // Браузер (клиент)
+      correctAnswer: 1, // Для предоставления альтернативного текста...
+      icon: <Eye className="w-5 h-5 text-green-400" />
     },
     {
       id: 3,
-      question: "Какая технология отвечает за внешний вид веб-страницы (цвета, шрифты, расположение элементов)?",
+      question: "Какой атрибут используется для предоставления доступной метки элементу для вспомогательных технологий?",
       options: [
-        "HTML",
-        "HTTP",
-        "JavaScript",
-        "CSS"
+        "title",
+        "alt",
+        "aria-label",
+        "role"
       ],
-      correctAnswer: 3 // CSS
+      correctAnswer: 2, // aria-label
+      icon: <User className="w-5 h-5 text-cyan-400" />
     },
     {
       id: 4,
-      question: "Что происходит первым при вводе адреса сайта в адресную строку браузера?",
+      question: "Какой принцип доступности означает, что информация и пользовательский интерфейс должны быть представлены пользователям в воспринимаемой форме?",
       options: [
-        "Браузер отображает страницу",
-        "Сервер отправляет HTML-код",
-        "Браузер отправляет HTTP-запрос на сервер",
-        "Сервер обрабатывает JavaScript"
+        "Operable (Управляемость)",
+        "Understandable (Понятность)",
+        "Robust (Надежность)",
+        "Perceivable (Воспринимаемость)"
       ],
-      correctAnswer: 2 // Браузер отправляет HTTP-запрос на сервер
+      correctAnswer: 3, // Perceivable (Воспринимаемость)
+      icon: <Eye className="w-5 h-5 text-orange-400" />
     },
     {
       id: 5,
-      question: "Какая из этих технологий отвечает за структуру веб-страницы (заголовки, абзацы, списки)?",
+      question: "Для чего主要用于 атрибут role в HTML?",
       options: [
-        "CSS",
-        "JavaScript",
-        "HTML",
-        "SQL"
+        "Для указания роли элемента для вспомогательных технологий",
+        "Для определения стилей элемента",
+        "Для указания идентификатора элемента",
+        "Для создания анимации"
       ],
-      correctAnswer: 2 // HTML
+      correctAnswer: 0, // Для указания роли элемента для вспомогательных технологий
+      icon: <Brain className="w-5 h-5 text-blue-400" />
     }
   ];
 
@@ -99,21 +104,23 @@ const Part2 = () => {
 
   return (
     <div className="space-y-6">
+      {/* Вступление */}
       <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 backdrop-blur-sm border border-blue-700/30 rounded-2xl p-6 shadow-lg">
         <div className="flex items-start gap-4">
           <div className="bg-blue-500/20 p-3 rounded-lg">
-            <Globe className="w-6 h-6 text-blue-400" />
+            <Accessibility className="w-6 h-6 text-blue-400" />
           </div>
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">🧠 Викторина: Основы Веба и Интернета</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">🧠 Викторина: Доступность (a11y) и ARIA</h1>
             <p className="text-gray-300">
-              Проверьте свои знания по теме <span className="font-medium text-yellow-400">устройства Всемирной паутины</span>.
+              Проверьте свои знания по теме <span className="font-medium text-yellow-400">доступности и ARIA</span> в HTML с помощью атрибутов <code className="bg-gray-700 px-1.5 py-0.5 rounded text-green-300">alt</code>, <code className="bg-gray-700 px-1.5 py-0.5 rounded text-orange-300">title</code>, <code className="bg-gray-700 px-1.5 py-0.5 rounded text-purple-300">aria-label</code>, <code className="bg-gray-700 px-1.5 py-0.5 rounded text-cyan-300">role</code>.
             </p>
             <p className="text-gray-400 text-sm mt-2">Выберите один правильный ответ для каждого вопроса.</p>
           </div>
         </div>
       </div>
 
+      {/* Викторина */}
       <div className="bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 shadow-xl">
         {quizData.map((q, questionIndex) => {
           const isSelected = userAnswers[questionIndex] !== null;
@@ -130,13 +137,20 @@ const Part2 = () => {
                     : 'bg-gray-900/50'
               }`}
             >
+              {/* Заголовок вопроса с иконкой */}
               <h3 className="font-medium text-white mb-3 flex items-start gap-2">
-                <span className="flex-shrink-0">{questionIndex + 1}.</span>
-                <span>{q.question}</span>
+                <span className="flex-shrink-0 mt-0.5">{q.icon}</span>
+                <span>
+                  <span className="mr-2">{questionIndex + 1}.</span>
+                  {q.question}
+                </span>
               </h3>
+              
+              {/* Варианты ответов */}
               <div className="space-y-2">
                 {q.options.map((option, optionIndex) => {
                   let optionStyle = "block w-full text-left p-3 rounded-lg transition-colors duration-200 ";
+                  
                   if (submitted) {
                     if (optionIndex === q.correctAnswer) {
                       optionStyle += "bg-green-700 text-white"; // Правильный ответ
@@ -153,7 +167,7 @@ const Part2 = () => {
                       optionStyle += "bg-gray-800 hover:bg-gray-700 text-gray-300"; // Не выбранный
                     }
                   }
-
+                  
                   return (
                     <button
                       key={optionIndex}
@@ -178,6 +192,7 @@ const Part2 = () => {
                   );
                 })}
               </div>
+              
               {/* Сообщение о правильности ответа после отправки */}
               {submitted && isSelected && (
                 <div className={`mt-3 text-sm p-2 rounded flex items-start gap-2 ${isCorrect ? 'bg-green-900/30 text-green-300' : 'bg-red-900/30 text-red-300'}`}>
@@ -197,7 +212,7 @@ const Part2 = () => {
             </div>
           );
         })}
-
+        
         {/* Кнопки управления */}
         <div className="flex flex-wrap items-center justify-between gap-4 pt-4 mt-6 border-t border-gray-700">
           {!submitted ? (
