@@ -1,3 +1,4 @@
+// src/components/CoursesSection.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CourseCard from './CourseCard';
@@ -53,49 +54,129 @@ export default function CoursesSection() {
   ];
 
   return (
-    <section id="courses" className="py-20 bg-gradient-to-br from-gray-900 via-red-950 to-black text-white relative overflow-hidden">
-      {/* Анимированные фоновые элементы */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-red-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse animation-delay-4000"></div>
+    <section id="courses" className="py-24 md:py-32 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden">
+      {/* Тёмные анимированные фоновые элементы */}
+      <div className="absolute inset-0 opacity-[0.15]">
+        <div className="absolute -top-1/3 -right-1/4 w-96 h-96 bg-red-600 rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-pulse-slow"></div>
+        <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-amber-500 rounded-full mix-blend-overlay filter blur-3xl opacity-25 animate-pulse-slow animation-delay-3000"></div>
+        <div className="absolute -bottom-1/4 -left-1/4 w-96 h-96 bg-blue-600 rounded-full mix-blend-overlay filter blur-3xl opacity-20 animate-pulse-slow animation-delay-5000"></div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Заголовок секции */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-red-900/30 backdrop-blur-sm border border-red-800/50 rounded-full px-6 py-2 mb-6">
-            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-            <span className="text-red-300 font-medium">Обучение нового поколения</span>
+      {/* Дополнительный тёмный радиальный градиент для глубины */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(30,30,30,0.15)_0%,rgba(0,0,0,0)_70%)]"></div>
+
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        {/* Улучшенный заголовок секции */}
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-3 bg-red-900/30 backdrop-blur-sm border border-red-800/40 rounded-full px-6 py-2.5 mb-8 shadow-lg shadow-red-900/10">
+            <div className="relative">
+              <div className="w-2.5 h-2.5 bg-red-500 rounded-full animate-ping absolute opacity-75 inset-0"></div>
+              <div className="w-2.5 h-2.5 bg-red-500 rounded-full relative"></div>
+            </div>
+            <span className="text-red-300 font-semibold tracking-wide text-sm uppercase">Обучение нового поколения</span>
           </div>
           
-          <h2 className="text-5xl md:text-6xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-red-400 to-orange-500">
-            Наши курсы
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-red-400 to-orange-500 drop-shadow-[0_2px_2px_rgba(255,100,0,0.3)]">
+              Наши
+            </span>{' '}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-400 drop-shadow-[0_2px_2px_rgba(200,200,200,0.2)]">
+              курсы
+            </span>
           </h2>
           
-          <p className="text-xl opacity-90 max-w-3xl mx-auto leading-relaxed">
-            Бесплатные курсы для программистов нового мира. Обучайся без буржуазных заморочек.
-          </p>
+          <div className="max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 leading-relaxed px-4">
+              Бесплатные курсы для программистов нового мира. Обучайся без буржуазных заморочек.
+            </p>
+            <div className="mt-8 flex justify-center">
+              <div className="h-1 w-24 bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full"></div>
+            </div>
+          </div>
         </div>
 
-        {/* Сетка курсов */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        {/* Улучшенная сетка курсов */}
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 sm:gap-8 px-2">
           {courses.map((course, index) => (
             <div 
               key={course.id}
               className="group relative"
-              style={{ animationDelay: `${index * 100}ms` }}
+              style={{ animationDelay: `${index * 150}ms` }}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-yellow-600/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+              {/* Динамическая подсветка при наведении */}
+              <div className={`absolute -inset-0.5 bg-gradient-to-r ${course.color} rounded-3xl blur opacity-0 group-hover:opacity-30 transition-all duration-500 group-hover:duration-300 ease-out`}></div>
               
+              {/* Карточка курса с улучшенным дизайном */}
               <CourseCard 
                 {...course} 
-                className="relative bg-gray-800/40 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-6 transition-all duration-300 hover:border-red-500/30 hover:bg-gray-800/60 hover:-translate-y-2 shadow-xl hover:shadow-2xl hover:shadow-red-500/20"
-              />
+                className="relative h-full flex flex-col bg-gradient-to-br from-gray-800/40 via-gray-800/30 to-gray-900/40 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-6 transition-all duration-500 hover:border-white/20 hover:bg-gray-800/50 hover:-translate-y-2 shadow-2xl hover:shadow-3xl"
+              >
+                {/* Добавляем иконку уровня сложности в углу */}
+                <div className="absolute top-4 right-4">
+                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${
+                    course.level.includes('Начальный') ? 'bg-green-900/40 text-green-400 border border-green-800/60' :
+                    course.level.includes('Средний') ? 'bg-yellow-900/40 text-yellow-400 border border-yellow-800/60' :
+                    'bg-red-900/40 text-red-400 border border-red-800/60'
+                  }`}>
+                    {course.level}
+                  </span>
+                </div>
+
+                {/* Улучшенный контент карточки */}
+                <div className="flex flex-col h-full">
+                  {/* Иконка курса с анимацией */}
+                  <div className={`flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${course.color} mb-5 p-3 shadow-lg shadow-gray-900/50 group-hover:shadow-xl group-hover:scale-110 transition-transform duration-300`}>
+                    <div className="text-white drop-shadow-md">
+                      {course.icon}
+                    </div>
+                  </div>
+
+                  {/* Заголовок и описание */}
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-yellow-300 transition-colors duration-300">
+                    {course.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm flex-grow mb-6 leading-relaxed">
+                    {course.description}
+                  </p>
+
+                  {/* Кнопка "Изучить" */}
+                  <Link
+                    to={`/course/${course.slug}`}
+                    className={`inline-flex items-center justify-center w-full py-3 px-4 rounded-xl text-sm font-bold bg-gradient-to-r ${course.color} text-white shadow-md shadow-gray-900/30 hover:shadow-lg hover:shadow-gray-900/40 transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-white/20`}
+                  >
+                    Изучить курс
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </Link>
+                </div>
+              </CourseCard>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Стили для анимаций */}
+      <style jsx>{`
+        @keyframes pulse-slow {
+          0%, 100% { opacity: 0.15; transform: scale(1); }
+          50% { opacity: 0.25; transform: scale(1.05); }
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .animation-delay-3000 {
+          animation-delay: 3s;
+        }
+        .animation-delay-5000 {
+          animation-delay: 5s;
+        }
+        @media (max-width: 640px) {
+          .xs\:grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+      `}</style>
     </section>
   );
 }
