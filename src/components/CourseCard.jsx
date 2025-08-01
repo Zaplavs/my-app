@@ -16,7 +16,7 @@ export default function CourseCard({ title, description, level, slug, icon, colo
 
   return (
     <Link
-      to={`/course/${slug}`}
+      to={`/course/${slug}/learn`}
       className="block group relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-800/40 via-gray-800/20 to-gray-900/40 backdrop-blur-lg border border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
     >
       {/* Динамическая подсветка при наведении */}
