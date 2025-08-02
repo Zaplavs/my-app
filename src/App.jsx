@@ -9,8 +9,6 @@ import FeaturesSection from './components/FeaturesSection';
 import CoursesSection from './components/CoursesSection';
 import CourseCollectionsSection from './components/CourseCollectionsSection';
 import InterviewQuestionsSection from './components/InterviewQuestionsSection';
-import QuizSection from './components/QuizSection';
-import CodeChallengeSection from './components/CodeChallengeSection';
 import Footer from './components/Footer';
 import HelpButton from './components/HelpButton'; // Импортируем кнопку
 import GameSection from './components/GameSection';
@@ -26,8 +24,6 @@ export default function App() {
       <CoursesSection />
       <CourseCollectionsSection />
       <InterviewQuestionsSection />
-      <QuizSection />
-      <CodeChallengeSection />
       <GameSection />
       <Footer />
     </>

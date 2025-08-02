@@ -8,10 +8,8 @@ export default function Header() {
   const navItems = [
     { name: "Особенности", id: "features", icon: <Zap className="w-4 h-4" /> },
     { name: "Курсы", id: "courses", icon: <BookOpen className="w-4 h-4" /> },
-    { name: "Бесплатные курсы", id: "collections", icon: <BookOpen className="w-4 h-4" /> },
+    { name: "Подборки курсов", id: "collections", icon: <BookOpen className="w-4 h-4" /> },
     { name: "Собеседования", id: "interview", icon: <HelpCircle className="w-4 h-4" /> },
-    { name: "Викторина", id: "quiz", icon: <Trophy className="w-4 h-4" /> },
-    { name: "Code Challenge", id: "code-challenge", icon: <Code className="w-4 h-4" /> },
     { name: "Игры", id: "game", icon: <Gamepad2 className="w-4 h-4" /> },
   ];
 
@@ -32,8 +30,8 @@ export default function Header() {
             </span>
           </Link>
 
-          {/* Навигация (десктоп) */}
-          <nav className="hidden lg:flex items-center space-x-1">
+          {/* Навигация (десктоп) - ЦЕНТРИРОВАНА */}
+          <nav className="hidden lg:flex items-center justify-center flex-1 mx-8">
             {navItems.map((item) => (
               <a
                 key={item.id}
@@ -49,21 +47,8 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Кнопки аккаунта (временно скрыты) */}
-          <div className="hidden lg:flex items-center space-x-3">
-            <Link
-              to="/login"
-              className="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-300"
-            >
-              Войти
-            </Link>
-            <Link
-              to="/register"
-              className="px-4 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white shadow-lg hover:shadow-red-500/20 transition-all duration-300"
-            >
-              Регистрация
-            </Link>
-          </div>
+          {/* Пустой элемент для баланса (десктоп) */}
+          <div className="hidden lg:block w-32"></div>
 
           {/* Бургер-иконка */}
           <button

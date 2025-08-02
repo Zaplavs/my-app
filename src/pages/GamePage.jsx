@@ -1,33 +1,15 @@
 // src/pages/GamePage.jsx
 import React, { useState } from 'react';
-import CodeSnakeLevelsPage from '../components/codesnake/CodeSnakeLevelsPage';
-import CodeMazeLevelsPage from '../components/codemaze/CodeMazeLevelsPage';
+import { useNavigate } from 'react-router-dom';
 import AlgorithmConstructorLevelsPage from '../components/algorithmconstructor/AlgorithmConstructorLevelsPage';
+import QuizSection from '../components/QuizSection';
+import CodeChallengeSection from '../components/CodeChallengeSection';// Новый импорт
 
 export default function GamePage() {
   const [currentLevel, setCurrentLevel] = useState(null);
+  const navigate = useNavigate();
 
   const levels = [
-    {
-      id: 1,
-      name: "Змейка программиста",
-      difficulty: "easy",
-      description: "Соберите все ягоды в правильном порядке",
-      color: "from-green-500 to-emerald-600",
-      icon: "🐍",
-      gameType: "snake",
-      disabled: true // Заблокирована
-    },
-    {
-      id: 2,
-      name: "Лабиринт кода",
-      difficulty: "medium",
-      description: "Найдите путь к выходу через пазлы",
-      color: "from-blue-500 to-cyan-600",
-      icon: "🗺️",
-      gameType: "maze",
-      disabled: true // Заблокирована
-    },
     {
       id: 3,
       name: "Алгоритмический Конструктор",
@@ -36,6 +18,26 @@ export default function GamePage() {
       color: "from-purple-500 to-pink-600",
       icon: "🧩",
       gameType: "algorithm",
+      disabled: false // Доступна
+    },
+    {
+      id: 4,
+      name: "Викторина по ЯП",
+      difficulty: "mixed",
+      description: "Проверьте знания по языкам программирования",
+      color: "from-yellow-500 to-orange-600",
+      icon: "🧠",
+      gameType: "quiz",
+      disabled: false // Доступна
+    },
+    {
+      id: 5,
+      name: "Code Challenge",
+      difficulty: "hard",
+      description: "Угадайте, что выведет данный код",
+      color: "from-red-500 to-orange-600",
+      icon: "💻",
+      gameType: "codechallenge",
       disabled: false // Доступна
     }
   ];
@@ -53,7 +55,7 @@ export default function GamePage() {
   };
 
   const handleExit = () => {
-    window.history.back();
+    navigate('/'); // Переход на главную страницу вместо window.history.back()
   };
 
   if (currentLevel === null) {
@@ -80,7 +82,7 @@ export default function GamePage() {
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-white mb-4">Выберите игру</h2>
               <p className="text-xl text-gray-300">
-                Пройдите увлекательные кодовые игры и улучшите свои навыки Python
+                Пройдите увлекательные кодовые игры и улучшите свои навыки программирования
               </p>
             </div>
 
@@ -127,12 +129,12 @@ export default function GamePage() {
   // Рендеринг текущего уровня
   const renderLevel = () => {
     switch (currentLevel) {
-      case 1:
-        return <CodeSnakeLevelsPage onBack={handleBack} />;
-      case 2:
-        return <CodeMazeLevelsPage onBack={handleBack} />;
       case 3:
         return <AlgorithmConstructorLevelsPage onBack={handleBack} />;
+      case 4:
+        return <QuizSection onBack={handleBack} />;
+      case 5: // Новый уровень Code Challenge
+        return <CodeChallengeSection onBack={handleBack} />;
       default:
         return null;
     }

@@ -27,15 +27,16 @@ export default function GameSection() {
           </div>
           
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            Сыграйте в{' '}
+            Поиграйте в{' '}
             <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              игру
+              игры
             </span>
+            {' '}связанные с IT
           </h2>
           
           <p className="text-xl text-gray-300 mb-12 leading-relaxed">
-            Проверьте свои навыки программирования в увлекательной интерактивной игре. 
-            Я покажу вам, на что способен, а вы попробуйте обыграть меня в коде!
+            Проверьте свои навыки программирования в увлекательных интерактивных играх. 
+            Улучшайте свои знания в мире IT и становитесь настоящим профессионалом!
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
@@ -43,7 +44,7 @@ export default function GameSection() {
               onClick={handlePlayClick}
               className={`group relative px-12 py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl ${isAnimating ? 'animate-pulse scale-105' : ''}`}
             >
-              <span className="relative z-10">Начать игру</span>
+              <span className="relative z-10">Выбрать игру</span>
               <div className="absolute inset-0 bg-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
             

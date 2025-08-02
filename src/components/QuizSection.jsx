@@ -1,8 +1,11 @@
+// src/components/QuizSection.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ChevronRight, Brain, Zap, Trophy, Clock, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-export default function QuizSection() {
+export default function QuizSection({ onBack }) {
+  const navigate = useNavigate();
+
   const quizLanguages = [
     { 
       name: "Python", 
@@ -46,8 +49,21 @@ export default function QuizSection() {
     }
   ];
 
+  const handleQuizSelect = (languageName) => {
+    // Преобразуем название языка в URL-совместимый формат
+    let langPath = languageName.toLowerCase();
+    if (langPath === 'c#') {
+      langPath = 'csharp';
+    } else if (langPath === 'c++') {
+      langPath = 'cpp';
+    }
+    
+    // Используем navigate вместо window.location для SPA навигации
+    navigate(`/quiz/${langPath}`);
+  };
+
   return (
-    <section className="bg-gradient-to-br from-gray-900 via-black to-gray-900 py-24 px-6 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 py-12 px-6 relative overflow-hidden">
       {/* Анимированные фоновые элементы */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-500/20 via-transparent to-blue-500/20"></div>
@@ -56,14 +72,25 @@ export default function QuizSection() {
       <div className="absolute top-1/4 left-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
 
-      <div id="quiz" className="max-w-7xl mx-auto text-center relative z-10">
-        {/* Заголовок секции */}
-        <div className="mb-16">
-          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-900/30 to-blue-900/30 backdrop-blur-sm border border-purple-800/30 rounded-full px-6 py-2 mb-6">
-            <Brain className="w-5 h-5 text-purple-400" />
-            <span className="text-purple-300 font-medium uppercase tracking-wider">Интерактивное обучение</span>
-          </div>
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header с кнопкой назад */}
+        <div className="flex items-center justify-between mb-12">
+          <button
+            onClick={onBack}
+            className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-gray-800/50"
+          >
+            <span className="text-xl">←</span>
+            <span>Назад к играм</span>
+          </button>
           
+          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-900/30 to-blue-900/30 backdrop-blur-sm border border-purple-800/30 rounded-full px-6 py-2">
+            <Brain className="w-5 h-5 text-purple-400" />
+            <span className="text-purple-300 font-medium uppercase tracking-wider">Викторина</span>
+          </div>
+        </div>
+
+        {/* Заголовок секции */}
+        <div className="mb-16 text-center">
           <h2 className="text-4xl md:text-5xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-blue-500">
             Проверь свои знания!
           </h2>
@@ -84,9 +111,9 @@ export default function QuizSection() {
               {/* Градиентный фон при наведении */}
               <div className={`absolute -inset-1 bg-gradient-to-r ${lang.color} rounded-2xl blur opacity-0 group-hover:opacity-20 transition-all duration-500`}></div>
               
-              <Link
-                to={`/quiz/${lang.name.toLowerCase() === 'c#' ? 'csharp' : lang.name.toLowerCase()}`}
-                className={`relative block p-6 rounded-2xl bg-gray-800/60 backdrop-blur-lg border border-gray-700/50 shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl ${lang.hoverColor}`}
+              <div
+                onClick={() => handleQuizSelect(lang.name)}
+                className={`relative block p-6 rounded-2xl bg-gray-800/60 backdrop-blur-lg border border-gray-700/50 shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl cursor-pointer ${lang.hoverColor}`}
               >
                 {/* Иконка языка */}
                 <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r ${lang.color} mb-5 text-white font-bold text-lg shadow-lg`}>
@@ -120,7 +147,7 @@ export default function QuizSection() {
                 
                 {/* Градиентная рамка */}
                 <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${lang.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 -z-10`}></div>
-              </Link>
+              </div>
             </div>
           ))}
         </div>
@@ -143,6 +170,6 @@ export default function QuizSection() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

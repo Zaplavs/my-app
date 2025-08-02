@@ -185,15 +185,15 @@ export default function CodeChallengePage() {
           <div id="yandex_rtb_R-A-16179039-4" className="w-full"></div>
         </div>
 
-        {/* Кнопка "Вернуться на главную" */}
+        {/* Кнопка "Выбрать игру" */}
         <div className="mt-6 text-center">
-          <a
-            href="/"
+          <button
+            onClick={() => navigate('/game')}
             className="text-blue-500 hover:text-blue-400 font-medium transition inline-flex items-center group"
           >
             <ArrowLeftIcon />
-            <span className="ml-2 group-hover:underline">Вернуться на главную</span>
-          </a>
+            <span className="ml-2 group-hover:underline">Выбрать игру</span>
+          </button>
         </div>
       </div>
     </section>
