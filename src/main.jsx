@@ -1,97 +1,60 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-// Основные страницы
-import App from './App';
-import LearnCoursePage from './pages/LearnCoursePage';
-import LessonPage from './pages/LessonPage';
-import CourseCollectionPage from './pages/CourseCollectionPage';
-import HelpPage from './pages/HelpPage';
-import InterviewQuestionsPage from './pages/InterviewQuestionsPage';
-import QuizPage from './pages/QuizPage';
-import CodeChallengePage from './pages/CodeChallengePage';
-import GamePage from './pages/GamePage';
-
-// Политика и условия
-import Privacy from './pages/privacy'; // ← Новая страница
-import Terms from './pages/terms';     // ← Новая страница
-
+// Стили
+import './index.css';
 // Макет
 import MainLayout from './components/MainLayout';
 
 // Админка
-import AdminLoginPage from './admin/pages/AdminLoginPage';
-import AdminDashboard from './admin/pages/AdminDashboard';
-import AdminProtectedRoute from './admin/pages/AdminProtectedRoute';
-import CoursesListPage from './admin/pages/CoursesListPage';
-import CourseCreatePage from './admin/pages/CourseCreatePage';
-import CourseEditPage from './admin/pages/CourseEditPage';
+const AdminLoginPage = React.lazy(() => import('./admin/pages/AdminLoginPage'));
+const AdminDashboard = React.lazy(() => import('./admin/pages/AdminDashboard'));
+const CoursesListPage = React.lazy(() => import('./admin/pages/CoursesListPage'));
+const CourseCreatePage = React.lazy(() => import('./admin/pages/CourseCreatePage'));
+const CourseEditPage = React.lazy(() => import('./admin/pages/CourseEditPage'));
 
-// Стили
-import './index.css';
+// Основные страницы
+const App = React.lazy(() => import('./App'));
+const LearnCoursePage = React.lazy(() => import('./pages/LearnCoursePage'));
+const LessonPage = React.lazy(() => import('./pages/LessonPage'));
+const CourseCollectionPage = React.lazy(() => import('./pages/CourseCollectionPage'));
+const HelpPage = React.lazy(() => import('./pages/HelpPage'));
+const InterviewQuestionsPage = React.lazy(() => import('./pages/InterviewQuestionsPage'));
+const QuizPage = React.lazy(() => import('./pages/QuizPage'));
+const CodeChallengePage = React.lazy(() => import('./pages/CodeChallengePage'));
+const GamePage = React.lazy(() => import('./pages/GamePage'));
+
+// Политика и условия
+const Privacy = React.lazy(() => import('./pages/privacy'));
+const Terms = React.lazy(() => import('./pages/terms'));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
-      <Routes>
-        {/* Публичные страницы с общей обёрткой MainLayout */}
-        <Route path="/" element={<MainLayout><App /></MainLayout>} />
-        
-        {/* Курсы */}
-        <Route path="/course/:slug/learn" element={<MainLayout><LearnCoursePage /></MainLayout>} />
-        <Route path="/course/:slug/learn/:lessonId" element={<MainLayout><LessonPage /></MainLayout>} />
-        <Route path="/courses/:id" element={<MainLayout><CourseCollectionPage /></MainLayout>} />
+      <Suspense fallback={<div>Загрузка...</div>}>
+        <Routes>
+          {/* Публичные страницы */}
+          <Route path="/" element={<MainLayout><App /></MainLayout>} />
+          <Route path="/course/:slug/learn" element={<MainLayout><LearnCoursePage /></MainLayout>} />
+          <Route path="/course/:slug/learn/:lessonId" element={<MainLayout><LessonPage /></MainLayout>} />
+          <Route path="/courses/:id" element={<MainLayout><CourseCollectionPage /></MainLayout>} />
+          <Route path="/help" element={<MainLayout><HelpPage /></MainLayout>} />
+          <Route path="/interview/:language/:level?" element={<MainLayout><InterviewQuestionsPage /></MainLayout>} />
+          <Route path="/quiz/:language" element={<MainLayout><QuizPage /></MainLayout>} />
+          <Route path="/code-challenge/:language" element={<MainLayout><CodeChallengePage /></MainLayout>} />
+          <Route path="/game" element={<MainLayout><GamePage /></MainLayout>} />
+          <Route path="/privacy" element={<MainLayout><Privacy /></MainLayout>} />
+          <Route path="/terms" element={<MainLayout><Terms /></MainLayout>} />
 
-        {/* Поддержка и собеседования */}
-        <Route path="/help" element={<MainLayout><HelpPage /></MainLayout>} />
-        <Route path="/interview/:language/:level?" element={<MainLayout><InterviewQuestionsPage /></MainLayout>} />
-
-        {/* Интерактив */}
-        <Route path="/quiz/:language" element={<MainLayout><QuizPage /></MainLayout>} />
-        <Route path="/code-challenge/:language" element={<MainLayout><CodeChallengePage /></MainLayout>} />
-        <Route path="/game" element={<MainLayout><GamePage /></MainLayout>} />
-
-        {/* Политика и условия */}
-        <Route path="/privacy" element={<MainLayout><Privacy /></MainLayout>} />
-        <Route path="/terms" element={<MainLayout><Terms /></MainLayout>} />
-
-        {/* Админка — без MainLayout */}
-        <Route path="/admin/login" element={<AdminLoginPage />} />
-        <Route 
-          path="/admin/dashboard" 
-          element={
-            <AdminProtectedRoute>
-              <AdminDashboard />
-            </AdminProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/admin/courses" 
-          element={
-            <AdminProtectedRoute>
-              <CoursesListPage />
-            </AdminProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/admin/courses/create" 
-          element={
-            <AdminProtectedRoute>
-              <CourseCreatePage />
-            </AdminProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/admin/courses/edit/:courseId" 
-          element={
-            <AdminProtectedRoute>
-              <CourseEditPage />
-            </AdminProtectedRoute>
-          } 
-        />
-      </Routes>
+          {/* Админка */}
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/courses" element={<CoursesListPage />} />
+          <Route path="/admin/courses/create" element={<CourseCreatePage />} />
+          <Route path="/admin/courses/edit/:courseId" element={<CourseEditPage />} />
+        </Routes>
+      </Suspense>
     </Router>
   </React.StrictMode>
 );
