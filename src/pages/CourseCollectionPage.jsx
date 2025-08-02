@@ -15,13 +15,11 @@ const cacheUtils = {
     try {
       const cachedItem = localStorage.getItem(CACHE_KEY);
       if (!cachedItem) return null;
-      
       const { data, timestamp } = JSON.parse(cachedItem);
       if (Date.now() - timestamp < CACHE_DURATION) {
         console.log("Данные загружены из кэша localStorage");
         return data;
       }
-      
       console.log("Кэш устарел");
       localStorage.removeItem(CACHE_KEY);
       return null;
@@ -31,7 +29,6 @@ const cacheUtils = {
       return null;
     }
   },
-
   set: (data) => {
     try {
       const item = { data, timestamp: Date.now() };
@@ -79,7 +76,6 @@ function CourseCard({ course }) {
           </div>
         )}
       </div>
-      
       <div className="p-6 bg-black/80 backdrop-blur-sm">
         <h3 className="text-xl font-bold mb-3 line-clamp-2 text-white group-hover:text-red-400 transition-colors">
           {course.name}
@@ -188,7 +184,6 @@ export default function CourseCollectionPage() {
     try {
       setLoading(true);
       setError(null);
-
       // Проверяем кэш
       if (useCache) {
         const cachedData = cacheUtils.get();
@@ -198,7 +193,6 @@ export default function CourseCollectionPage() {
           return;
         }
       }
-
       // Загружаем с API
       const data = await fetchAllCoursesWithCategories();
       setAllCategoriesWithCourses(data);
@@ -219,13 +213,12 @@ export default function CourseCollectionPage() {
   // Инициализация рекламы
   useEffect(() => {
     if (!collection) return;
-
+    
     const initYandexRTB = () => {
       if (typeof Ya === 'undefined' || !Ya.Context?.AdvManager) {
         console.warn('Яндекс.РТБ не загружен или API не доступно');
         return;
       }
-
       Ya.Context.AdvManager.render({
         blockId: YANDEX_RTB_BLOCK_ID,
         renderTo: YANDEX_RTB_CONTAINER_ID
@@ -261,7 +254,7 @@ export default function CourseCollectionPage() {
           </h1>
           <div className="w-32 h-1 bg-gradient-to-r from-red-600 to-orange-500 mx-auto rounded-full"></div>
         </div>
-
+        
         {collection.courses?.length > 0 ? (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -269,7 +262,6 @@ export default function CourseCollectionPage() {
                 <CourseCard key={course.id} course={course} />
               ))}
             </div>
-            
             <div className="mt-12 text-center">
               <p className="text-gray-400 text-lg">
                 Всего курсов в категории: <span className="font-bold text-red-400">{collection.courses.length}</span>
@@ -289,7 +281,7 @@ export default function CourseCollectionPage() {
             </p>
           </div>
         )}
-
+        
         {/* Рекламный блок Яндекс.РТБ */}
         <div className="my-20 flex justify-center">
           <div 
@@ -304,7 +296,7 @@ export default function CourseCollectionPage() {
             </div>
           </div>
         </div>
-
+        
         <div className="mt-16 text-center">
           <button
             onClick={handleBackToCollections}
