@@ -45,22 +45,34 @@ function CourseCard({ course }) {
   const handleImageError = useCallback((e) => {
     e.target.onerror = null;
     e.target.style.display = 'none';
-    e.target.nextSibling.style.display = 'flex';
+    // Более надежный способ показать заглушку
+    const placeholder = e.target.parentNode.querySelector('.image-placeholder');
+    if (placeholder) placeholder.style.display = 'flex';
   }, []);
 
   return (
-    <div className="bg-gradient-to-br from-red-950 to-red-900 border border-red-800 rounded-xl overflow-hidden shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:border-red-600">
+    <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl overflow-hidden shadow-xl transform transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:border-red-500/30 group">
       <div className="relative">
         {course.image ? (
           <>
-            <img
-              src={course.image.trim()}
-              alt={course.name}
-              className="w-full h-48 object-cover"
-              onError={handleImageError}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-              <span className="text-white text-sm font-medium truncate">
+            <div className="relative">
+              <img
+                src={course.image.trim()}
+                alt={course.name}
+                className="w-full h-48 object-cover"
+                onError={handleImageError}
+              />
+              <div className="image-placeholder absolute inset-0 w-full h-48 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center" style={{ display: 'none' }}>
+                <div className="text-center">
+                  <svg className="w-12 h-12 text-gray-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span className="text-gray-500 text-sm">Изображение недоступно</span>
+                </div>
+              </div>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4">
+              <span className="text-white text-sm font-semibold truncate bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-lg">
                 {course.name}
               </span>
             </div>
@@ -76,23 +88,25 @@ function CourseCard({ course }) {
           </div>
         )}
       </div>
-      <div className="p-6 bg-black/80 backdrop-blur-sm">
-        <h3 className="text-xl font-bold mb-3 line-clamp-2 text-white group-hover:text-red-400 transition-colors">
+      <div className="p-6 bg-gradient-to-b from-gray-900/50 to-black backdrop-blur-sm">
+        <h3 className="text-xl font-bold mb-3 line-clamp-2 text-white group-hover:text-red-400 transition-colors duration-300">
           {course.name}
         </h3>
-        <p className="text-gray-300 mb-5 text-sm line-clamp-3 leading-relaxed">
+        <p className="text-gray-400 mb-5 text-sm line-clamp-3 leading-relaxed">
           {course.description || 'Описание отсутствует'}
         </p>
         <a
           href={course.link.trim()}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center text-red-400 hover:text-red-300 font-medium group transition-colors"
+          className="inline-flex items-center text-red-500 hover:text-red-400 font-semibold group/link transition-colors duration-300"
         >
           Перейти к курсу
-          <span className="ml-2 transform transition-transform group-hover:translate-x-1">→</span>
+          <span className="ml-2 text-lg transform transition-transform duration-300 group-hover/link:translate-x-1">→</span>
         </a>
       </div>
+      {/* Декоративный элемент */}
+      <div className="absolute top-0 right-0 w-24 h-24 bg-red-500/10 rounded-full -translate-y-12 translate-x-12 group-hover:bg-red-500/20 transition-colors duration-500"></div>
     </div>
   );
 }
