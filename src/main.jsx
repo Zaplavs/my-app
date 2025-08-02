@@ -1,10 +1,13 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 // Стили
 import './index.css';
-// Макет
+
+// Макет и загрузчик
 import MainLayout from './components/MainLayout';
+import PageLoader from './components/PageLoader';
 
 // Админка
 const AdminLoginPage = React.lazy(() => import('./admin/pages/AdminLoginPage'));
@@ -32,7 +35,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
-      <Suspense fallback={<div>Загрузка...</div>}>
+      <Suspense fallback={<PageLoader />}>
         <Routes>
           {/* Публичные страницы */}
           <Route path="/" element={<MainLayout><App /></MainLayout>} />
