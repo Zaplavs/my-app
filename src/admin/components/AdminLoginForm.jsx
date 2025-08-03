@@ -1,7 +1,7 @@
 // components/AdminLoginForm.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginAdmin } from '../services/auth';
+import { loginAdmin } from '../../services/auth';
 
 const AdminLoginForm = () => {
   const [email, setEmail] = useState('');
