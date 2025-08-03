@@ -8,6 +8,8 @@ export default function TypingSpeedGame({ onBack }) {
   const [userInput, setUserInput] = useState('');
   const [timeLeft, setTimeLeft] = useState(60);
   const [startTime, setStartTime] = useState(null);
+  // Добавлено состояние для хранения времени завершения
+  const [finishTime, setFinishTime] = useState(null); 
   const [wpm, setWpm] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
   const [difficulty, setDifficulty] = useState('medium');
@@ -25,6 +27,8 @@ export default function TypingSpeedGame({ onBack }) {
     setUserInput('');
     setTimeLeft(60);
     setStartTime(null);
+    // Сброс времени завершения при новом запуске
+    setFinishTime(null); 
     setWpm(0);
     setAccuracy(100);
     setErrors(0);
@@ -52,12 +56,10 @@ export default function TypingSpeedGame({ onBack }) {
     if (gameState === 'playing' && userInput.length > 0 && !startTime) {
       setStartTime(Date.now());
     }
-    
     // Проверка завершения текста
     if (gameState === 'playing' && userInput.length === currentText.length) {
       finishGame();
     }
-    
     // Расчет точности
     if (userInput.length > 0) {
       let errorCount = 0;
@@ -73,8 +75,12 @@ export default function TypingSpeedGame({ onBack }) {
   }, [userInput, currentText, gameState, startTime]);
 
   const finishGame = () => {
+    // Устанавливаем время завершения
+    const now = Date.now();
+    setFinishTime(now);
+    
     if (startTime) {
-      const timeElapsed = (Date.now() - startTime) / 1000 / 60; // в минутах
+      const timeElapsed = (now - startTime) / 1000 / 60; // в минутах
       const words = userInput.trim().split(/\s+/).length;
       const calculatedWpm = Math.round(words / timeElapsed) || 0;
       setWpm(Math.max(0, calculatedWpm));
@@ -84,7 +90,6 @@ export default function TypingSpeedGame({ onBack }) {
 
   const handleInputChange = (e) => {
     if (gameState !== 'playing') return;
-    
     const value = e.target.value;
     // Ограничиваем ввод длиной оригинального текста
     if (value.length <= currentText.length) {
@@ -96,12 +101,27 @@ export default function TypingSpeedGame({ onBack }) {
     setGameState('menu');
     setUserInput('');
     setCurrentText('');
+    // Сброс времени завершения при сбросе игры
+    setFinishTime(null);
   };
 
   const getCharacterClass = (index) => {
     if (index >= userInput.length) return 'text-gray-400';
     if (userInput[index] === currentText[index]) return 'text-green-400';
     return 'text-red-400';
+  };
+
+  // Функция для вычисления времени завершения в секундах
+  const getCompletionTime = () => {
+    if (startTime && finishTime) {
+      return ((finishTime - startTime) / 1000).toFixed(1);
+    }
+    // Если текст завершен до окончания таймера
+    if (userInput.length === currentText.length && startTime) {
+      return ((Date.now() - startTime) / 1000).toFixed(1);
+    }
+    // Если время вышло
+    return (60 - timeLeft).toFixed(1);
   };
 
   const renderMenu = () => (
@@ -113,7 +133,6 @@ export default function TypingSpeedGame({ onBack }) {
             Проверьте свою скорость печати на клавиатуре
           </p>
         </div>
-
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-white mb-4">Выберите сложность</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -134,7 +153,6 @@ export default function TypingSpeedGame({ onBack }) {
             ))}
           </div>
         </div>
-
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={startGame}
@@ -170,7 +188,6 @@ export default function TypingSpeedGame({ onBack }) {
             </span>
           </div>
         </div>
-
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 text-center border border-slate-700/50">
@@ -190,7 +207,6 @@ export default function TypingSpeedGame({ onBack }) {
             <div className="text-gray-400">Символов</div>
           </div>
         </div>
-
         {/* Text Display */}
         <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 mb-8 border border-slate-700/50">
           <div className="text-2xl leading-relaxed font-mono mb-8 min-h-[120px]">
@@ -200,7 +216,6 @@ export default function TypingSpeedGame({ onBack }) {
               </span>
             ))}
           </div>
-          
           <textarea
             ref={inputRef}
             value={userInput}
@@ -211,7 +226,6 @@ export default function TypingSpeedGame({ onBack }) {
             disabled={gameState !== 'playing'}
           />
         </div>
-
         {/* Instructions */}
         <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl p-4 border border-slate-700/30">
           <h3 className="text-lg font-bold text-white mb-2">Инструкции:</h3>
@@ -233,7 +247,6 @@ export default function TypingSpeedGame({ onBack }) {
           <h1 className="text-4xl font-bold text-white mb-4">Результаты</h1>
           <div className="text-6xl text-green-400 mb-2">⌨️</div>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-slate-700/50 rounded-xl p-6 text-center">
             <div className="text-4xl font-bold text-green-400 mb-2">{wpm}</div>
@@ -248,7 +261,15 @@ export default function TypingSpeedGame({ onBack }) {
             <div className="text-gray-300">Ошибок</div>
           </div>
         </div>
-
+        
+        {/* Новый блок с временем завершения */}
+        <div className="mb-6">
+          <div className="bg-slate-700/50 rounded-xl p-6 text-center">
+            <div className="text-3xl font-bold text-yellow-400 mb-2">{getCompletionTime()} сек</div>
+            <div className="text-gray-300">Время завершения</div>
+          </div>
+        </div>
+        
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-white mb-4 text-center">
             {wpm >= 60 ? 'Отличный результат! 🚀' : 
@@ -257,7 +278,6 @@ export default function TypingSpeedGame({ onBack }) {
              'Продолжайте тренироваться! 🎯'}
           </h2>
         </div>
-
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={startGame}
