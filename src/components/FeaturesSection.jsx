@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import FeatureCard from './FeatureCard';
 import { Clock, Users, Zap, Award, Globe, Heart } from 'lucide-react';
 
@@ -41,6 +42,16 @@ export default function FeaturesSection() {
     }
   ];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % features.length);
+    }, 3000); // Меняем каждые 3 секунды
+
+    return () => clearInterval(interval);
+  }, [features.length]);
+
   return (
     <section id="features" className="py-20 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
       {/* Фоновые декоративные элементы */}
@@ -68,25 +79,44 @@ export default function FeaturesSection() {
           </p>
         </div>
 
-        {/* Сетка преимуществ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <div 
+        {/* Карусель преимуществ */}
+        <div className="relative overflow-hidden py-8">
+          <div 
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {[...features, ...features].map((feature, index) => (
+              <div 
+                key={index}
+                className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4"
+              >
+                <div className="group relative h-full">
+                  <div className={`absolute inset-0 bg-gradient-to-r ${feature.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-all duration-500`}></div>
+                  <FeatureCard
+                    icon={feature.icon}
+                    title={feature.title}
+                    description={feature.description}
+                    className="relative bg-gray-800/40 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-8 transition-all duration-300 hover:border-transparent hover:bg-gray-800/60 hover:-translate-y-2 shadow-xl hover:shadow-2xl h-full"
+                    iconClassName={`p-3 rounded-xl bg-gradient-to-r ${feature.color} mb-6`}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Индикаторы */}
+        <div className="flex justify-center mt-8 space-x-2">
+          {features.map((_, index) => (
+            <button
               key={index}
-              className="group relative"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              {/* Градиентный фон при наведении */}
-              <div className={`absolute inset-0 bg-gradient-to-r ${feature.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-all duration-500`}></div>
-              
-              <FeatureCard
-                icon={feature.icon}
-                title={feature.title}
-                description={feature.description}
-                className="relative bg-gray-800/40 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-8 transition-all duration-300 hover:border-transparent hover:bg-gray-800/60 hover:-translate-y-2 shadow-xl hover:shadow-2xl"
-                iconClassName={`p-3 rounded-xl bg-gradient-to-r ${feature.color} mb-6`}
-              />
-            </div>
+              onClick={() => setCurrentIndex(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentIndex 
+                  ? 'bg-gradient-to-r from-yellow-400 to-orange-500 w-8' 
+                  : 'bg-gray-600'
+              }`}
+            />
           ))}
         </div>
       </div>
