@@ -1,7 +1,7 @@
 // admin/pages/AdminDashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { logoutAdmin, getCurrentAdmin } from '../services/auth';
+import { logoutAdmin, getCurrentAdmin } from '../../services/auth';
 
 const AdminDashboard = () => {
   const [adminInfo, setAdminInfo] = useState(null);
