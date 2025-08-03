@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AlgorithmConstructorLevelsPage from '../components/algorithmconstructor/AlgorithmConstructorLevelsPage';
 import QuizSection from '../components/QuizSection';
-import CodeChallengeSection from '../components/CodeChallengeSection';// Новый импорт
+import CodeChallengeSection from '../components/CodeChallengeSection';
+import TypingSpeedGame from '../components/TypingSpeedGame'; // Новый импорт
 
 export default function GamePage() {
   const [currentLevel, setCurrentLevel] = useState(null);
@@ -18,7 +19,7 @@ export default function GamePage() {
       color: "from-purple-500 to-pink-600",
       icon: "🧩",
       gameType: "algorithm",
-      disabled: false // Доступна
+      disabled: false
     },
     {
       id: 4,
@@ -28,7 +29,7 @@ export default function GamePage() {
       color: "from-yellow-500 to-orange-600",
       icon: "🧠",
       gameType: "quiz",
-      disabled: false // Доступна
+      disabled: false
     },
     {
       id: 5,
@@ -38,12 +39,21 @@ export default function GamePage() {
       color: "from-red-500 to-orange-600",
       icon: "💻",
       gameType: "codechallenge",
+      disabled: false
+    },
+    {
+      id: 6, // Новый уровень
+      name: "Скоростной Ввод",
+      difficulty: "medium",
+      description: "Проверьте скорость печати на клавиатуре",
+      color: "from-green-500 to-teal-600",
+      icon: "⌨️",
+      gameType: "typing",
       disabled: false // Доступна
     }
   ];
 
   const handleLevelSelect = (levelId) => {
-    // Проверяем, не заблокирован ли уровень
     const level = levels.find(l => l.id === levelId);
     if (level && !level.disabled) {
       setCurrentLevel(levelId);
@@ -55,7 +65,7 @@ export default function GamePage() {
   };
 
   const handleExit = () => {
-    navigate('/'); // Переход на главную страницу вместо window.history.back()
+    navigate('/');
   };
 
   if (currentLevel === null) {
@@ -133,8 +143,10 @@ export default function GamePage() {
         return <AlgorithmConstructorLevelsPage onBack={handleBack} />;
       case 4:
         return <QuizSection onBack={handleBack} />;
-      case 5: // Новый уровень Code Challenge
+      case 5:
         return <CodeChallengeSection onBack={handleBack} />;
+      case 6: // Новый уровень Скоростной Ввод
+        return <TypingSpeedGame onBack={handleBack} />;
       default:
         return null;
     }
