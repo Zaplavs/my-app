@@ -8,6 +8,7 @@ import './index.css';
 // Макет и загрузчик
 import MainLayout from './components/MainLayout';
 import PageLoader from './components/PageLoader';
+import ProtectedRoute from './components/ProtectedRoute';
 
 // Админка
 const AdminLoginPage = React.lazy(() => import('./admin/pages/AdminLoginPage'));
@@ -52,10 +53,26 @@ root.render(
 
           {/* Админка */}
           <Route path="/admin/login" element={<AdminLoginPage />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/courses" element={<CoursesListPage />} />
-          <Route path="/admin/courses/create" element={<CourseCreatePage />} />
-          <Route path="/admin/courses/edit/:courseId" element={<CourseEditPage />} />
+          <Route path="/admin/dashboard" element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/courses" element={
+            <ProtectedRoute>
+              <CoursesListPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/courses/create" element={
+            <ProtectedRoute>
+              <CourseCreatePage />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/courses/edit/:courseId" element={
+            <ProtectedRoute>
+              <CourseEditPage />
+            </ProtectedRoute>
+          } />
         </Routes>
       </Suspense>
     </Router>
