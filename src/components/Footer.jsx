@@ -1,33 +1,39 @@
+import React from 'react';
+
 export default function Footer() {
   return (
-    <footer className="bg-black text-white py-10 border-t border-red-700">
-      <div className="container mx-auto px-6 text-center">
-        {/* Копирайт */}
-        <p className="uppercase text-sm md:text-base opacity-90">
-          &copy; 2025 Красный код — Все знания — народу!
-        </p>
+    <footer className="bg-gradient-to-r from-gray-900 to-black text-white border-t border-red-700">
+      <div className="container mx-auto px-6 py-10">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          {/* Копирайт */}
+          <p className="text-gray-400 text-sm md:text-base">
+            &copy; {new Date().getFullYear()} Красный код — Все знания — народу!
+          </p>
 
-        {/* Ссылки */}
-        <div className="mt-4 space-x-6 text-sm">
-          <a
-            href="/privacy"
-            className="hover:text-red-500 transition-colors duration-300 ease-in-out"
-          >
-            Политика конфиденциальности
-          </a>
-          <span className="text-red-700">|</span>
-          <a
-            href="/terms"
-            className="hover:text-red-500 transition-colors duration-300 ease-in-out"
-          >
-            Условия использования
-          </a>
+          {/* Ссылки */}
+          <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 mt-4 md:mt-0">
+            <a
+              href="/privacy"
+              className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm"
+            >
+              Политика конфиденциальности
+            </a>
+            <span className="hidden md:block text-red-700">|</span>
+            <a
+              href="/terms"
+              className="text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm"
+            >
+              Условия использования
+            </a>
+          </div>
         </div>
 
-        {/* Опционально: дополнительная строка (можно раскомментировать) */}
-        {/* <p className="mt-4 text-xs opacity-70">
-          Сайт создан в образовательных целях
-        </p> */}
+        {/* Дополнительная информация */}
+        <div className="mt-6 text-center">
+          <p className="text-xs text-gray-600">
+            Сайт создан в образовательных целях
+          </p>
+        </div>
       </div>
     </footer>
   );
