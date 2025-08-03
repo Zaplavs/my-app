@@ -1,3 +1,4 @@
+// admin/pages/AdminLoginPage.jsx
 import React from 'react';
 import AdminLoginForm from '../components/AdminLoginForm';
 
