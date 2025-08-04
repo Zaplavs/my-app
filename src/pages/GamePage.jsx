@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import AlgorithmConstructorLevelsPage from '../components/algorithmconstructor/AlgorithmConstructorLevelsPage';
 import QuizSection from '../components/QuizSection';
 import CodeChallengeSection from '../components/CodeChallengeSection';
-import TypingSpeedGame from '../components/TypingSpeedGame'; // Новый импорт
+import TypingSpeedGame from '../components/TypingSpeedGame';
+import BugHuntGame from '../components/BugHuntGame'; // Новый импорт
 
 export default function GamePage() {
   const [currentLevel, setCurrentLevel] = useState(null);
@@ -42,13 +43,23 @@ export default function GamePage() {
       disabled: false
     },
     {
-      id: 6, // Новый уровень
+      id: 6,
       name: "Скоростной Ввод",
       difficulty: "medium",
       description: "Проверьте скорость печати на клавиатуре",
       color: "from-green-500 to-teal-600",
       icon: "⌨️",
       gameType: "typing",
+      disabled: false
+    },
+    {
+      id: 7, // Новый уровень - Багохот
+      name: "Багохот",
+      difficulty: "hard",
+      description: "Найдите и исправьте ошибки в коде",
+      color: "from-red-600 to-amber-600",
+      icon: "🐛",
+      gameType: "bughunt",
       disabled: false // Доступна
     }
   ];
@@ -145,8 +156,10 @@ export default function GamePage() {
         return <QuizSection onBack={handleBack} />;
       case 5:
         return <CodeChallengeSection onBack={handleBack} />;
-      case 6: // Новый уровень Скоростной Ввод
+      case 6:
         return <TypingSpeedGame onBack={handleBack} />;
+      case 7: // Новый уровень Багохот
+        return <BugHuntGame onBack={handleBack} />;
       default:
         return null;
     }

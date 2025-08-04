@@ -15,6 +15,7 @@ const InterviewQuestionsPage = React.lazy(() => import('../pages/InterviewQuesti
 const QuizPage = React.lazy(() => import('../pages/QuizPage'));
 const CodeChallengePage = React.lazy(() => import('../pages/CodeChallengePage'));
 const GamePage = React.lazy(() => import('../pages/GamePage'));
+const BugHuntGame = React.lazy(() => import('../pages/BugHuntGamePage'));
 
 // Политика и условия
 const Privacy = React.lazy(() => import('../pages/privacy'));
@@ -32,6 +33,7 @@ export const publicRoutes = [
   { path: "/game", element: <MainLayout><GamePage /></MainLayout> },
   { path: "/privacy", element: <MainLayout><Privacy /></MainLayout> },
   { path: "/terms", element: <MainLayout><Terms /></MainLayout> },
+  { path: "game/bug-hunt/:language", element: <MainLayout><BugHuntGame /></MainLayout> },
 ];
 
 export const renderPublicRoutes = () => (
