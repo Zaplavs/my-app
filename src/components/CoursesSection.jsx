@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CourseCard from './CourseCard';
-import { Code, Palette, GitBranch, FileText, Terminal } from 'lucide-react';
+import { Code, Palette, GitBranch, FileText, Terminal, Zap } from 'lucide-react';
 
 export default function CoursesSection() {
   const courses = [
@@ -50,6 +50,15 @@ export default function CoursesSection() {
       slug: "python",
       icon: <Terminal className="w-8 h-8" />,
       color: "from-yellow-500 to-blue-600"
+    },
+    {
+      id: 6,
+      title: "FastAPI",
+      description: "Современный фреймворк для создания API на Python",
+      level: "Продвинутый",
+      slug: "fastapi",
+      icon: <Zap className="w-8 h-8" />,
+      color: "from-teal-500 to-green-600"
     }
   ];
 
