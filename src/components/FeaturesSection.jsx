@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import FeatureCard from './FeatureCard';
-import { Clock, Users, Zap, Award, Globe, Heart } from 'lucide-react';
+import { Clock, Users, Zap, Award, Globe, Heart, Book, Code, BarChart2 } from 'lucide-react';
 
 export default function FeaturesSection() {
-  const features = [
+  const allFeatures = [
     {
       icon: <Zap className="w-12 h-12" />,
       title: "Бесплатно",
@@ -39,18 +39,45 @@ export default function FeaturesSection() {
       title: "Поддержка",
       description: "Получай помощь от преподавателей и сообщества студентов.",
       color: "from-amber-400 to-yellow-500"
+    },
+    {
+      icon: <Book className="w-12 h-12" />,
+      title: "Актуальность",
+      description: "Самые современные технологии и подходы в обучении.",
+      color: "from-indigo-400 to-violet-500"
+    },
+    {
+      icon: <Code className="w-12 h-12" />,
+      title: "Проекты",
+      description: "Создавай портфолио реальных проектов во время обучения.",
+      color: "from-teal-400 to-emerald-500"
+    },
+    {
+      icon: <BarChart2 className="w-12 h-12" />,
+      title: "Прогресс",
+      description: "Отслеживай свой прогресс и достижения.",
+      color: "from-sky-400 to-blue-500"
     }
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const visibleCount = 3; // Количество одновременно видимых карточек
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % features.length);
-    }, 3000); // Меняем каждые 3 секунды
-
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % allFeatures.length);
+    }, 3000);
     return () => clearInterval(interval);
-  }, [features.length]);
+  }, [allFeatures.length]);
+
+  const getVisibleFeatures = () => {
+    const features = [];
+    for (let i = 0; i < visibleCount; i++) {
+      const index = (currentIndex + i) % allFeatures.length;
+      features.push(allFeatures[index]);
+    }
+    return features;
+  };
 
   return (
     <section id="features" className="py-20 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
@@ -80,26 +107,18 @@ export default function FeaturesSection() {
         </div>
 
         {/* Карусель преимуществ */}
-        <div className="relative overflow-hidden py-8">
-          <div 
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          >
-            {[...features, ...features].map((feature, index) => (
-              <div 
-                key={index}
-                className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4"
-              >
-                <div className="group relative h-full">
-                  <div className={`absolute inset-0 bg-gradient-to-r ${feature.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-all duration-500`}></div>
-                  <FeatureCard
-                    icon={feature.icon}
-                    title={feature.title}
-                    description={feature.description}
-                    className="relative bg-gray-800/40 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-8 transition-all duration-300 hover:border-transparent hover:bg-gray-800/60 hover:-translate-y-2 shadow-xl hover:shadow-2xl h-full"
-                    iconClassName={`p-3 rounded-xl bg-gradient-to-r ${feature.color} mb-6`}
-                  />
-                </div>
+        <div className="relative py-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {getVisibleFeatures().map((feature, index) => (
+              <div key={index} className="group relative h-full">
+                <div className={`absolute inset-0 bg-gradient-to-r ${feature.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-all duration-500`}></div>
+                <FeatureCard
+                  icon={feature.icon}
+                  title={feature.title}
+                  description={feature.description}
+                  className="relative bg-gray-800/40 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-8 transition-all duration-300 hover:border-transparent hover:bg-gray-800/60 hover:-translate-y-2 shadow-xl hover:shadow-2xl h-full"
+                  iconClassName={`p-3 rounded-xl bg-gradient-to-r ${feature.color} mb-6`}
+                />
               </div>
             ))}
           </div>
@@ -107,13 +126,13 @@ export default function FeaturesSection() {
 
         {/* Индикаторы */}
         <div className="flex justify-center mt-8 space-x-2">
-          {features.map((_, index) => (
+          {allFeatures.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentIndex 
-                  ? 'bg-gradient-to-r from-yellow-400 to-orange-500 w-8' 
+                index === currentIndex
+                  ? 'bg-gradient-to-r from-yellow-400 to-orange-500 w-8'
                   : 'bg-gray-600'
               }`}
             />
