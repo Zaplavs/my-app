@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import FeatureCard from './FeatureCard';
 import { Clock, Users, Zap, Award, Globe, Heart, Book, Code, BarChart2 } from 'lucide-react';
 
@@ -79,15 +79,51 @@ export default function FeaturesSection() {
     return features;
   };
 
+  const sectionRef = useRef(null);
+  const bgBlob1Ref = useRef(null);
+  const bgBlob2Ref = useRef(null);
+  const rafRef = useRef(null);
+
+  useEffect(() => () => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  const handleMouseMove = (e) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const px = x / rect.width - 0.5;
+    const py = y / rect.height - 0.5;
+    const animate = () => {
+      if (bgBlob1Ref.current) bgBlob1Ref.current.style.transform = `translate3d(${px * 30}px, ${py * 30}px, 0)`;
+      if (bgBlob2Ref.current) bgBlob2Ref.current.style.transform = `translate3d(${px * -40}px, ${py * -40}px, 0)`;
+    };
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(animate);
+  };
+
+  const handleMouseLeave = () => {
+    if (bgBlob1Ref.current) bgBlob1Ref.current.style.transform = '';
+    if (bgBlob2Ref.current) bgBlob2Ref.current.style.transform = '';
+  };
+
   return (
-    <section id="features" className="py-20 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
+    <section
+      id="features"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="py-20 bg-gradient-to-br from-gray-950 to-black relative overflow-hidden"
+      style={{ perspective: '900px' }}
+    >
       {/* Фоновые декоративные элементы */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-500/20 via-transparent to-red-500/20"></div>
       </div>
       
-      <div className="absolute top-1/4 right-10 w-64 h-64 bg-yellow-500/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-1/4 left-10 w-64 h-64 bg-red-500/10 rounded-full blur-3xl"></div>
+      <div ref={bgBlob1Ref} className="absolute top-1/4 right-10 w-64 h-64 bg-yellow-500/10 rounded-full blur-3xl" aria-hidden></div>
+      <div ref={bgBlob2Ref} className="absolute bottom-1/4 left-10 w-64 h-64 bg-red-500/10 rounded-full blur-3xl" aria-hidden></div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Заголовок секции */}
@@ -111,12 +147,12 @@ export default function FeaturesSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {getVisibleFeatures().map((feature, index) => (
               <div key={index} className="group relative h-full">
-                <div className={`absolute inset-0 bg-gradient-to-r ${feature.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-all duration-500`}></div>
+                <div className={`absolute inset-0 bg-gradient-to-r ${feature.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-all duration-500`}></div>
                 <FeatureCard
                   icon={feature.icon}
                   title={feature.title}
                   description={feature.description}
-                  className="relative bg-gray-800/40 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-8 transition-all duration-300 hover:border-transparent hover:bg-gray-800/60 hover:-translate-y-2 shadow-xl hover:shadow-2xl h-full"
+                  className="relative rounded-2xl p-8 h-full"
                   iconClassName={`p-3 rounded-xl bg-gradient-to-r ${feature.color} mb-6`}
                 />
               </div>
