@@ -10,6 +10,11 @@ export default function PresentationSection() {
   const [currentTime, setCurrentTime] = useState(0);
   const videoRef = useRef(null);
   const progressRef = useRef(null);
+  const sectionRef = useRef(null);
+  const tiltRef = useRef(null);
+  const bgBlob1Ref = useRef(null);
+  const bgBlob2Ref = useRef(null);
+  const rafRef = useRef(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -34,6 +39,10 @@ export default function PresentationSection() {
         video.removeEventListener('ended', () => setIsPlaying(false));
       };
     }
+  }, []);
+
+  useEffect(() => () => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
   }, []);
 
   const togglePlay = () => {
@@ -91,44 +100,108 @@ export default function PresentationSection() {
     }
   };
 
+  // 3D/параллакс эффекты
+  const handleMouseMove = (e) => {
+    if (!sectionRef.current || !tiltRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const px = x / rect.width - 0.5;
+    const py = y / rect.height - 0.5;
+
+    const maxRotate = 8;
+    const rotateY = px * maxRotate;
+    const rotateX = -py * maxRotate;
+
+    const animate = () => {
+      tiltRef.current.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      if (bgBlob1Ref.current) bgBlob1Ref.current.style.transform = `translate3d(${px * 30}px, ${py * 30}px, 0)`;
+      if (bgBlob2Ref.current) bgBlob2Ref.current.style.transform = `translate3d(${px * -40}px, ${py * -40}px, 0)`;
+    };
+
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(animate);
+  };
+
+  const handleMouseLeave = () => {
+    if (!tiltRef.current) return;
+    tiltRef.current.style.transition = 'transform 400ms ease';
+    tiltRef.current.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    setTimeout(() => {
+      if (tiltRef.current) tiltRef.current.style.transition = '';
+    }, 400);
+    if (bgBlob1Ref.current) bgBlob1Ref.current.style.transform = '';
+    if (bgBlob2Ref.current) bgBlob2Ref.current.style.transform = '';
+  };
+
   return (
-    <section className="relative bg-gradient-to-br from-gray-900 via-black to-red-950 text-white py-20 px-4 overflow-hidden">
+    <section
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative bg-gradient-to-br from-gray-950 via-black to-red-950 text-white py-20 px-4 overflow-hidden"
+      style={{ perspective: '1000px' }}
+    >
       {/* Анимированные фоновые элементы */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-red-500/20 via-transparent to-yellow-500/20"></div>
       </div>
-      
-      <div className="absolute top-1/4 left-10 w-96 h-96 bg-red-500/5 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-yellow-500/5 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
+
+      <div
+        ref={bgBlob1Ref}
+        className="pointer-events-none absolute top-1/4 left-10 w-96 h-96 bg-red-500/5 rounded-full blur-3xl animate-pulse"
+        aria-hidden
+      ></div>
+      <div
+        ref={bgBlob2Ref}
+        className="pointer-events-none absolute bottom-1/4 right-10 w-96 h-96 bg-yellow-500/5 rounded-full blur-3xl animate-pulse [animation-delay:1.2s]"
+        aria-hidden
+      ></div>
+
+      {/* Лёгкая 3D-сетка */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-10 mix-blend-screen"
+        style={{
+          backgroundImage:
+            'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06), transparent 60%), linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
+          backgroundSize: '100% 100%, 44px 44px, 44px 44px',
+          backgroundPosition: 'center, center, center',
+          transform: 'translateZ(-200px)'
+        }}
+        aria-hidden
+      />
 
       <div className="max-w-6xl mx-auto text-center relative z-10">
         {/* Заголовок секции */}
-        <div className="mb-12">
+        <div className="mb-12 will-change-transform" style={{ transformStyle: 'preserve-3d' }}>
           <div className="inline-flex items-center gap-2 bg-red-900/20 backdrop-blur-sm border border-red-800/30 rounded-full px-6 py-2 mb-6">
             <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
             <span className="text-red-300 font-medium uppercase tracking-wider">Революционное образование</span>
           </div>
           
-          <h2 className="text-4xl md:text-6xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-red-400 to-orange-500 uppercase tracking-wide">
+          <h2
+            className="text-4xl md:text-6xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-red-400 to-orange-500 uppercase tracking-wide drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)]"
+            style={{ transform: 'translateZ(60px)' }}
+          >
             Платформа на благо трудящихся
           </h2>
           
-          <p className="text-xl md:text-2xl text-gray-300 mb-4 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-300 mb-4 max-w-4xl mx-auto leading-relaxed" style={{ transform: 'translateZ(40px)' }}>
             Бесплатные знания для пролетариата
           </p>
           
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto" style={{ transform: 'translateZ(30px)' }}>
             Присоединяйся к технологической революции уже сегодня
           </p>
         </div>
 
         {/* Видео контейнер */}
-        <div className="relative max-w-5xl mx-auto group">
+        <div className="relative max-w-5xl mx-auto group will-change-transform" ref={tiltRef} style={{ transformStyle: 'preserve-3d' }}>
           {/* Внешняя рамка с градиентом */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-red-600 via-yellow-500 to-red-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
+          <div className="absolute -inset-1 bg-gradient-to-r from-red-600 via-yellow-500 to-red-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-300" style={{ transform: 'translateZ(10px)' }}></div>
           
           {/* Основной контейнер видео */}
-          <div className="relative bg-black rounded-2xl overflow-hidden shadow-2xl border-2 border-gray-800">
+          <div className="relative bg-black rounded-2xl overflow-hidden shadow-2xl border-2 border-gray-800" style={{ transform: 'translateZ(35px)' }}>
             {/* Соотношение сторон 16:9 */}
             <div className="relative pb-[56.25%] h-0">
               <video
