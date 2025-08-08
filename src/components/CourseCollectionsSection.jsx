@@ -1,6 +1,6 @@
 // src/components/CourseCollectionsSection.jsx
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ChevronRight, Code, Database, Globe, BarChart3, Server, BookOpen, Cpu } from 'lucide-react';
 
 export default function CourseCollectionsSection() {
@@ -71,15 +71,45 @@ export default function CourseCollectionsSection() {
     },
   ];
 
+  // Parallax background for the section
+  const sectionRef = useRef(null);
+  const blob1Ref = useRef(null);
+  const blob2Ref = useRef(null);
+  const rafRef = useRef(null);
+
+  useEffect(() => () => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  const handleMouseMove = (e) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const px = x / rect.width - 0.5;
+    const py = y / rect.height - 0.5;
+    const animate = () => {
+      if (blob1Ref.current) blob1Ref.current.style.transform = `translate3d(${px * 30}px, ${py * 30}px, 0)`;
+      if (blob2Ref.current) blob2Ref.current.style.transform = `translate3d(${px * -35}px, ${py * -35}px, 0)`;
+    };
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(animate);
+  };
+
+  const handleMouseLeave = () => {
+    if (blob1Ref.current) blob1Ref.current.style.transform = '';
+    if (blob2Ref.current) blob2Ref.current.style.transform = '';
+  };
+
   return (
-    <section id="collections" className="py-24 bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative overflow-hidden">
+    <section id="collections" ref={sectionRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className="py-24 bg-gradient-to-br from-gray-950 via-black to-gray-950 text-white relative overflow-hidden" style={{ perspective: '1000px' }}>
       {/* Анимированные фоновые элементы */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/20 via-transparent to-purple-500/20"></div>
       </div>
       
-      <div className="absolute top-1/4 left-10 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
+      <div ref={blob1Ref} className="absolute top-1/4 left-10 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
+      <div ref={blob2Ref} className="absolute bottom-1/4 right-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse [animation-delay:1.2s]"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Заголовок секции */}
@@ -89,11 +119,11 @@ export default function CourseCollectionsSection() {
             <span className="text-blue-300 font-medium uppercase tracking-wider">Наши подборки</span>
           </div>
           
-          <h2 className="text-4xl md:text-6xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+          <h2 className="text-4xl md:text-6xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)]" style={{ transform: 'translateZ(60px)' }}>
             Подборки курсов
           </h2>
           
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed" style={{ transform: 'translateZ(40px)' }}>
             Выберите интересующее направление и начните обучение уже сегодня.
           </p>
         </div>
@@ -120,13 +150,63 @@ export default function CourseCollectionsSection() {
 
 function CollectionCard({ item }) {
   const [hovered, setHovered] = useState(false);
+  const containerRef = useRef(null);
+  const cardRef = useRef(null);
+  const rafRef = useRef(null);
+
+  useEffect(() => () => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  const handleMouseMove = (e) => {
+    if (!containerRef.current || !cardRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const px = x / rect.width - 0.5;
+    const py = y / rect.height - 0.5;
+    const maxRotate = 8;
+    const rotateY = px * maxRotate;
+    const rotateX = -py * maxRotate;
+    const animate = () => {
+      cardRef.current.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      containerRef.current.style.setProperty('--mx', `${x}px`);
+      containerRef.current.style.setProperty('--my', `${y}px`);
+    };
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(animate);
+  };
+
+  const handleMouseLeave = () => {
+    if (!cardRef.current) return;
+    cardRef.current.style.transition = 'transform 400ms ease';
+    cardRef.current.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    setTimeout(() => {
+      if (cardRef.current) cardRef.current.style.transition = '';
+    }, 400);
+  };
 
   return (
     <div
-      className="relative overflow-hidden rounded-2xl bg-gray-800/60 backdrop-blur-lg border border-gray-700/50 shadow-xl transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl"
+      ref={containerRef}
+      className="group relative rounded-2xl"
+      onMouseMove={handleMouseMove}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseLeave={() => { setHovered(false); handleMouseLeave(); }}
+      style={{ perspective: '900px' }}
     >
+      {/* Shine */}
+      <div
+        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 mix-blend-screen"
+        style={{ background: 'radial-gradient(160px 160px at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.45), transparent 60%)' }}
+        aria-hidden
+      />
+      
+      <div
+        ref={cardRef}
+        className="relative overflow-hidden rounded-2xl bg-gray-800/60 backdrop-blur-lg border border-gray-700/50 shadow-xl transition-transform will-change-transform"
+        style={{ transformStyle: 'preserve-3d' }}
+      >
       {/* Изображение */}
       <div className="overflow-hidden h-48 sm:h-44 md:h-52 relative">
         <img
@@ -166,7 +246,8 @@ function CollectionCard({ item }) {
       </div>
       
       {/* Градиентная рамка при наведении */}
-      <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 -z-10`}></div>
+      <div className={`pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
+      </div>
     </div>
   );
 }

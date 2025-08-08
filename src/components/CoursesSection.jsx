@@ -1,5 +1,5 @@
 // src/components/CoursesSection.jsx
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CourseCard from './CourseCard';
 import { Code, Palette, GitBranch, FileText, Terminal, Zap } from 'lucide-react';
@@ -62,13 +62,53 @@ export default function CoursesSection() {
     }
   ];
 
+  // Parallax background blobs
+  const sectionRef = useRef(null);
+  const blob1Ref = useRef(null);
+  const blob2Ref = useRef(null);
+  const blob3Ref = useRef(null);
+  const rafRef = useRef(null);
+
+  useEffect(() => () => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  const handleMouseMove = (e) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const px = x / rect.width - 0.5;
+    const py = y / rect.height - 0.5;
+    const animate = () => {
+      if (blob1Ref.current) blob1Ref.current.style.transform = `translate3d(${px * -30}px, ${py * 30}px, 0)`;
+      if (blob2Ref.current) blob2Ref.current.style.transform = `translate3d(${px * 25}px, ${py * -25}px, 0)`;
+      if (blob3Ref.current) blob3Ref.current.style.transform = `translate3d(${px * -20}px, ${py * -20}px, 0)`;
+    };
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(animate);
+  };
+
+  const handleMouseLeave = () => {
+    if (blob1Ref.current) blob1Ref.current.style.transform = '';
+    if (blob2Ref.current) blob2Ref.current.style.transform = '';
+    if (blob3Ref.current) blob3Ref.current.style.transform = '';
+  };
+
   return (
-    <section id="courses" className="py-24 md:py-32 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden">
+    <section
+      id="courses"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="py-24 md:py-32 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-white relative overflow-hidden"
+      style={{ perspective: '1000px' }}
+    >
       {/* Тёмные анимированные фоновые элементы */}
       <div className="absolute inset-0 opacity-[0.15]">
-        <div className="absolute -top-1/3 -right-1/4 w-96 h-96 bg-red-600 rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-pulse-slow"></div>
-        <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-amber-500 rounded-full mix-blend-overlay filter blur-3xl opacity-25 animate-pulse-slow animation-delay-3000"></div>
-        <div className="absolute -bottom-1/4 -left-1/4 w-96 h-96 bg-blue-600 rounded-full mix-blend-overlay filter blur-3xl opacity-20 animate-pulse-slow animation-delay-5000"></div>
+        <div ref={blob1Ref} className="absolute -top-1/3 -right-1/4 w-96 h-96 bg-red-600 rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-pulse-slow"></div>
+        <div ref={blob2Ref} className="absolute top-1/3 left-1/4 w-80 h-80 bg-amber-500 rounded-full mix-blend-overlay filter blur-3xl opacity-25 animate-pulse-slow animation-delay-3000"></div>
+        <div ref={blob3Ref} className="absolute -bottom-1/4 -left-1/4 w-96 h-96 bg-blue-600 rounded-full mix-blend-overlay filter blur-3xl opacity-20 animate-pulse-slow animation-delay-5000"></div>
       </div>
 
       {/* Дополнительный тёмный радиальный градиент для глубины */}
@@ -85,7 +125,7 @@ export default function CoursesSection() {
             <span className="text-red-300 font-semibold tracking-wide text-sm uppercase">Обучение нового поколения</span>
           </div>
           
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)]" style={{ transform: 'translateZ(60px)' }}>
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-red-400 to-orange-500 drop-shadow-[0_2px_2px_rgba(255,100,0,0.3)]">
               Наши
             </span>{' '}
@@ -95,7 +135,7 @@ export default function CoursesSection() {
           </h2>
           
           <div className="max-w-3xl mx-auto">
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 leading-relaxed px-4">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 leading-relaxed px-4" style={{ transform: 'translateZ(40px)' }}>
               Бесплатные курсы для программистов нового мира. Обучайся без буржуазных заморочек.
             </p>
             <div className="mt-8 flex justify-center">
@@ -150,7 +190,7 @@ export default function CoursesSection() {
 
                   {/* Кнопка "Изучить" */}
                   <Link
-                    to={`/course/${course.slug}`}
+                    to={`/course/${course.slug}/learn`}
                     className={`inline-flex items-center justify-center w-full py-3 px-4 rounded-xl text-sm font-bold bg-gradient-to-r ${course.color} text-white shadow-md shadow-gray-900/30 hover:shadow-lg hover:shadow-gray-900/40 transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-white/20`}
                   >
                     Изучить курс
