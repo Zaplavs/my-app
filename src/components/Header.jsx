@@ -14,7 +14,7 @@ export default function Header() {
   const prevScrollYRef = React.useRef(window.scrollY || 0);
 
   const navItems = [
-    { name: "Особенности", id: "features", icon: <Zap className="w-4 h-4" /> },
+    { name: "Roadmap", id: "roadmap", icon: <Zap className="w-4 h-4" /> },
     { name: "Курсы", id: "courses", icon: <BookOpen className="w-4 h-4" /> },
     { name: "Подборки курсов", id: "collections", icon: <BookOpen className="w-4 h-4" /> },
     { name: "Собеседования", id: "interview", icon: <HelpCircle className="w-4 h-4" /> },

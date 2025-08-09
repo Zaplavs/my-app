@@ -7,6 +7,7 @@ import PageLoader from '../components/PageLoader';
 
 // Основные страницы
 const App = React.lazy(() => import('../App'));
+const RoadmapPage = React.lazy(() => import('../pages/RoadmapPage'));
 const LearnCoursePage = React.lazy(() => import('../pages/LearnCoursePage'));
 const LessonPage = React.lazy(() => import('../pages/LessonPage'));
 const CourseCollectionPage = React.lazy(() => import('../pages/CourseCollectionPage'));
@@ -23,6 +24,7 @@ const Terms = React.lazy(() => import('../pages/terms'));
 
 export const publicRoutes = [
   { path: "/", element: <MainLayout><App /></MainLayout> },
+  { path: "/roadmap/:tech", element: <MainLayout><RoadmapPage /></MainLayout> },
   { path: "/course/:slug/learn", element: <MainLayout><LearnCoursePage /></MainLayout> },
   { path: "/course/:slug/learn/:lessonId", element: <MainLayout><LessonPage /></MainLayout> },
   { path: "/courses/:id", element: <MainLayout><CourseCollectionPage /></MainLayout> },

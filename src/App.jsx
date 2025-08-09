@@ -6,7 +6,7 @@ import Header from './components/Header';
 import CustomCursor from './components/CustomCursor';
 import Hero from './components/Hero';
 import PresentationSection from './components/PresentationSection';
-import FeaturesSection from './components/FeaturesSection';
+import RoadmapSection from './components/RoadmapSection';
 import CoursesSection from './components/CoursesSection';
 import CourseCollectionsSection from './components/CourseCollectionsSection';
 import InterviewQuestionsSection from './components/InterviewQuestionsSection';
@@ -22,7 +22,7 @@ export default function App() {
       <Header />
       <Hero />
       <PresentationSection />
-      <FeaturesSection />
+      <RoadmapSection />
       <CoursesSection />
       <CourseCollectionsSection />
       <InterviewQuestionsSection />
