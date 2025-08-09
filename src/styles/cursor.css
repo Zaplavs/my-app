@@ -1,0 +1,7 @@
+@media (pointer: fine) {
+  html, body { cursor: none; }
+  a, button, input, textarea, select, [role="button"], [data-cursor="interactive"] { cursor: none; }
+}
+
+/* Ensure text selection still looks normal */
+::selection { background: rgba(239, 68, 68, 0.35); }

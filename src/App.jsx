@@ -3,6 +3,7 @@ import React from 'react';
 
 // Компоненты
 import Header from './components/Header';
+import CustomCursor from './components/CustomCursor';
 import Hero from './components/Hero';
 import PresentationSection from './components/PresentationSection';
 import FeaturesSection from './components/FeaturesSection';
@@ -16,6 +17,7 @@ import GameSection from './components/GameSection';
 export default function App() {
   return (
     <>
+      <CustomCursor />
       <HelpButton /> {/* Кнопка справа */}
       <Header />
       <Hero />
