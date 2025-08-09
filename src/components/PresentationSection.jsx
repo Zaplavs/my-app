@@ -6,8 +6,17 @@ export default function PresentationSection() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [buffered, setBuffered] = useState(0);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [playbackRate, setPlaybackRate] = useState(1);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isScrubbing, setIsScrubbing] = useState(false);
+  const [hoverTime, setHoverTime] = useState(null);
+  const [hoverX, setHoverX] = useState(0);
+  const [captionsEnabled, setCaptionsEnabled] = useState(false);
+  const [userPaused, setUserPaused] = useState(false);
   const videoRef = useRef(null);
   const progressRef = useRef(null);
   const sectionRef = useRef(null);
@@ -15,35 +24,93 @@ export default function PresentationSection() {
   const bgBlob1Ref = useRef(null);
   const bgBlob2Ref = useRef(null);
   const rafRef = useRef(null);
+  const playerContainerRef = useRef(null);
+  const timeSaveKey = 'presentationVideo:time';
 
   useEffect(() => {
     const video = videoRef.current;
-    if (video) {
-      const updateProgress = () => {
-        const progress = (video.currentTime / video.duration) * 100;
-        setProgress(isNaN(progress) ? 0 : progress);
-        setCurrentTime(video.currentTime);
-      };
+    if (!video) return;
 
-      const setVideoDuration = () => {
-        setDuration(video.duration);
-      };
+    const onTimeUpdate = () => {
+      const pct = (video.currentTime / (video.duration || 1)) * 100;
+      setProgress(isNaN(pct) ? 0 : pct);
+      setCurrentTime(video.currentTime || 0);
+      try {
+        localStorage.setItem(timeSaveKey, String(video.currentTime || 0));
+      } catch {}
+    };
 
-      video.addEventListener('timeupdate', updateProgress);
-      video.addEventListener('loadedmetadata', setVideoDuration);
-      video.addEventListener('ended', () => setIsPlaying(false));
+    const onLoadedMetadata = () => {
+      setDuration(video.duration || 0);
+      try {
+        const saved = parseFloat(localStorage.getItem(timeSaveKey) || '0');
+        if (!isNaN(saved) && saved > 0 && saved < (video.duration || 0)) {
+          video.currentTime = saved;
+        }
+      } catch {}
+    };
 
-      return () => {
-        video.removeEventListener('timeupdate', updateProgress);
-        video.removeEventListener('loadedmetadata', setVideoDuration);
-        video.removeEventListener('ended', () => setIsPlaying(false));
-      };
-    }
+    const onProgress = () => {
+      try {
+        if (video.buffered && video.buffered.length) {
+          const end = video.buffered.end(video.buffered.length - 1);
+          const pct = (end / (video.duration || 1)) * 100;
+          setBuffered(isNaN(pct) ? 0 : Math.min(100, pct));
+        }
+      } catch {}
+    };
+
+    const onEnded = () => setIsPlaying(false);
+
+    video.addEventListener('timeupdate', onTimeUpdate);
+    video.addEventListener('loadedmetadata', onLoadedMetadata);
+    video.addEventListener('progress', onProgress);
+    video.addEventListener('ended', onEnded);
+
+    video.muted = isMuted;
+    video.volume = volume;
+    video.playbackRate = playbackRate;
+
+    return () => {
+      video.removeEventListener('timeupdate', onTimeUpdate);
+      video.removeEventListener('loadedmetadata', onLoadedMetadata);
+      video.removeEventListener('progress', onProgress);
+      video.removeEventListener('ended', onEnded);
+    };
   }, []);
 
   useEffect(() => () => {
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
   }, []);
+
+  useEffect(() => {
+    const handler = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener('fullscreenchange', handler);
+    return () => document.removeEventListener('fullscreenchange', handler);
+  }, []);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    const video = videoRef.current;
+    if (!el || !video) return;
+    const io = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+      if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+        if (!userPaused) {
+          video.play().catch(() => {});
+          setIsPlaying(true);
+        }
+      } else {
+        if (!video.paused) {
+          video.pause();
+          setIsPlaying(false);
+        }
+      }
+    }, { threshold: [0, 0.6, 1] });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [userPaused]);
 
   const togglePlay = () => {
     const video = videoRef.current;
@@ -54,14 +121,17 @@ export default function PresentationSection() {
         video.play();
       }
       setIsPlaying(!isPlaying);
+      if (!isPlaying) setUserPaused(false);
+      if (isPlaying) setUserPaused(true);
     }
   };
 
   const toggleMute = () => {
     const video = videoRef.current;
     if (video) {
-      video.muted = !isMuted;
-      setIsMuted(!isMuted);
+      const next = !isMuted;
+      video.muted = next;
+      setIsMuted(next);
     }
   };
 
@@ -73,6 +143,34 @@ export default function PresentationSection() {
       const pos = (e.clientX - rect.left) / rect.width;
       video.currentTime = pos * video.duration;
     }
+  };
+
+  const handleProgressMouseDown = (e) => {
+    setIsScrubbing(true);
+    handleProgressClick(e);
+    document.addEventListener('mousemove', handleProgressMouseMove);
+    document.addEventListener('mouseup', handleProgressMouseUp);
+  };
+
+  const handleProgressMouseMove = (e) => {
+    if (!isScrubbing) return;
+    handleProgressClick(e);
+  };
+
+  const handleProgressMouseUp = () => {
+    setIsScrubbing(false);
+    document.removeEventListener('mousemove', handleProgressMouseMove);
+    document.removeEventListener('mouseup', handleProgressMouseUp);
+  };
+
+  const handleProgressHover = (e) => {
+    const video = videoRef.current;
+    const el = progressRef.current;
+    if (!video || !el) return;
+    const rect = el.getBoundingClientRect();
+    const pos = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+    setHoverX(pos * rect.width);
+    setHoverTime(pos * (video.duration || 0));
   };
 
   const formatTime = (time) => {
@@ -89,6 +187,7 @@ export default function PresentationSection() {
       if (!isPlaying) {
         video.play();
         setIsPlaying(true);
+        setUserPaused(false);
       }
     }
   };
@@ -97,6 +196,86 @@ export default function PresentationSection() {
     const video = videoRef.current;
     if (video) {
       video.currentTime = Math.min(video.currentTime + 10, video.duration);
+    }
+  };
+
+  const changeVolume = (next) => {
+    const video = videoRef.current;
+    if (!video) return;
+    const clamped = Math.max(0, Math.min(1, next));
+    video.volume = clamped;
+    video.muted = clamped === 0 ? true : false;
+    setIsMuted(video.muted);
+    setVolume(clamped);
+  };
+
+  const handleWheelVolume = (e) => {
+    if (!e.ctrlKey && !e.shiftKey && !e.altKey) {
+      const delta = e.deltaY > 0 ? -0.05 : 0.05;
+      changeVolume(volume + delta);
+    }
+  };
+
+  const toggleFullscreen = async () => {
+    const container = playerContainerRef.current;
+    if (!container) return;
+    try {
+      if (!document.fullscreenElement) {
+        await container.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch {}
+  };
+
+  const togglePiP = async () => {
+    const video = videoRef.current;
+    if (!video) return;
+    try {
+      if (document.pictureInPictureElement) {
+        await document.exitPictureInPicture();
+      } else if (document.pictureInPictureEnabled) {
+        await video.requestPictureInPicture();
+      }
+    } catch {}
+  };
+
+  const toggleCaptions = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    const tracks = video.textTracks;
+    if (!tracks || !tracks[0]) return;
+    const next = !captionsEnabled;
+    tracks[0].mode = next ? 'showing' : 'hidden';
+    setCaptionsEnabled(next);
+  };
+
+  const changePlaybackRate = (rate) => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.playbackRate = rate;
+    setPlaybackRate(rate);
+  };
+
+  const handleKeyDown = (e) => {
+    const key = e.key.toLowerCase();
+    if ([' ', 'k', 'arrowleft', 'arrowright', 'arrowup', 'arrowdown', 'm', 'f', 'c'].includes(key)) {
+      e.preventDefault();
+    }
+    if (key === ' ' || key === 'k') togglePlay();
+    if (key === 'm') toggleMute();
+    if (key === 'f') toggleFullscreen();
+    if (key === 'c') toggleCaptions();
+    if (key === 'arrowleft') {
+      const v = videoRef.current; if (v) v.currentTime = Math.max(0, v.currentTime - 5);
+    }
+    if (key === 'arrowright') {
+      const v = videoRef.current; if (v) v.currentTime = Math.min(v.duration || Infinity, v.currentTime + 5);
+    }
+    if (key === 'arrowup') changeVolume(volume + 0.05);
+    if (key === 'arrowdown') changeVolume(volume - 0.05);
+    if (/^[0-9]$/.test(key)) {
+      const v = videoRef.current; if (v && v.duration) v.currentTime = (parseInt(key, 10) / 10) * v.duration;
     }
   };
 
@@ -201,15 +380,26 @@ export default function PresentationSection() {
           <div className="absolute -inset-1 bg-gradient-to-r from-red-600 via-yellow-500 to-red-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-300" style={{ transform: 'translateZ(10px)' }}></div>
           
           {/* Основной контейнер видео */}
-          <div className="relative bg-black rounded-2xl overflow-hidden shadow-2xl border-2 border-gray-800" style={{ transform: 'translateZ(35px)' }}>
+          <div
+            ref={playerContainerRef}
+            className="relative bg-black rounded-2xl overflow-hidden shadow-2xl border-2 border-gray-800"
+            style={{ transform: 'translateZ(35px)' }}
+            onWheel={handleWheelVolume}
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
+          >
             {/* Соотношение сторон 16:9 */}
             <div className="relative pb-[56.25%] h-0">
               <video
                 ref={videoRef}
                 className="absolute top-0 left-0 w-full h-full object-cover"
                 poster="/placeholder-video-poster.jpg"
+                playsInline
+                onClick={togglePlay}
+                onDoubleClick={toggleFullscreen}
               >
                 <source src={presentationVideo} type="video/mp4" />
+                <track kind="subtitles" src="/captions/presentation.vtt" srcLang="ru" label="Русские субтитры" />
                 Ваш браузер не поддерживает воспроизведение видео.
               </video>
               
@@ -239,15 +429,31 @@ export default function PresentationSection() {
               {/* Прогресс бар */}
               <div 
                 ref={progressRef}
-                className="w-full h-2 bg-gray-700 rounded-full mb-4 cursor-pointer group"
+                className="w-full h-2 bg-gray-700 rounded-full mb-4 cursor-pointer group relative"
                 onClick={handleProgressClick}
+                onMouseMove={handleProgressHover}
+                onMouseEnter={handleProgressHover}
+                onMouseDown={handleProgressMouseDown}
+                onMouseLeave={() => setHoverTime(null)}
               >
+                <div
+                  className="absolute top-0 left-0 h-full bg-gray-500/50 rounded-full"
+                  style={{ width: `${buffered}%` }}
+                />
                 <div 
                   className="h-full bg-gradient-to-r from-red-500 to-yellow-500 rounded-full relative transition-all duration-100"
                   style={{ width: `${progress}%` }}
                 >
                   <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                 </div>
+                {hoverTime !== null && (
+                  <div
+                    className="absolute -top-8 z-10 px-2 py-1 text-xs rounded bg-black/80 text-white border border-white/10 pointer-events-none"
+                    style={{ left: hoverX, transform: 'translateX(-50%)' }}
+                  >
+                    {formatTime(hoverTime)}
+                  </div>
+                )}
               </div>
               
               {/* Контролы */}
@@ -288,8 +494,19 @@ export default function PresentationSection() {
                     onClick={toggleMute}
                     title={isMuted ? "Включить звук" : "Выключить звук"}
                   >
-                    {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                    {isMuted || volume === 0 ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
                   </button>
+                  {/* Громкость */}
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={volume}
+                    onChange={(e) => changeVolume(parseFloat(e.target.value))}
+                    className="w-24 accent-red-500 cursor-pointer"
+                    aria-label="Громкость"
+                  />
                   
                   {/* Тайминг */}
                   <div className="text-sm text-gray-400 ml-2">
@@ -297,13 +514,53 @@ export default function PresentationSection() {
                   </div>
                 </div>
                 
-                {/* Кнопка полноэкранного режима */}
-                <button 
-                  className="text-gray-300 hover:text-white transition-colors duration-200 p-2 rounded-full hover:bg-white/10"
-                  title="Полноэкранный режим"
-                >
-                  <Maximize className="w-5 h-5" />
-                </button>
+                <div className="flex items-center gap-2">
+                  {/* Скорость воспроизведения */}
+                  <div className="relative">
+                    <select
+                      value={playbackRate}
+                      onChange={(e) => changePlaybackRate(parseFloat(e.target.value))}
+                      className="bg-white/5 text-gray-200 text-sm rounded px-2 py-1 border border-white/10 hover:border-white/20 focus:outline-none"
+                      aria-label="Скорость"
+                      title="Скорость"
+                    >
+                      <option value={0.5}>0.5x</option>
+                      <option value={0.75}>0.75x</option>
+                      <option value={1}>1x</option>
+                      <option value={1.25}>1.25x</option>
+                      <option value={1.5}>1.5x</option>
+                      <option value={2}>2x</option>
+                    </select>
+                  </div>
+
+                  {/* Субтитры */}
+                  <button
+                    className={`text-gray-300 transition-colors duration-200 p-2 rounded hover:bg-white/10 ${captionsEnabled ? 'text-white' : 'hover:text-white'}`}
+                    onClick={toggleCaptions}
+                    title="Субтитры"
+                    aria-pressed={captionsEnabled}
+                  >
+                    CC
+                  </button>
+
+                  {/* PiP */}
+                  <button
+                    className="text-gray-300 hover:text-white transition-colors duration-200 p-2 rounded hover:bg-white/10"
+                    onClick={togglePiP}
+                    title="Картинка-в-картинке"
+                  >
+                    PiP
+                  </button>
+
+                  {/* Полноэкранный режим */}
+                  <button 
+                    className="text-gray-300 hover:text-white transition-colors duration-200 p-2 rounded-full hover:bg-white/10"
+                    onClick={toggleFullscreen}
+                    title={isFullscreen ? 'Выйти из полноэкранного' : 'Полноэкранный режим'}
+                  >
+                    <Maximize className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
