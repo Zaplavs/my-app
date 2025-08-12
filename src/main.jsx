@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 // Стили
 import './index.css';
 import './styles/cursor.css';
+import './styles/scrollbar.css';
 
 // Роуты
 import AppRoutes from './routes';
