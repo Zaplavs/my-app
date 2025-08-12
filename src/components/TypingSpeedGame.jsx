@@ -1,6 +1,7 @@
 // src/components/TypingSpeedGame.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import { typingTexts } from '../data/typingTexts';
+import { typingTextsEng } from '../data/typingTextsEng';
 
 export default function TypingSpeedGame({ onBack }) {
   const [gameState, setGameState] = useState('menu'); // 'menu', 'playing', 'finished'
@@ -8,16 +9,22 @@ export default function TypingSpeedGame({ onBack }) {
   const [userInput, setUserInput] = useState('');
   const [timeLeft, setTimeLeft] = useState(60);
   const [startTime, setStartTime] = useState(null);
-  // Добавлено состояние для хранения времени завершения
   const [finishTime, setFinishTime] = useState(null); 
   const [wpm, setWpm] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
   const [difficulty, setDifficulty] = useState('medium');
   const [errors, setErrors] = useState(0);
+  const [language, setLanguage] = useState('ru'); // Добавлено состояние для языка
   const inputRef = useRef(null);
 
+  // Объединяем тексты для обоих языков
+  const allTexts = {
+    ru: typingTexts,
+    en: typingTextsEng
+  };
+
   const getRandomText = () => {
-    const textArray = typingTexts[difficulty];
+    const textArray = allTexts[language][difficulty];
     return textArray[Math.floor(Math.random() * textArray.length)];
   };
 
@@ -27,7 +34,6 @@ export default function TypingSpeedGame({ onBack }) {
     setUserInput('');
     setTimeLeft(60);
     setStartTime(null);
-    // Сброс времени завершения при новом запуске
     setFinishTime(null); 
     setWpm(0);
     setAccuracy(100);
@@ -56,11 +62,9 @@ export default function TypingSpeedGame({ onBack }) {
     if (gameState === 'playing' && userInput.length > 0 && !startTime) {
       setStartTime(Date.now());
     }
-    // Проверка завершения текста
     if (gameState === 'playing' && userInput.length === currentText.length) {
       finishGame();
     }
-    // Расчет точности
     if (userInput.length > 0) {
       let errorCount = 0;
       for (let i = 0; i < userInput.length; i++) {
@@ -75,7 +79,6 @@ export default function TypingSpeedGame({ onBack }) {
   }, [userInput, currentText, gameState, startTime]);
 
   const finishGame = () => {
-    // Устанавливаем время завершения
     const now = Date.now();
     setFinishTime(now);
     
@@ -91,7 +94,6 @@ export default function TypingSpeedGame({ onBack }) {
   const handleInputChange = (e) => {
     if (gameState !== 'playing') return;
     const value = e.target.value;
-    // Ограничиваем ввод длиной оригинального текста
     if (value.length <= currentText.length) {
       setUserInput(value);
     }
@@ -101,7 +103,6 @@ export default function TypingSpeedGame({ onBack }) {
     setGameState('menu');
     setUserInput('');
     setCurrentText('');
-    // Сброс времени завершения при сбросе игры
     setFinishTime(null);
   };
 
@@ -111,16 +112,13 @@ export default function TypingSpeedGame({ onBack }) {
     return 'text-red-400';
   };
 
-  // Функция для вычисления времени завершения в секундах
   const getCompletionTime = () => {
     if (startTime && finishTime) {
       return ((finishTime - startTime) / 1000).toFixed(1);
     }
-    // Если текст завершен до окончания таймера
     if (userInput.length === currentText.length && startTime) {
       return ((Date.now() - startTime) / 1000).toFixed(1);
     }
-    // Если время вышло
     return (60 - timeLeft).toFixed(1);
   };
 
@@ -129,10 +127,36 @@ export default function TypingSpeedGame({ onBack }) {
       <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 max-w-2xl w-full border border-green-500/30">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-white mb-4">Скоростной Ввод</h1>
-          <p className="text-xl text-gray-300">
-            Проверьте свою скорость печати на клавиатуре
-          </p>
+          <p className="text-xl text-gray-300">Проверьте свою скорость печати на клавиатуре</p>
         </div>
+        
+        {/* Выбор языка */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-white mb-4">Выберите язык</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button
+              onClick={() => setLanguage('ru')}
+              className={`p-4 rounded-xl border-2 transition-all ${
+                language === 'ru'
+                  ? 'border-green-500 bg-green-500/20'
+                  : 'border-slate-600 hover:border-green-400'
+              }`}
+            >
+              <div className="font-bold text-white">Русский</div>
+            </button>
+            <button
+              onClick={() => setLanguage('en')}
+              className={`p-4 rounded-xl border-2 transition-all ${
+                language === 'en'
+                  ? 'border-green-500 bg-green-500/20'
+                  : 'border-slate-600 hover:border-green-400'
+              }`}
+            >
+              <div className="font-bold text-white">English</div>
+            </button>
+          </div>
+        </div>
+
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-white mb-4">Выберите сложность</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -220,7 +244,7 @@ export default function TypingSpeedGame({ onBack }) {
             ref={inputRef}
             value={userInput}
             onChange={handleInputChange}
-            placeholder="Начните печатать здесь..."
+            placeholder={language === 'en' ? 'Start typing here...' : 'Начните печатать здесь...'}
             className="w-full h-32 p-4 text-xl bg-slate-700/50 text-white rounded-xl border border-slate-600 focus:border-green-500 focus:outline-none resize-none"
             autoFocus
             disabled={gameState !== 'playing'}
@@ -262,7 +286,6 @@ export default function TypingSpeedGame({ onBack }) {
           </div>
         </div>
         
-        {/* Новый блок с временем завершения */}
         <div className="mb-6">
           <div className="bg-slate-700/50 rounded-xl p-6 text-center">
             <div className="text-3xl font-bold text-yellow-400 mb-2">{getCompletionTime()} сек</div>
