@@ -11,6 +11,7 @@ const RoadmapPage = React.lazy(() => import('../pages/RoadmapPage'));
 const LearnCoursePage = React.lazy(() => import('../pages/LearnCoursePage'));
 const LessonPage = React.lazy(() => import('../pages/LessonPage'));
 const CourseCollectionPage = React.lazy(() => import('../pages/CourseCollectionPage'));
+const AllCoursesPage = React.lazy(() => import('../pages/AllCoursesPage'));
 const HelpPage = React.lazy(() => import('../pages/HelpPage'));
 const InterviewQuestionsPage = React.lazy(() => import('../pages/InterviewQuestionsPage'));
 const QuizPage = React.lazy(() => import('../pages/QuizPage'));
@@ -28,6 +29,7 @@ export const publicRoutes = [
   { path: "/course/:slug/learn", element: <MainLayout><LearnCoursePage /></MainLayout> },
   { path: "/course/:slug/learn/:lessonId", element: <MainLayout><LessonPage /></MainLayout> },
   { path: "/courses/:id", element: <MainLayout><CourseCollectionPage /></MainLayout> },
+  { path: "/all-courses", element: <MainLayout><AllCoursesPage /></MainLayout> },
   { path: "/help", element: <MainLayout><HelpPage /></MainLayout> },
   { path: "/interview/:language/:level?", element: <MainLayout><InterviewQuestionsPage /></MainLayout> },
   { path: "/quiz/:language", element: <MainLayout><QuizPage /></MainLayout> },

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { ChevronRight, Code, Database, Globe, BarChart3, Server, BookOpen, Cpu } from 'lucide-react';
+import CourseCarousel from './CourseCarousel';
 
 export default function CourseCollectionsSection() {
   const collections = [
@@ -128,126 +129,20 @@ export default function CourseCollectionsSection() {
           </p>
         </div>
 
-        {/* Сетка коллекций */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {collections.map((item, index) => (
-            <div 
-              key={item.id}
-              className="group relative"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              {/* Градиентный фон при наведении */}
-              <div className={`absolute -inset-1 bg-gradient-to-r ${item.color} rounded-2xl blur opacity-0 group-hover:opacity-20 transition-all duration-500`}></div>
-              
-              <CollectionCard item={item} />
-            </div>
-          ))}
+        {/* Карусель коллекций */}
+        <CourseCarousel collections={collections} />
+        
+        {/* Кнопка "Посмотреть все" */}
+        <div className="text-center mt-12">
+          <a
+            href="/all-courses"
+            className="inline-flex items-center font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-blue-500/20 text-lg"
+          >
+            <span>Посмотреть все курсы</span>
+            <ChevronRight className="ml-2 w-6 h-6 transition-transform duration-300 group-hover:translate-x-1" />
+          </a>
         </div>
       </div>
     </section>
-  );
-}
-
-function CollectionCard({ item }) {
-  const [hovered, setHovered] = useState(false);
-  const containerRef = useRef(null);
-  const cardRef = useRef(null);
-  const rafRef = useRef(null);
-
-  useEffect(() => () => {
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-  }, []);
-
-  const handleMouseMove = (e) => {
-    if (!containerRef.current || !cardRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const px = x / rect.width - 0.5;
-    const py = y / rect.height - 0.5;
-    const maxRotate = 8;
-    const rotateY = px * maxRotate;
-    const rotateX = -py * maxRotate;
-    const animate = () => {
-      cardRef.current.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      containerRef.current.style.setProperty('--mx', `${x}px`);
-      containerRef.current.style.setProperty('--my', `${y}px`);
-    };
-    cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(animate);
-  };
-
-  const handleMouseLeave = () => {
-    if (!cardRef.current) return;
-    cardRef.current.style.transition = 'transform 400ms ease';
-    cardRef.current.style.transform = 'rotateX(0deg) rotateY(0deg)';
-    setTimeout(() => {
-      if (cardRef.current) cardRef.current.style.transition = '';
-    }, 400);
-  };
-
-  return (
-    <div
-      ref={containerRef}
-      className="group relative rounded-2xl"
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => { setHovered(false); handleMouseLeave(); }}
-      style={{ perspective: '900px' }}
-    >
-      {/* Shine */}
-      <div
-        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 mix-blend-screen"
-        style={{ background: 'radial-gradient(160px 160px at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.45), transparent 60%)' }}
-        aria-hidden
-      />
-      
-      <div
-        ref={cardRef}
-        className="relative overflow-hidden rounded-2xl bg-gray-800/60 backdrop-blur-lg border border-gray-700/50 shadow-xl transition-transform will-change-transform"
-        style={{ transformStyle: 'preserve-3d' }}
-      >
-      {/* Изображение */}
-      <div className="overflow-hidden h-48 sm:h-44 md:h-52 relative">
-        <img
-          src={item.image}
-          alt={item.title}
-          className="w-full h-full object-cover transition-transform duration-700 ease-in-out transform group-hover:scale-110"
-        />
-        <div
-          className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 transition-opacity duration-300 ${
-            hovered ? 'opacity-100' : ''
-          }`}
-        ></div>
-        
-        {/* Иконка в углу */}
-        <div className={`absolute top-4 right-4 p-3 rounded-xl bg-gradient-to-r ${item.color} backdrop-blur-sm shadow-lg transform transition-all duration-300 ${hovered ? 'scale-110' : ''}`}>
-          {item.icon}
-        </div>
-      </div>
-      
-      {/* Контент */}
-      <div className="p-6">
-        <h3 className="text-2xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
-          {item.title}
-        </h3>
-        <p className="text-gray-300 mb-6 leading-relaxed">
-          {item.description}
-        </p>
-        
-        {/* Кнопка действия */}
-        <a
-          href={`/courses/${item.id}`}
-          className="group inline-flex items-center font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-blue-500/20"
-        >
-          <span>Перейти к курсам</span>
-          <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-        </a>
-      </div>
-      
-      {/* Градиентная рамка при наведении */}
-      <div className={`pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
-      </div>
-    </div>
   );
 }
