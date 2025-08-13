@@ -4,7 +4,8 @@ import { cssPlan } from "./course-content/cssPlan";
 import { htmlPlan } from "./course-content/htmlPlan";
 import { markdownPlan } from "./course-content/markdownPlan";
 import { githubPlan } from "./course-content/githubPlan";
-import { fastapiPlan } from "./course-content/fastapiPlan"; // Добавьте этот импорт
+import { fastapiPlan } from "./course-content/fastapiPlan";
+import { jsPlan } from "./course-content/javascriptPlan"; // Импорт курса по JavaScript
 
 export const coursesData = {
   html: {
@@ -17,6 +18,11 @@ export const coursesData = {
     description: "Изучите язык стилей для создания красивых и адаптивных веб-интерфейсов.",
     lessons: cssPlan
   },
+  javascript: {
+    title: "JavaScript",
+    description: "Начните путь в программирование с JavaScript — языка интерактивности веба. Изучите основы, DOM, события и создайте свои первые приложения.",
+    lessons: jsPlan
+  },
   github: {
     title: "Git и GitHub",
     description: "Научитесь использовать систему контроля версий Git и работать с проектами на платформе GitHub.",
@@ -28,13 +34,13 @@ export const coursesData = {
     lessons: markdownPlan
   },
   python: {
-    "title": "Python для начинающих",
-    "description": "Освойте основы программирования на языке Python с нуля. Научитесь работать с переменными, типами данных, условиями, циклами и функциями.",
-    "lessons": pythonPlan
+    title: "Python для начинающих",
+    description: "Освойте основы программирования на языке Python с нуля. Научитесь работать с переменными, типами данных, условиями, циклами и функциями.",
+    lessons: pythonPlan
   },
-  fastapi: { // Добавьте этот блок
-    "title": "FastAPI",
-    "description": "Освойте создание мощных и быстрых веб-API с помощью FastAPI, современного Python фреймворка.",
-    "lessons": fastapiPlan
+  fastapi: {
+    title: "FastAPI",
+    description: "Освойте создание мощных и быстрых веб-API с помощью FastAPI, современного Python фреймворка.",
+    lessons: fastapiPlan
   }
 };

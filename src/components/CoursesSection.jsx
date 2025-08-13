@@ -6,61 +6,70 @@ import { Code, Palette, GitBranch, FileText, Terminal, Zap } from 'lucide-react'
 
 export default function CoursesSection() {
   const courses = [
-    {
-      id: 1,
-      title: "HTML",
-      description: "Основы создания сайтов для пролетариата.",
-      level: "Начальный",
-      slug: "html",
-      icon: <Code className="w-8 h-8" />,
-      color: "from-orange-500 to-red-600"
-    },
-    {
-      id: 2,
-      title: "CSS",
-      description: "Изучи язык для динамических интерфейсов.",
-      level: "Средний",
-      slug: "css",
-      icon: <Palette className="w-8 h-8" />,
-      color: "from-blue-500 to-purple-600"
-    },
-    {
-      id: 3,
-      title: "GITHUB",
-      description: "Фронтенд-революция начинается здесь.",
-      level: "Продвинутый",
-      slug: "github",
-      icon: <GitBranch className="w-8 h-8" />,
-      color: "from-gray-700 to-gray-900"
-    },
-    {
-      id: 4,
-      title: "MARKDOWN",
-      description: "Научись делать красивые README.md.",
-      level: "Продвинутый",
-      slug: "markdown",
-      icon: <FileText className="w-8 h-8" />,
-      color: "from-gray-600 to-blue-600"
-    },
-    {
-      id: 5,
-      title: "Python",
-      description: "Научись основам Python",
-      level: "Начинающий ур 1",
-      slug: "python",
-      icon: <Terminal className="w-8 h-8" />,
-      color: "from-yellow-500 to-blue-600"
-    },
-    {
-      id: 6,
-      title: "FastAPI",
-      description: "Современный фреймворк для создания API на Python",
-      level: "Продвинутый",
-      slug: "fastapi",
-      icon: <Zap className="w-8 h-8" />,
-      color: "from-teal-500 to-green-600"
-    }
-  ];
+  {
+    id: 1,
+    title: "HTML",
+    description: "Основы создания сайтов для пролетариата.",
+    level: "Начальный",
+    slug: "html",
+    icon: <Code className="w-8 h-8" />,
+    color: "from-orange-500 to-red-600"
+  },
+  {
+    id: 2,
+    title: "CSS",
+    description: "Изучи язык для динамических интерфейсов.",
+    level: "Средний",
+    slug: "css",
+    icon: <Palette className="w-8 h-8" />,
+    color: "from-blue-500 to-purple-600"
+  },
+  {
+    id: 3,
+    title: "JavaScript",
+    description: "Оживи веб — пусть буржуазия дрожит!",
+    level: "Средний",
+    slug: "javascript",
+    icon: <Terminal className="w-8 h-8" />,
+    color: "from-yellow-400 to-orange-500"
+  },
+  {
+    id: 4,
+    title: "GITHUB",
+    description: "Фронтенд-революция начинается здесь.",
+    level: "Продвинутый",
+    slug: "github",
+    icon: <GitBranch className="w-8 h-8" />,
+    color: "from-gray-700 to-gray-900"
+  },
+  {
+    id: 5,
+    title: "MARKDOWN",
+    description: "Научись делать красивые README.md.",
+    level: "Продвинутый",
+    slug: "markdown",
+    icon: <FileText className="w-8 h-8" />,
+    color: "from-gray-600 to-blue-600"
+  },
+  {
+    id: 6,
+    title: "Python",
+    description: "Научись основам Python",
+    level: "Начинающий ур 1",
+    slug: "python",
+    icon: <Terminal className="w-8 h-8" />,
+    color: "from-yellow-500 to-blue-600"
+  },
+  {
+    id: 7,
+    title: "FastAPI",
+    description: "Современный фреймворк для создания API на Python",
+    level: "Продвинутый",
+    slug: "fastapi",
+    icon: <Zap className="w-8 h-8" />,
+    color: "from-teal-500 to-green-600"
+  }
+];
 
   // Parallax background blobs
   const sectionRef = useRef(null);
