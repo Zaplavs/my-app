@@ -27,7 +27,7 @@ export default function CoursesSection() {
   {
     id: 3,
     title: "JavaScript",
-    description: "Оживи веб — пусть буржуазия дрожит!",
+    description: "Оживи веб!",
     level: "Средний",
     slug: "javascript",
     icon: <Terminal className="w-8 h-8" />,
