@@ -152,5 +152,25 @@ export const courseLessons = {
     23: () => import('./javascript/lesson23.jsx'),
     24: () => import('./javascript/lesson24.jsx'),
     25: () => import('./javascript/lesson25.jsx'),
+  },
+
+  // ✅ НОВЫЙ КУРС: C
+  c: {
+    1: () => import('./c/lesson1.jsx'),
+    2: () => import('./c/lesson2.jsx'),
+    3: () => import('./c/lesson3.jsx'),
+    4: () => import('./c/lesson4.jsx'),
+    5: () => import('./c/lesson5.jsx'),
+    6: () => import('./c/lesson6.jsx'),
+    7: () => import('./c/lesson7.jsx'),
+    8: () => import('./c/lesson8.jsx'),
+    9: () => import('./c/lesson9.jsx'),
+    10: () => import('./c/lesson10.jsx'),
+    11: () => import('./c/lesson11.jsx'),
+    12: () => import('./c/lesson12.jsx'),
+    13: () => import('./c/lesson13.jsx'),
+    14: () => import('./c/lesson14.jsx'),
+    15: () => import('./c/lesson15.jsx'),
+    16: () => import('./c/lesson16.jsx'),
   }
 };

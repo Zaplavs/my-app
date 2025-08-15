@@ -7,21 +7,23 @@ function isInteractiveElement(element) {
 }
 
 export default function CustomCursor() {
-  const ringRef = useRef(null);
+  const cursorRef = useRef(null);
+  const dotRef = useRef(null);
   const animationFrameRef = useRef(0);
 
   const targetXRef = useRef(0);
   const targetYRef = useRef(0);
-  const ringXRef = useRef(0);
-  const ringYRef = useRef(0);
+  const currentXRef = useRef(0);
+  const currentYRef = useRef(0);
 
   const [isVisible, setIsVisible] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [isInteractive, setIsInteractive] = useState(false);
+  
   const isClickedRef = useRef(false);
   const isInteractiveRef = useRef(false);
   const isVisibleRef = useRef(false);
-  const rippleRef = useRef(null);
+
   const [isFinePointer, setIsFinePointer] = useState(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return true;
     return window.matchMedia('(pointer: fine)').matches;
@@ -32,36 +34,49 @@ export default function CustomCursor() {
     const mq = window.matchMedia('(pointer: fine)');
     const update = () => setIsFinePointer(mq.matches);
     mq.addEventListener?.('change', update);
-    update();
     return () => mq.removeEventListener?.('change', update);
   }, []);
 
   useEffect(() => {
     if (!isFinePointer) return;
+    
     const handleMouseMove = (e) => {
       targetXRef.current = e.clientX;
       targetYRef.current = e.clientY;
-      if (!isVisibleRef.current) { setIsVisible(true); isVisibleRef.current = true; }
+      
+      if (!isVisibleRef.current) {
+        setIsVisible(true);
+        isVisibleRef.current = true;
+        currentXRef.current = e.clientX;
+        currentYRef.current = e.clientY;
+      }
+      
       const interactive = isInteractiveElement(e.target);
       if (interactive !== isInteractiveRef.current) {
         setIsInteractive(interactive);
         isInteractiveRef.current = interactive;
       }
     };
+
     const handleMouseDown = () => {
-      setIsClicked(true); isClickedRef.current = true;
-      const ripple = rippleRef.current;
-      if (ripple) {
-        ripple.classList.remove('cursor-ripple');
-        // force reflow to restart animation
-        // eslint-disable-next-line no-unused-expressions
-        ripple.offsetWidth;
-        ripple.classList.add('cursor-ripple');
-      }
+      setIsClicked(true);
+      isClickedRef.current = true;
     };
-    const handleMouseUp = () => { setIsClicked(false); isClickedRef.current = false; };
-    const handleMouseEnter = () => { setIsVisible(true); isVisibleRef.current = true; };
-    const handleMouseLeave = () => { setIsVisible(false); isVisibleRef.current = false; };
+
+    const handleMouseUp = () => {
+      setIsClicked(false);
+      isClickedRef.current = false;
+    };
+
+    const handleMouseEnter = () => {
+      setIsVisible(true);
+      isVisibleRef.current = true;
+    };
+
+    const handleMouseLeave = () => {
+      setIsVisible(false);
+      isVisibleRef.current = false;
+    };
 
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mousedown', handleMouseDown);
@@ -80,16 +95,21 @@ export default function CustomCursor() {
 
   useEffect(() => {
     if (!isFinePointer) return;
-    const ringEl = ringRef.current;
-    if (!ringEl) return;
+    
+    const cursorEl = cursorRef.current;
+    const dotEl = dotRef.current;
+    if (!cursorEl || !dotEl) return;
 
     const animate = () => {
-      const lerpFactor = 0.2;
-      ringXRef.current += (targetXRef.current - ringXRef.current) * lerpFactor;
-      ringYRef.current += (targetYRef.current - ringYRef.current) * lerpFactor;
+      // Быстрое следование без интерполяции
+      currentXRef.current = targetXRef.current;
+      currentYRef.current = targetYRef.current;
 
-      const ringScale = isClickedRef.current ? 0.9 : (isInteractiveRef.current ? 1.2 : 1);
-      ringEl.style.transform = `translate3d(${ringXRef.current - 16}px, ${ringYRef.current - 16}px, 0) scale(${ringScale})`;
+      const rotation = isInteractiveRef.current ? 30 : 0;
+      const scale = isClickedRef.current ? 0.7 : 1;
+
+      cursorEl.style.transform = `translate3d(${currentXRef.current - 2}px, ${currentYRef.current - 2}px, 0) rotate(${rotation}deg) scale(${scale})`;
+      dotEl.style.transform = `translate3d(${currentXRef.current - 1}px, ${currentYRef.current - 1}px, 0)`;
 
       animationFrameRef.current = requestAnimationFrame(animate);
     };
@@ -100,44 +120,56 @@ export default function CustomCursor() {
 
   if (!isFinePointer) return null;
 
-  const baseVisibility = isVisible ? 1 : 0;
-  const ringOpacity = isInteractive ? 0.28 : 0.18;
-
   return (
     <div className="pointer-events-none fixed inset-0 z-[9999]">
-      {/* Neon ring with dashed border */}
+      {/* Стрелка курсора - более светлая */}
       <div
-        ref={ringRef}
+        ref={cursorRef}
         aria-hidden
         style={{
-          willChange: 'transform, opacity',
-          transition: 'opacity 150ms ease, background 200ms ease, border-color 200ms ease',
-          opacity: baseVisibility,
-          borderColor: isInteractive ? 'rgba(255, 196, 0, 0.6)' : 'rgba(255,255,255,0.35)',
-          boxShadow: isInteractive ? '0 0 22px rgba(255,196,0,0.55), inset 0 0 10px rgba(255,196,0,0.2)' : '0 0 26px rgba(255,255,255,0.25)'
+          willChange: 'transform',
+          transition: 'none',
+          opacity: isVisible ? 1 : 0,
         }}
-        className={`w-10 h-10 rounded-full mix-blend-screen backdrop-blur-[1.5px] border-2 border-dashed ${isInteractive ? 'bg-yellow-400/10' : 'bg-white/5'}`}
+        className="fixed top-0 left-0 pointer-events-none"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2 2L14 9L2 16L6 9L2 2Z"
+            fill={isInteractive ? '#FFD700' : '#FFFFFF'}
+            stroke={isInteractive ? '#FFD700' : '#CCCCCC'}
+            strokeWidth="0.5"
+            style={{
+              filter: isInteractive 
+                ? 'drop-shadow(0 0 2px rgba(255, 215, 0, 0.5))'
+                : 'drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))',
+            }}
+          />
+        </svg>
+      </div>
+      
+      {/* Светлая точка для точности */}
+      <div
+        ref={dotRef}
+        aria-hidden
+        style={{
+          width: '3px',
+          height: '3px',
+          background: isInteractive ? '#FFD700' : '#FFFFFF',
+          opacity: isVisible ? 1 : 0,
+          borderRadius: '50%',
+          boxShadow: isInteractive 
+            ? '0 0 4px rgba(255, 215, 0, 0.9)'
+            : '0 0 2px rgba(255, 255, 255, 0.9)',
+        }}
+        className="fixed top-0 left-0 pointer-events-none"
       />
-      {/* Inner dot removed by request */}
-      {/* click ripple */}
-      <div ref={rippleRef} className="fixed left-0 top-0 -translate-x-1/2 -translate-y-1/2 pointer-events-none" aria-hidden />
-      <style>{`
-        .cursor-ripple {
-          position: absolute;
-          left: ${targetXRef.current}px;
-          top: ${targetYRef.current}px;
-          width: 8px;
-          height: 8px;
-          border-radius: 9999px;
-          background: radial-gradient(circle, rgba(255,196,0,0.8) 0%, rgba(255,196,0,0.0) 70%);
-          animation: cursor-ripple-anim 450ms ease-out forwards;
-          filter: blur(0.6px);
-        }
-        @keyframes cursor-ripple-anim {
-          from { transform: translate(-50%, -50%) scale(0.6); opacity: 0.9; }
-          to { transform: translate(-50%, -50%) scale(8); opacity: 0; }
-        }
-      `}</style>
     </div>
   );
 }

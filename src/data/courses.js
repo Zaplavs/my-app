@@ -6,6 +6,7 @@ import { markdownPlan } from "./course-content/markdownPlan";
 import { githubPlan } from "./course-content/githubPlan";
 import { fastapiPlan } from "./course-content/fastapiPlan";
 import { jsPlan } from "./course-content/javascriptPlan"; // Импорт курса по JavaScript
+import { cPlan } from "./course-content/cPlan"; // 🔥 Импорт курса по C
 
 export const coursesData = {
   html: {
@@ -42,5 +43,11 @@ export const coursesData = {
     title: "FastAPI",
     description: "Освойте создание мощных и быстрых веб-API с помощью FastAPI, современного Python фреймворка.",
     lessons: fastapiPlan
+  },
+  // ✅ НОВЫЙ КУРС: C
+  c: {
+    title: "C: Язык пролетариев машин",
+    description: "Курс по языку C с нуля. Научись писать на языке, на котором говорит железо — без абстракций, только реальность.",
+    lessons: cPlan
   }
 };

@@ -68,7 +68,16 @@ export default function CoursesSection() {
     slug: "fastapi",
     icon: <Zap className="w-8 h-8" />,
     color: "from-teal-500 to-green-600"
-  }
+  },
+  {
+  id: 8,
+  title: "C",
+  description: "Язык настоящих пролетариев машин. Учись управлять железом напрямую.",
+  level: "Продвинутый",
+  slug: "c",
+  icon: <Terminal className="w-8 h-8" />,
+  color: "from-gray-600 to-red-800"
+ },
 ];
 
   // Parallax background blobs
