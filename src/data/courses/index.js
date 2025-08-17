@@ -153,8 +153,6 @@ export const courseLessons = {
     24: () => import('./javascript/lesson24.jsx'),
     25: () => import('./javascript/lesson25.jsx'),
   },
-
-  // ✅ НОВЫЙ КУРС: C
   c: {
     1: () => import('./c/lesson1.jsx'),
     2: () => import('./c/lesson2.jsx'),
@@ -172,5 +170,31 @@ export const courseLessons = {
     14: () => import('./c/lesson14.jsx'),
     15: () => import('./c/lesson15.jsx'),
     16: () => import('./c/lesson16.jsx'),
+  },
+  // ✅ НОВЫЙ КУРС: React
+  react: {
+    1: () => import('./react/lesson1.jsx'),
+    2: () => import('./react/lesson2.jsx'),
+    3: () => import('./react/lesson3.jsx'),
+    4: () => import('./react/lesson4.jsx'),
+    5: () => import('./react/lesson5.jsx'),
+    6: () => import('./react/lesson6.jsx'),
+    7: () => import('./react/lesson7.jsx'),
+    8: () => import('./react/lesson8.jsx'),
+    9: () => import('./react/lesson9.jsx'),
+    10: () => import('./react/lesson10.jsx'),
+    11: () => import('./react/lesson11.jsx'),
+    12: () => import('./react/lesson12.jsx'),
+    13: () => import('./react/lesson13.jsx'),
+    14: () => import('./react/lesson14.jsx'),
+    15: () => import('./react/lesson15.jsx'),
+    16: () => import('./react/lesson16.jsx'),
+    17: () => import('./react/lesson17.jsx'),
+    18: () => import('./react/lesson18.jsx'),
+    19: () => import('./react/lesson19.jsx'),
+    20: () => import('./react/lesson20.jsx'),
+    21: () => import('./react/lesson21.jsx'),
+    22: () => import('./react/lesson22.jsx'),
+    23: () => import('./react/lesson23.jsx'),
   }
 };

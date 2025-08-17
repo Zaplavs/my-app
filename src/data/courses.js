@@ -1,5 +1,5 @@
 // src/data/courses.js
-import { pythonPlan } from "./course-content/pythoPlan";
+import { pythonPlan } from "./course-content/pythoPlan"; // Импорт курса по Python
 import { cssPlan } from "./course-content/cssPlan";
 import { htmlPlan } from "./course-content/htmlPlan";
 import { markdownPlan } from "./course-content/markdownPlan";
@@ -7,6 +7,7 @@ import { githubPlan } from "./course-content/githubPlan";
 import { fastapiPlan } from "./course-content/fastapiPlan";
 import { jsPlan } from "./course-content/javascriptPlan"; // Импорт курса по JavaScript
 import { cPlan } from "./course-content/cPlan"; // 🔥 Импорт курса по C
+import { reactPlan } from "./course-content/reactPlan"; // 🚀 Импорт курса по React
 
 export const coursesData = {
   html: {
@@ -44,10 +45,14 @@ export const coursesData = {
     description: "Освойте создание мощных и быстрых веб-API с помощью FastAPI, современного Python фреймворка.",
     lessons: fastapiPlan
   },
-  // ✅ НОВЫЙ КУРС: C
   c: {
     title: "C: Язык пролетариев машин",
     description: "Курс по языку C с нуля. Научись писать на языке, на котором говорит железо — без абстракций, только реальность.",
     lessons: cPlan
+  },
+  react: {
+    title: "React",
+    description: "Освойте React — самый популярный фронтенд-фреймворк. Создавайте динамические интерфейсы, управляйте состоянием и стройте SPA-приложения.",
+    lessons: reactPlan
   }
 };

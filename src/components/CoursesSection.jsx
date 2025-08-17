@@ -2,7 +2,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CourseCard from './CourseCard';
-import { Code, Palette, GitBranch, FileText, Terminal, Zap } from 'lucide-react';
+import { Code, Palette, GitBranch, FileText, Terminal, Zap, Atom } from 'lucide-react';
 
 export default function CoursesSection() {
   const courses = [
@@ -78,6 +78,15 @@ export default function CoursesSection() {
   icon: <Terminal className="w-8 h-8" />,
   color: "from-gray-600 to-red-800"
  },
+ {
+    id: 9,
+    title: "React.js",
+    description: "Библиотека для создания мощных пользовательских интерфейсов.",
+    level: "Продвинутый",
+    slug: "react",
+    icon: <Atom className="w-8 h-8" />,
+    color: "from-cyan-500 to-blue-600"
+  },
 ];
 
   // Parallax background blobs
