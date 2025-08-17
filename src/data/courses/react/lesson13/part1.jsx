@@ -1,6 +1,6 @@
 // src/data/courses/react/lesson13/part1.jsx
 import React from 'react';
-import { Settings, Code, Database, Share2, RefreshCw, Hook } from 'lucide-react';
+import { Settings, Code, Database, Share2, RefreshCw } from 'lucide-react';
 
 const Part1 = () => {
   return (
@@ -9,7 +9,7 @@ const Part1 = () => {
       <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 backdrop-blur-sm border border-blue-700/30 rounded-2xl p-6 shadow-lg">
         <div className="flex items-start gap-4">
           <div className="bg-blue-500/20 p-3 rounded-lg">
-            <Hook className="w-6 h-6 text-blue-400" />
+            <Settings className="w-6 h-6 text-blue-400" />
           </div>
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">🎣 Урок 13: Кастомные хуки</h1>
@@ -83,7 +83,7 @@ const Part1 = () => {
           <div className="bg-gray-900/50 p-5 rounded-xl border border-blue-700/30">
             <div className="flex items-center gap-3 mb-3">
               <div className="bg-blue-500/20 p-2 rounded-lg">
-                <Hook className="w-5 h-5 text-blue-400" />
+                <Settings className="w-5 h-5 text-blue-400" />
               </div>
               <h3 className="text-lg font-bold text-blue-300">Именование</h3>
             </div>
@@ -152,7 +152,7 @@ const Part1 = () => {
               <h3 className="text-lg font-bold text-orange-300">useApi — работа с API</h3>
             </div>
             <div className="bg-gray-800 p-3 rounded-lg mb-3">
-              <pre className="text-orange-300 text-sm"><code>{"import { useState, useEffect } from 'react';\n\nfunction useApi(url) {\n  const [data, setData] = useState(null);\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState(null);\n  \n  useEffect(() => {\n    const fetchData = async () => {\n      try {\n        setLoading(true);\n        setError(null);\n        \n        const response = await fetch(url);\n        if (!response.ok) {\n          throw new Error('HTTP error! status: ' + response.status);\n        }\n        \n        const result = await response.json();\n        setData(result);\n      } catch (err) {\n        setError(err.message);\n      } finally {\n        setLoading(false);\n      }\n    };\n    \n    fetchData();\n  }, [url]);\n  \n  return { data, loading, error };\n}\n\n// Использование\nfunction UserList() {\n  const { data: users, loading, error } = useApi('https://jsonplaceholder.typicode.com/users');\n  \n  if (loading) return <div>Загрузка пользователей...</div>;\n  if (error) return <div>Ошибка: {error}</div>;\n  \n  return (\n    <ul>\n      {users?.map(user => (\n        <li key={user.id}>{user.name}</li>\n      ))}\n    </ul>\n  );\n}"}</code></pre>
+              <pre className="text-orange-300 text-sm"><code>{"import { useState, useEffect } from 'react';\n\nfunction useApi(url) {\n  const [data, setData] = useState(null);\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState(null);\n  \n  useEffect(() => {\n    const fetchData = async () => {\n      try {\n        setLoading(true);\n        setError(null);\n        \n        const response = await fetch(url);\n        if (!response.ok) {\n          throw new Error('HTTP error! status: ' + response.status);\n        }\n        \n        const result = await response.json();\n        setData(result);\n      } catch (err) {\n        setError(err.message);\n      } finally {\n        setLoading(false);\n      }\n    };\n    \n    fetchData();\n  }, [url]);\n  \n  return { data, loading, error };\n}\n\n// Использование\nfunction UserList() {\n  const { data: users, loading, error } = useApi('https://jsonplaceholder.typicode.com/users  ');\n  \n  if (loading) return <div>Загрузка пользователей...</div>;\n  if (error) return <div>Ошибка: {error}</div>;\n  \n  return (\n    <ul>\n      {users?.map(user => (\n        <li key={user.id}>{user.name}</li>\n      ))}\n    </ul>\n  );\n}"}</code></pre>
             </div>
           </div>
           
@@ -233,7 +233,7 @@ const Part1 = () => {
           <div className="bg-gray-900/50 p-5 rounded-xl border border-green-700/30">
             <div className="flex items-center gap-3 mb-3">
               <div className="bg-green-500/20 p-2 rounded-lg">
-                <Hook className="w-5 h-5 text-green-400" />
+                <Settings className="w-5 h-5 text-green-400" />
               </div>
               <h3 className="text-lg font-bold text-green-300">Архитектурные принципы</h3>
             </div>
@@ -296,7 +296,7 @@ const Part1 = () => {
       <div className="bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 shadow-xl">
         <div className="flex items-start gap-3">
           <div className="bg-green-500/20 p-2 rounded-lg flex-shrink-0">
-            <Hook className="w-5 h-5 text-green-400" />
+            <Settings className="w-5 h-5 text-green-400" />
           </div>
           <div>
             <h3 className="font-bold text-white mb-2">Отличная работа! 🎉</h3>
