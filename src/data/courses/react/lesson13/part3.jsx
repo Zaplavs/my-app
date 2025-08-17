@@ -1,6 +1,6 @@
 // src/data/courses/react/lesson13/part3.jsx
 import React from 'react';
-import { Hook, Database, Code, Play, Terminal } from 'lucide-react';
+import { Database, Code, Play, Terminal, Settings } from 'lucide-react';
 
 const Part3 = () => {
   return (
@@ -222,7 +222,7 @@ const Part3 = () => {
       <div className="bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 shadow-xl">
         <div className="flex items-start gap-3">
           <div className="bg-green-500/20 p-2 rounded-lg flex-shrink-0">
-            <Hook className="w-5 h-5 text-green-400" />
+            <Settings className="w-5 h-5 text-green-400" />
           </div>
           <div>
             <h3 className="font-bold text-white mb-2">Отличная работа! 🎉</h3>
