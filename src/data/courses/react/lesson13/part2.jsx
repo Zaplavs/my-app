@@ -1,6 +1,6 @@
 // src/data/courses/react/lesson13/part2.jsx
 import React, { useState } from 'react';
-import { CheckCircle, XCircle, RotateCcw, Award, Settings, Code, Database, Hook } from 'lucide-react';
+import { CheckCircle, XCircle, RotateCw, Award, Settings, Code, Database } from 'lucide-react';
 
 const Part2 = () => {
   // Данные викторины по теме урока
@@ -157,7 +157,7 @@ const Part2 = () => {
       <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 backdrop-blur-sm border border-blue-700/30 rounded-2xl p-6 shadow-lg">
         <div className="flex items-start gap-4">
           <div className="bg-blue-500/20 p-3 rounded-lg">
-            <Hook className="w-6 h-6 text-blue-400" />
+            <Settings className="w-6 h-6 text-blue-400" />
           </div>
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">🧠 Викторина: Кастомные хуки</h1>
@@ -280,7 +280,7 @@ const Part2 = () => {
                 onClick={handleReset}
                 className="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium flex items-center gap-2 transition-colors duration-200 whitespace-nowrap"
               >
-                <RotateCcw className="w-5 h-5" />
+                <RotateCw className="w-5 h-5" />
                 Попробовать снова
               </button>
             </div>
