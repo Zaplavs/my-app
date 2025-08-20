@@ -8,17 +8,18 @@ const Part1 = () => {
 
   // --- Данные для видео ---
   // Замените этот ID на реальный ID вашего YouTube видео
-  const youtubeVideoId = "wB4_-WGMoZQ"; // Пример ID YouTube видео (замените на ваше!)
+  const youtubeVideoId = "2uJlJLoWwn0"; // Пример ID YouTube видео (замените на ваше!)
   
   // Используем предоставленный URL для VK видео
-  const vkVideoEmbedUrl = "https://vkvideo.ru/video_ext.php?oid=-185944841&id=456239031&hd=2&autoplay=1";
+  const vkVideoEmbedUrl = "https://vkvideo.ru/video_ext.php?oid=-185944841&id=456239039&hd=2&autoplay=1";
   // -----------------------
 
   return (
     <div className="space-y-6">
       {/* Секция с видео */}
       <div className="bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 shadow-xl">
-        <h2 className="text-2xl font-bold text-white mb-4">Что такое веб и как работает интернет?</h2>
+        <h2 className="text-2xl font-bold text-white mb-4">
+iframe: встраивание внешнего контента</h2>
         
         {/* Вкладки для переключения видео */}
         <div className="flex mb-4 border-b border-gray-700">
