@@ -8,6 +8,7 @@ import { fastapiPlan } from "./course-content/fastapiPlan";
 import { jsPlan } from "./course-content/javascriptPlan"; // Импорт курса по JavaScript
 import { cPlan } from "./course-content/cPlan"; // 🔥 Импорт курса по C
 import { reactPlan } from "./course-content/reactPlan"; // 🚀 Импорт курса по React
+import { golangPlan } from "./course-content/golangPlan"; // 🐹 Импорт курса по Golang
 
 export const coursesData = {
   html: {
@@ -54,5 +55,10 @@ export const coursesData = {
     title: "React",
     description: "Освойте React — самый популярный фронтенд-фреймворк. Создавайте динамические интерфейсы, управляйте состоянием и стройте SPA-приложения.",
     lessons: reactPlan
+  },
+  golang: {
+    title: "Golang",
+    description: "Освойте Go — современный язык для высоконагруженных систем. Научитесь создавать быстрые и надежные приложения.",
+    lessons: golangPlan
   }
 };

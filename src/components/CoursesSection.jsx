@@ -87,6 +87,15 @@ export default function CoursesSection() {
     icon: <Atom className="w-8 h-8" />,
     color: "from-cyan-500 to-blue-600"
   },
+  {
+    id: 10,
+    title: "GOLANG",
+    description: "Современный язык для высоконагруженных систем.",
+    level: "Продвинутый",
+    slug: "golang",
+    icon: <Terminal className="w-8 h-8" />,
+    color: "from-cyan-600 to-blue-800"
+  }
 ];
 
   // Parallax background blobs

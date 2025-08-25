@@ -196,5 +196,10 @@ export const courseLessons = {
     21: () => import('./react/lesson21.jsx'),
     22: () => import('./react/lesson22.jsx'),
     23: () => import('./react/lesson23.jsx'),
+  },
+  golang: {
+    1: () => import('./golang/lesson1.jsx'),
+    2: () => import('./golang/lesson2.jsx'),
+    3: () => import('./golang/lesson3.jsx')
   }
 };
