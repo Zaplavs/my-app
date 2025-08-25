@@ -8,7 +8,7 @@ const Part1 = () => {
 
   // --- Данные для видео ---
   // Замените этот ID на реальный ID вашего YouTube видео
-  const youtubeVideoId = "wB4_-WGMoZQ"; // Пример ID YouTube видео (замените на ваше!)
+  const youtubeVideoId = "7OaM7xp47CE"; // Пример ID YouTube видео (замените на ваше!)
   
   // Используем предоставленный URL для VK видео
   const vkVideoEmbedUrl = "https://vkvideo.ru/video_ext.php?oid=-185944841&id=456239031&hd=2&autoplay=1";
