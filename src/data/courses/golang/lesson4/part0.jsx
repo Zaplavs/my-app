@@ -11,7 +11,7 @@ const Part1 = () => {
   const youtubeVideoId = "MFe2kRnY7TE"; // Пример ID YouTube видео (замените на ваше!)
   
   // Используем предоставленный URL для VK видео
-  const vkVideoEmbedUrl = "https://vkvideo.ru/video_ext.php?oid=-185944841&id=456239034&hd=2&autoplay=1";
+  const vkVideoEmbedUrl = "https://vkvideo.ru/video_ext.php?oid=-185944841&id=456239055&hd=2&autoplay=1";
   // -----------------------
 
   return (
