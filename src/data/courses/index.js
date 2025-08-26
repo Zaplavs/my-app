@@ -200,6 +200,9 @@ export const courseLessons = {
   golang: {
     1: () => import('./golang/lesson1.jsx'),
     2: () => import('./golang/lesson2.jsx'),
-    3: () => import('./golang/lesson3.jsx')
+    3: () => import('./golang/lesson3.jsx'),
+    4: () => import('./golang/lesson4.jsx'),
+    5: () => import('./golang/lesson5.jsx'),
+    6: () => import('./golang/lesson6.jsx'),
   }
 };
