@@ -207,5 +207,8 @@ export const courseLessons = {
     7: () => import('./golang/lesson7.jsx'),
     8: () => import('./golang/lesson8.jsx'),
     9: () => import('./golang/lesson9.jsx'),
+    10: () => import('./golang/lesson10.jsx'),
+    11: () => import('./golang/lesson11.jsx'),
+    12: () => import('./golang/lesson12.jsx'),
   }
 };
